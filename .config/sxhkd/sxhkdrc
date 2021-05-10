@@ -1,0 +1,9 @@
+alt + w ; {w,n,m}
+	{st -e nmtui,st -e nnn,st -e sudo wifi-menu}
+
+alt + s 
+    { st -e maim -s -q ~/Pictures/sreenshot_$(date +%s).png }
+
+    
+alt + a 
+    { st -e maim -q ~/Pictures/sreenshot_$(date +%s).png }
