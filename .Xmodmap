@@ -1,0 +1,13 @@
+! dell removed the right control: change context menu to right control
+!keycode 135 = Menu NoSymbol Menu
+remove mod4 = Super_L Super_R
+remove Control = Control_R
+keycode 105 = Control_R NoSymbol Control_R
+keycode 135 = Control_R NoSymbol Control_R
+add Control = Control_R
+add control = Super_L Super_R
+
+
+! 66 is the keycode of Caps_Lock
+clear    Lock
+keycode  66 = Escape 
