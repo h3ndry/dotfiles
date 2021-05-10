@@ -1,0 +1,22 @@
+{
+   "coc.preferences.formatOnSaveFiletypes": [
+        "go",
+        "markdown",
+        "javascript"
+    ],
+  "languageserver": {
+    "go": {
+      "command": "gopls",
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "trace.server": "verbose",
+      "filetypes": ["go"],
+      "initializationOptions": {
+                "usePlaceholders": true
+            }
+            
+       }
+  },
+  "diagnostic.displayByAle": true,
+  "javascript.suggestionActions.enabled": false
+
+}

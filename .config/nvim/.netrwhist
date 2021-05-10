@@ -1,0 +1,12 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhistcnt =9
+let g:netrw_dirhist_9='/home/hendry/videos/svelte/ninjapolls/src'
+let g:netrw_dirhist_8='/home/hendry/videos/svelte/ninjapolls/src/store'
+let g:netrw_dirhist_7='/home/hendry/videos/svelte/ninjapolls/src'
+let g:netrw_dirhist_6='/home/hendry/videos/svelte/ninjapolls/public'
+let g:netrw_dirhist_5='/home/hendry/videos/svelte/ninjapolls/src'
+let g:netrw_dirhist_4='/home/hendry/videos/svelte/ninjapolls'
+let g:netrw_dirhist_3='/home/hendry/videos/svelte/ninjapolls/public'
+let g:netrw_dirhist_2='/home/hendry/videos/svelte/ninjapolls/public/build'
+let g:netrw_dirhist_1='/home/hendry/videos/svelte/ninjapolls/public'
+let g:netrw_dirhist_0='/home/hendry/playround'
