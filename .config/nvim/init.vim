@@ -67,7 +67,6 @@ Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
-Plug 'airblade/vim-gitgutter'
 Plug 'gruvbox-community/gruvbox'
 Plug 'tpope/vim-repeat'
 Plug 'vim-airline/vim-airline'
@@ -77,12 +76,16 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-" Plug 'mcchrish/nnn.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'machakann/vim-sandwich'
+Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
 
 call plug#end()
 
-let g:gruvbox_contrast_dark = 'hard'
+" let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_material_better_performance = 1
+runtime macros/sandwich/keymap/surround.vim
 
 if exists('+termguicolors')
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -138,6 +141,13 @@ nnoremap <leader>b :Ex<CR>
 
 nnoremap <leader>` :bel 10sp term://zsh<CR>
 nnoremap <leader>j :bel 10sp<CR>
+nnoremap <leader>f :Prettier<CR>
+
+
+nnoremap <leader>\l :Limelight.8<CR>
+nnoremap <leader>\L :Limelight!<CR>
+
+nnoremap <leader>\g :Goyo<CR>
 
 nnoremap <leader>~ :vsp term://zsh<CR>
 
@@ -156,6 +166,8 @@ let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
   \ 'ctrl-j': 'vsplit' }
+
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 
 "" Vim with me
