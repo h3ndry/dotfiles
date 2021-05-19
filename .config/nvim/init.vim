@@ -14,7 +14,7 @@ set nowrap
 set smartcase
 set noswapfile
 set nobackup
-set undodir=~/.vim/undodir
+set undodir=~/.config/nvim/undodir
 set undofile
 set incsearch
 set termguicolors
@@ -60,7 +60,7 @@ set updatetime=50
 "set shortmess+=c
 " highlight ColorColumn ctermbg=0 guibg=lightgrey
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
@@ -74,43 +74,22 @@ Plug 'cohama/lexima.vim'
 Plug 'evanleck/vim-svelte'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips' 
+Plug 'honza/vim-snippets'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'machakann/vim-sandwich'
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
+Plug 'folke/todo-comments.nvim'
 
 call plug#end()
 
-" let g:gruvbox_contrast_dark = 'hard'
-let g:gruvbox_material_better_performance = 1
+
 runtime macros/sandwich/keymap/surround.vim
-
-if exists('+termguicolors')
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-endif
-let g:gruvbox_invert_selection='0'
-
-let g:ale_fixers = {
-\   'javascript': ['prettier'],
-\   'css': ['prettier'],
-\}
 
 colorscheme gruvbox
 set background=dark
-let g:ale_disable_lsp = 1
-let g:ale_sign_column_always = 1
-
-" "   ~always keep the signcolumn open!!
-" set signcolumn=yes
-" augroup LanguageClient_config
-"   autocmd!
-"   (autocmd) User LanguageClientStarted setlocal signcolumn=yes
-"   #autocmd User LanguageClientStopped setlocal signcolumn=yes#
-" augroup END
-
 
 "if executable('rg')
 "    let g:rg_derive_root='true'
@@ -122,7 +101,6 @@ let mapleader = " "
 let g:netrw_browse_split = 2
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
-let g:netrw_winsize = 25
 let g:netrw_localrmdir='rm -r'
 
 
@@ -132,40 +110,46 @@ let g:netrw_localrmdir='rm -r'
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>s :so ~/.config/nvim/init.vim<CR>
+
 nnoremap <leader>e :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
 nnoremap <leader>n :bn<CR>
 nnoremap <leader>N :bp<CR>
-nnoremap <leader>p :FZF<CR>
-nnoremap <leader>l :ls<CR>
-nnoremap <leader>b :Ex<CR>
+" nnoremap <leader>l :ls<CR>
+nnoremap <leader>g :GFiles<CR>
 
 nnoremap <leader>` :bel 10sp term://zsh<CR>
 nnoremap <leader>j :bel 10sp<CR>
 nnoremap <leader>f :Prettier<CR>
 
-
 nnoremap <leader>\l :Limelight.8<CR>
 nnoremap <leader>\L :Limelight!<CR>
-
 nnoremap <leader>\g :Goyo<CR>
 
 nnoremap <leader>~ :vsp term://zsh<CR>
 
 " autocmd TerminalOpen * set nonu
+let g:livepreview_previewer = 'zathura'
+" Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
+" - https://github.com/Valloric/YouCompleteMe
+"
+" - https://github.com/nvim-lua/completion-nvim
+let g:UltiSnipsExpandTrigger="<c-l>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
-" nmap <C-P> :FZF<CR>
+nmap <C-P> :FZF<CR>
+nmap <C-L> :Buffers<CR>
 nmap ]g :ALENextWrap<CR>
 nmap [g :ALEPreviousWrap<CR>
 nmap ]G :ALELast
 nmap [G :ALEFirst
 " silent! nmap <C-P> :GFiles<CR>
 
-let g:fzf_action = {
-  \ 'ctrl-n': 'argadd',
-  \ 'ctrl-e': 'edit',
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-j': 'vsplit' }
+" let g:fzf_action = {
+"   \ 'ctrl-e': 'edit',
+"   \ 'ctrl-t': 'tab split',
+"   \ 'ctrl-s': 'split',
+"   \ 'ctrl-j': 'vsplit' }
 
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
@@ -186,10 +170,6 @@ if &term =~ '256color'
     " see also https://sunaku.github.io/vim-256color-bce.html
     set t_ut=
 endif
-
-" highlight Normal ctermbg=none guibg=none
-" highlight SignColumn ctermbg=none guibg=none
-" highlight LineNr ctermbg=none guibg=none
 
 "Split teminal on right side
 :set splitright
@@ -228,6 +208,7 @@ let g:airline#extensions#ale#enabled = 1
 "else
 "  inoremap <silent><expr> <c-@> coc#refresh()
 "endif
+
 
 "" YES
 com! W w
