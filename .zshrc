@@ -94,9 +94,49 @@ source $ZSH_CUSTOM/plugins/z/z.sh
 
 # vi mode
 bindkey -v
+export KEYTIMEOUT=1
 # zle-line-init() { zle -K vicmd; }
 # zle -N zle-line-init
 bindkey '^l' autosuggest-accept
+
+
+# USE LF TO SWITCH DIRECTORIES AND BIND IT TO CTRL-O
+lfcd () {
+    tmp="$(mktemp)"
+    lf -last-dir-path="$tmp" "$@"
+    if [ -f "$tmp" ]; then
+        dir="$(cat "$tmp")"
+        rm -f "$tmp"
+        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+    fi
+}
+bindkey -s '^o' 'lfcd\n'
+
+
+# CHANGE CURSOR SHAPE FOR DIFFERENT VI MODES.
+function zle-keymap-select {
+  if [[ ${KEYMAP} == vicmd ]] ||
+     [[ $1 = 'block' ]]; then
+    echo -ne '\e[1 q'
+  elif [[ ${KEYMAP} == main ]] ||
+       [[ ${KEYMAP} == viins ]] ||
+       [[ ${KEYMAP} = '' ]] ||
+       [[ $1 = 'beam' ]]; then
+    echo -ne '\e[5 q'
+  fi
+}
+zle -N zle-keymap-select
+zle-line-init() {
+    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+    echo -ne "\e[5 q"
+}
+zle -N zle-line-init
+echo -ne '\e[5 q' # Use beam shape cursor on startup.
+preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+
+# Edit line in vim with ctrl-e:
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
 
 
 ### ARCHIVE EXTRACTION
@@ -133,10 +173,9 @@ alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
 
-# just to make vim life better
-alias v='nvim'
 alias vi='nvim'
 unsetopt correct_all
+
 
 
 ### "bat" as manpager
@@ -189,3 +228,4 @@ alias ytv-best="youtube-dl -f bestvideo+bestaudio "
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias config='/usr/bin/git --git-dir=/home/hendry/.dotfiles/ --work-tree=/home/hendry'
+source /home/hendry/cv/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
