@@ -7,7 +7,5 @@ keycode 135 = Control_R NoSymbol Control_R
 add Control = Control_R
 add control = Super_L Super_R
 
-
-! 66 is the keycode of Caps_Lock
-clear    Lock
-keycode  66 = Escape 
+clear lock
+keycode 66 = Escape NoSymbol Escape
