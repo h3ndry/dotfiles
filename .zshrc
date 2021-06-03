@@ -8,7 +8,8 @@ export PS1="%{$fg[green]%}%c%{$reset_color%}$ "
 # History in cache directory:
 HISTSIZE=10000
 SAVEHIST=10000
-# HISTFILE=~/.cache/zsh/history
+HISTFILE=~/.zsh_history
+setopt appendhistory
 
 # Basic auto/tab complete:
 autoload -U compinit
@@ -18,10 +19,13 @@ compinit
 _comp_options+=(globdots)		# Include hidden files.
 
 source ~/.config/zsh/aliases.sh
+source ~/.zsh/zsh-z/zsh-z.plugin.zsh
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # vi mode
 bindkey -v
 export KEYTIMEOUT=1
+bindkey '^ ' autosuggest-accept
 
 # Use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
@@ -110,5 +114,4 @@ export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:/usr/local/nvim/bin
 
 
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # source /home/hendry/cv/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
