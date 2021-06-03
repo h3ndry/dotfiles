@@ -1,0 +1,12 @@
+
+# Set the theme to "TwoDark"
+--theme="Nord"
+
+# Show line numbers, Git modifications and file header (but no grid)
+--style="changes"
+
+# Use italic text on the terminal (not supported on all terminals)
+--italic-text=always
+
+# Use C++ syntax for .ino files
+--map-syntax "*.ino:C++"
