@@ -1,34 +1,33 @@
+set exrc
 syntax on
-
-set guicursor=
-set relativenumber
-set nohlsearch
 set hidden
+set relativenumber
+set nu
+set nohlsearch
 set noerrorbells
+set expandtab
 set tabstop=4 softtabstop=4
 set shiftwidth=4
-set expandtab
-set smartindent
-set nu
-set nowrap
-set smartcase
+set scrolloff=4
+set incsearch
 set noswapfile
 set nobackup
+set nobackup
 set undodir=~/.config/nvim/undodir
-set undofile
-set incsearch
-set termguicolors
-set scrolloff=8
 set completeopt=menuone,noinsert,noselect
+set nowrap
+set background=dark
 
+set updatetime=50
 
-"" Highly Expirimental, for vim folding
-"augroup vimrc
-"  au BufReadPre * setlocal foldmethod=indent
-"  au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
-"augroup END
+set ttimeout
+set ttimeoutlen=0
 
-" set foldcolumn=2
+set shortmess+=c
+" highlight ColorColumn ctermbg=0 guibg=lightgrey
+
+" set colorcolumn=80
+let mapleader = " "
 
 augroup remember_folds
   autocmd!
@@ -36,10 +35,13 @@ augroup remember_folds
   autocmd BufWinEnter * silent! loadview
 augroup END
 
+"disable status line, I think it look nice this way
+set noruler
+set laststatus=1
+"set noshowcmd
+
 " vnoremap . :norm.<CR>
 " Check speeling for the following documents
-"
-set colorcolumn=72
 augroup remember_folds
         autocmd!
         autocmd FileType markdown setlocal spell
@@ -49,130 +51,113 @@ augroup remember_folds
         autocmd BufRead,BufNewFile *.txt setlocal spell
 augroup END
 
-"" Give more space for displaying messages.
-" set cmdheight=2
 
-"" Having Having updatetime (default is 4000 ms = 4 s) leads to noticeable
-"" delays and Having user experience.
-set updatetime=50
-
-"" Don't pass messages to |ins-completion-menu|.
-"set shortmess+=c
-" highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 call plug#begin('~/.config/nvim/plugged')
 
+" editing plugins
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'vim-scripts/ReplaceWithRegister'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'dense-analysis/ale'
-Plug 'gruvbox-community/gruvbox'
 Plug 'tpope/vim-repeat'
-Plug 'vim-airline/vim-airline'
 Plug 'cohama/lexima.vim'
-Plug 'evanleck/vim-svelte'
+" Plug 'vim-airline/vim-airline'
+
+"navigation plugin
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'SirVer/ultisnips' 
+
+Plug 'evanleck/vim-svelte'
+Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-Plug 'junegunn/limelight.vim'
-Plug 'junegunn/goyo.vim'
 Plug 'machakann/vim-sandwich'
+
+" lsp
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-compe'
+Plug 'kabouzeid/nvim-lspinstall'
+Plug 'OmniSharp/omnisharp-vim'
+
+" Color scheme
+Plug 'owickstrom/vim-colors-paramount'
+Plug 'h3ndry/tokyonight.nvim'
+Plug 'ful1e5/onedark.nvim'
+
+" Just make life more easy
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'xuhdev/vim-latex-live-preview', { 'for': 'tex' }
-Plug 'folke/todo-comments.nvim'
+Plug 'junegunn/goyo.vim'
 
 call plug#end()
 
-
-runtime macros/sandwich/keymap/surround.vim
-
-colorscheme gruvbox
-set background=dark
-
-"if executable('rg')
-"    let g:rg_derive_root='true'
-"endif
-
-"let loaded_matchparen = 1
-let mapleader = " "
-
-let g:netrw_browse_split = 2
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_localrmdir='rm -r'
+" colorscheme paramount
+let g:tokyonight_style = "night"
+colorscheme tokyonight
+" colorscheme onedark
 
 
-"nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For >")})<CR>
-"nnoremap <C-p> :lua require('telescope.builtin').git_files()<CR>
+" hi ActiveWindow  guibg=NONE ctermbg=NONE
+" hi Normal guibg=NONE ctermbg=NONE
+" hi InactiveWindow guibg=NONE ctermbg=NONE
 
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>s :so ~/.config/nvim/init.vim<CR>
+tnoremap <C-\><C-\> <C-\><C-n>
+let g:netrw_banner=0
+let g:netrw_list_hide = '\(^\|\s\s\)\zs\.\S\+,\(^\|\s\s\)ntuser\.\S\+'
+autocmd FileType netrw set nolist
+let g:netrw_liststyle = 3
 
-nnoremap <leader>e :wincmd v<bar> :Ex <bar> :vertical resize 30<CR>
+
+nnoremap <leader>e :Ex<CR>
 nnoremap <leader>n :bn<CR>
 nnoremap <leader>N :bp<CR>
-" nnoremap <leader>l :ls<CR>
 nnoremap <leader>g :GFiles<CR>
 
 nnoremap <leader>` :bel 10sp term://zsh<CR>
 nnoremap <leader>j :bel 10sp<CR>
+nnoremap <leader>l :vs<CR>
 nnoremap <leader>f :Prettier<CR>
 
 nnoremap <leader>\l :Limelight.8<CR>
 nnoremap <leader>\L :Limelight!<CR>
 nnoremap <leader>\g :Goyo<CR>
+nmap <C-P> :FZF<CR>
+nmap <C-L> :Buffers<CR>
 
-nnoremap <leader>~ :vsp term://zsh<CR>
+lua require('lspsettings')
+lua require('complection')
+lua require('just_settings_for_now')
 
-" autocmd TerminalOpen * set nonu
-let g:livepreview_previewer = 'zathura'
-" Trigger configuration. You need to change this to something other than <tab> if you use one of the following:
-" - https://github.com/Valloric/YouCompleteMe
-"
-" - https://github.com/nvim-lua/completion-nvim
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+
+
+
 let g:UltiSnipsExpandTrigger="<c-l>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
-nmap <C-P> :FZF<CR>
-nmap <C-L> :Buffers<CR>
-nmap ]g :ALENextWrap<CR>
-nmap [g :ALEPreviousWrap<CR>
-nmap ]G :ALELast
-nmap [G :ALEFirst
-" silent! nmap <C-P> :GFiles<CR>
+au FocusLost * :wa
+au FocusLost * silent! wa
 
-" let g:fzf_action = {
-"   \ 'ctrl-e': 'edit',
-"   \ 'ctrl-t': 'tab split',
-"   \ 'ctrl-s': 'split',
-"   \ 'ctrl-j': 'vsplit' }
+" augroup THE_PRIMEAGEN
+"     autocmd!
+"     autocmd BufWritePre * %s/\s\+$//e
+"     autocmd BufEnter,BufWinEnter,TabEnter *.rs :lua require'lsp_extensions'.inlay_hints{}
+" augroup END
 
-command! -nargs=0 Prettier :CocCommand prettier.formatFile
-
-
-"" Vim with me
-"nnoremap <leader>vwm :colorscheme gruvbox<bar>:set background=dark<CR>
-"nmap <leader>vtm :highlight Pmenu ctermbg=gray guibg=gray
-
-"vnoremap X "_d
-"inoremap <C-c> <esc>
-
-"command! -nargs=0 Prettier :CocCommand prettier.formatFile
-"inoremap <silent><expr> <C-space> coc#refresh()
-
-if &term =~ '256color'
-    " disable Background Color Erase (BCE) so that color schemes
-    " render properly when inside 256-color tmux and GNU screen.
-    " see also https://sunaku.github.io/vim-256color-bce.html
-    set t_ut=
-endif
+augroup highlight_yank
+    autocmd!
+    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
+augroup END
 
 "Split teminal on right side
-:set splitright
+set splitright
 " send paragraph under curso to terminal
 function! Exec_on_term(cmd)
   if a:cmd=="normal"
@@ -198,25 +183,32 @@ endfunction
 nnoremap <F6> :call Exec_on_term("normal")<CR>
 vnoremap <F6> :<c-u>call Exec_on_term("visual")<CR>
 
-let g:airline#extensions#ale#enabled = 1
-" let g:ale_sign_column_always = 1
-" :set signcolumn=yes
+if &term =~ '256color'
+    " disable Background Color Erase (BCE) so that color schemes
+    " render properly when inside 256-color tmux and GNU screen.
+    " see also https://sunaku.github.io/vim-256color-bce.html
+    set t_ut=
+endif
 
-"" Use <c-space> to trigger completion.
-"if has('nvim')
-"  inoremap <silent><expr> <c-space> coc#refresh()
-"else
-"  inoremap <silent><expr> <c-@> coc#refresh()
-"endif
+let g:livepreview_previewer = 'zathura'
 
+runtime macros/sandwich/keymap/surround.vim
 
-"" YES
-com! W w
+let s:hidden_all = 0
+function! ToggleHiddenAll()
+    if s:hidden_all  == 0
+        let s:hidden_all = 1
+        set noshowmode
+        set noruler
+        set laststatus=0
+        set noshowcmd
+    else
+        let s:hidden_all = 0
+        set showmode
+        set ruler
+        set laststatus=2
+        set showcmd
+    endif
+endfunction
 
-augroup highlight_yank
-    autocmd!
-    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank()
-augroup END
-
-:au FocusLost * :wa
-:au FocusLost * silent! wa
+nnoremap <S-h> :call ToggleHiddenAll()<CR>
