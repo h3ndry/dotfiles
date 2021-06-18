@@ -23,6 +23,8 @@ PROMPT='%{$fg[green]%}%c%{$reset_color%}${vcs_info_msg_0_}$ '
 alias s='dwmswallow $WINDOWID;'
 
 bindkey '^\' accept-line-swallow
+bindkey -a '^\' accept-line-swallow
+
 zle -N accept-line-swallow acceptandswallow
 acceptandswallow() {
     dwmswallow $WINDOWID
@@ -51,6 +53,7 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey -v
 export KEYTIMEOUT=1
 bindkey '^ ' autosuggest-accept
+bindkey -a '^ ' autosuggest-accept
 
 # Use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
@@ -300,8 +303,7 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 
 export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:/usr/local/nvim/bin
-export PATH='/home/hendry/.local/share/nvim/lspinstall/csharp/omnisharp/bin'
+export PATH=/home/hendry/.local/share/nvim/bin:$PATH
 
 
 # source /home/hendry/cv/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
