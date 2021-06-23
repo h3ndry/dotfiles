@@ -5,7 +5,7 @@ map <C-o> zoom out
 #}}}
 # {{{ COLORS
 set default-bg                  "#090909"
-set default-fg                  "#cccccc"
+set default-fg                  "#7e7e7e"
 
 set statusbar-fg                "#cccccc"
 set statusbar-bg                "#090909"
