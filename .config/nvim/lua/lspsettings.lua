@@ -1,6 +1,6 @@
 local nvim_lsp = require('lspconfig')
 
--- Use an on_attach function to only map the following keys 
+-- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -38,9 +38,10 @@ end
 -- NOTE: Need to be being fixed, I just required each file from lspconfig folder
 -- That what seems to work for me now...
 -- I need to change this soon as find better way to setup language servers
-local servers = { "html" }
+local servers = { "html", "clangd", "rust_analyzer", "omnisharp", "svelte", "sumneko_lua", "tsserver", "texlab"  }
+
 for _, lsp in ipairs(servers) do
     local path = "lspconfig.".. lsp
-   require(path) 
+   require(path)
   -- nvim_lsp[lsp].setup { on_attach = on_attach }
 end
