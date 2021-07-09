@@ -4,6 +4,15 @@
 super + P
     passmenu
 
+super + M
+    st -e neomutt
+
+super + F
+    firefox
+
+super + N
+    nautilus
+
 super + Print
 	maim | tee ~/pictures/screenshots/$(date +%s).png | xclip -selection clipboard -t image/png && notify-send "Screenshot has been captured" "Location: ~/pictures/screenshot"
 
