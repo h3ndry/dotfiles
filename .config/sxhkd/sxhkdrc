@@ -1,40 +1,22 @@
-# XF86Audio{Prev,Next}
-#	mpc -q {prev,next}
+# super + o ; {p,f,n}
+# 	{passmenu,firefox,nautilus}
 
-# @XF86LaunchA
-#	scrot -s -e 'image_viewer $f'
+super + P
+    passmenu
 
-# super + shift + equal
-#	sxiv -rt "$HOME/image"
+super + Print
+	maim | tee ~/pictures/screenshots/$(date +%s).png | xclip -selection clipboard -t image/png && notify-send "Screenshot has been captured" "Location: ~/pictures/screenshot"
 
-# XF86LaunchB
-#	xdotool selectwindow | xsel -bi
+Print
+	maim --select | tee ~/pictures/screenshots/$(date +%s).png | xclip -selection clipboard -t image/png && notify-send "Screenshot has been captured" "Location: ~/pictures/screenshot"
 
-# super + {h,j,k,l}
-#	bspc node -f {west,south,north,east}
-
-# super + alt + {0-9}
-#	mpc -q seek {0-9}0%
-
-# super + {alt,ctrl,alt + ctrl} + XF86Eject
-#	sudo systemctl {suspend,reboot,poweroff}
-
-# super + {_,shift + }{h,j,k,l}
-#	bspc node -{f,s} {west,south,north,east}
-
-# {_,shift + ,super + }XF86MonBrightness{Down,Up}
-#	bright {-1,-10,min,+1,+10,max}
-
-alt + o ; {p,f,n}
-	{passmenu,firefox,nautilus}
+# make sxhkd reload its configuration files:
+super + u
+  st -e ~/.local/bin/quickmove.sh
 
 
-alt + w
-	maim ~/pictures/screenshots/$(date +%s).png
-
-
-alt + s
-	maim -s ~/pictures/screenshots/$(date +%s).png
+super + Pause
+  pkill -USR1 -x sxhkd
 
 # super + alt + control + {h,j,k,l} ; {0-9}
 	# bspc node @{west,south,north,east} -r 0.{0-9}
