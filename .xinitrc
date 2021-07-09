@@ -1,6 +1,7 @@
 #!/bin/sh
 #
 #
+~/xsidle.sh slock &
 dunst &
 sxhkd &
 slstatus &
@@ -17,4 +18,3 @@ mpd &
 
 exec dwm
 
-    
