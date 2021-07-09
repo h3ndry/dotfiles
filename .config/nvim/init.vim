@@ -37,21 +37,23 @@ augroup remember_folds
   autocmd BufWinEnter * silent! loadview
 augroup END
 
+
+
 "disable status line, I think it look nice this way
 " set noruler
 set laststatus=1
 "set noshowcmd
 
-" vnoremap . :norm.<CR>
-" Check speeling for the following documents
-augroup remember_folds
-        autocmd!
-        autocmd FileType markdown setlocal spell
-        autocmd FileType mail setlocal spell
-        autocmd BufRead,BufNewFile *.md setlocal spell
-        autocmd BufRead,BufNewFile *.tex setlocal spell
-        autocmd BufRead,BufNewFile *.txt setlocal spell
-augroup END
+" " vnoremap . :norm.<CR>
+" " Check speeling for the following documents
+" augroup remember_folds
+"         autocmd!
+"         autocmd FileType markdown setlocal spell
+"         autocmd FileType mail setlocal spell
+"         autocmd BufRead,BufNewFile *.md setlocal spell
+"         autocmd BufRead,BufNewFile *.tex setlocal spell
+"         autocmd BufRead,BufNewFile *.txt setlocal spell
+" augroup END
 
 
 
@@ -93,6 +95,8 @@ Plug 'evanleck/vim-svelte', {'branch': 'main'}
 " Color scheme
 Plug 'h3ndry/tokyonight.nvim'
 
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+
 " Just make life more easy
 Plug 'junegunn/goyo.vim'
 
@@ -126,6 +130,7 @@ nnoremap <leader>e :Ex<CR>
 nnoremap <leader>n :bn<CR>
 nnoremap <leader>N :bp<CR>
 nnoremap <leader>g :GFiles<CR>
+nnoremap <leader>p :Prettier<CR>
 
 nnoremap <leader>t :bel 10sp term://zsh<CR>
 nnoremap <leader>T :bel 10sp<CR>
