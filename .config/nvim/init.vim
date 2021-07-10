@@ -60,12 +60,14 @@ set laststatus=1
 call plug#begin('~/.config/nvim/plugged')
 
 " editing plugins
-Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
-Plug 'vim-scripts/ReplaceWithRegister'
+Plug 'h3ndry/ReplaceWithRegister'
 Plug 'tpope/vim-repeat'
 Plug 'cohama/lexima.vim'
-" Plug 'vim-airline/vim-airline'
+Plug 'h3ndry/vim-sandwich'
+" Plug 'machakann/vim-sandwich'
+Plug 'tpope/vim-capslock'
 
 "navigation plugin
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -92,7 +94,7 @@ Plug 'prettier/vim-prettier', {
 
 Plug 'evanleck/vim-svelte', {'branch': 'main'}
 
-" Color scheme
+" Color schemejhd
 Plug 'h3ndry/tokyonight.nvim'
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
@@ -107,7 +109,6 @@ let g:tokyonight_style = "night"
 colorscheme tokyonight
 " colorscheme onedark
 
-
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>j :wincmd j<CR>
@@ -117,22 +118,31 @@ nnoremap <C-k> :t-1<CR>
 vnoremap <C-j> :m '>+1<CR>gv=gv
 vnoremap <C-k> :m '<-2<CR>gv=gv
 
-
 nnoremap <leader>s :so ~/.config/nvim/init.vim<CR>
 tnoremap <C-\><C-\> <C-\><C-n>
+
+augroup neovim_terminal
+    autocmd!
+    " Enter Terminal-mode (insert) automatically
+    autocmd TermOpen * startinsert
+    " Disables number lines on terminal buffers
+    autocmd TermOpen * :set nonumber norelativenumber
+    " allows you to use Ctrl-c on terminal window
+    autocmd TermOpen * nnoremap <buffer> <C-c> i<C-c>
+augroup END
 
 let g:netrw_banner=0
 autocmd FileType netrw set nolist
 let g:netrw_liststyle = 3
 
-
-nnoremap <leader>e :Ex<CR>
+nnoremap <leader>b :Ex<CR>
 nnoremap <leader>n :bn<CR>
 nnoremap <leader>N :bp<CR>
 nnoremap <leader>g :GFiles<CR>
 nnoremap <leader>p :Prettier<CR>
 
 nnoremap <leader>t :bel 10sp term://zsh<CR>
+
 nnoremap <leader>T :bel 10sp<CR>
 
 nnoremap <leader>\l :Limelight<CR>
@@ -150,12 +160,9 @@ inoremap <silent><expr> <C-Space>      compe#confirm('<C-Space>')
 " inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
 " inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
-
-
 let g:UltiSnipsExpandTrigger="<C-Space>"
 let g:UltiSnipsJumpForwardTrigger="<Tab>"
 let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
-
 
 " let g:ulti_expand_or_jump_res = 0 "default value, just set once
 " function! Ulti_ExpandOrJump_and_getRes()
@@ -178,13 +185,6 @@ augroup highlight_yank
     autocmd!
     autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank({ ttimeout = 40 })
 augroup END
-
-fun! EmptyRegisters()
-    let regs=split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/-"', '\zs')
-    for r in regs
-        call setreg(r, [])
-    endfor
-endfun
 
 "Split teminal on right side
 set splitright
@@ -210,8 +210,8 @@ function! Exec_on_term(cmd)
   exec "normal `k"
 endfunction
 
-nnoremap <F6> :call Exec_on_term("normal")<CR>
-vnoremap <F6> :<c-u>call Exec_on_term("visual")<CR>
+nnoremap <leader>c :call Exec_on_term("normal")<CR>
+vnoremap <leader>c :<c-u>call Exec_on_term("visual")<CR>
 
 if &term =~ '256color'
     " disable Background Color Erase (BCE) so that color schemes
@@ -219,7 +219,3 @@ if &term =~ '256color'
     " see also https://sunaku.github.io/vim-256color-bce.html
     set t_ut=
 endif
-
-
-
-" nnoremap <S-h> :call ToggleHiddenAll()<CR>
