@@ -1,3 +1,30 @@
+require'lspconfig'.clangd.setup{
+       cmd = { "clangd", "--background-index" }
+   }
+
+--Enable (broadcasting) snippet capability for completion
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+local server_name = "html"
+local bin_name = "/home/hendry/.local/share/nvim/lspinstall/html/vscode-html/html-language-features/server/dist/node/htmlServerMain.js"
+
+require'lspconfig'.html.setup {
+    cmd = {"node", bin_name, "--stdio"},
+    capabilities = capabilities,
+}
+local pid = vim.fn.getpid()
+-- On linux/darwin if using a release build, otherwise under scripts/OmniSharp(.Core)(.cmd)
+local omnisharp_bin = "/home/hendry/.local/share/nvim/lspinstall/csharp/omnisharp/run"
+-- on Windows
+-- local omnisharp_bin = "/path/to/omnisharp/OmniSharp.exe"
+require'lspconfig'.omnisharp.setup{
+    cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
+}
+
+require'lspconfig'.rust_analyzer.setup{
+    cmd = { "/home/hendry/.local/share/nvim/lspinstall/rust/rust-analyzer" }
+}
 local system_name
 if vim.fn.has("mac") == 1 then
   system_name = "macOS"
@@ -42,4 +69,14 @@ require'lspconfig'.sumneko_lua.setup {
     },
   },
 }
+
+local svelete_bin = '/home/hendry/.local/share/nvim/lspinstall/svelte/node_modules/svelte-language-server/bin/server.js'
+require'lspconfig'.svelte.setup{
+   cmd = {"node", svelete_bin, "--stdio" }
+}
+
+require'lspconfig'.texlab.setup{
+        cmd = { "/home/hendry/.local/share/nvim/lspinstall/latex/texlab" }
+}
+require'lspconfig'.tsserver.setup{}
 
