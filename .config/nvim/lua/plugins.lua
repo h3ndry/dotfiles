@@ -51,9 +51,18 @@ return require('packer').startup(function()
   use 'OrangeT/vim-csharp'
   use 'tpope/vim-capslock'
   use 'nvim-treesitter/nvim-treesitter-textobjects'
+  use 'mhartington/formatter.nvim'
+  use 'norcalli/nvim-colorizer.lua'
 
- -- Post-install/update hook with neovim command
+  -- if work.. work
+use {
+  'lewis6991/gitsigns.nvim',
+  requires = {
+    'nvim-lua/plenary.nvim'
+  }
+}
+
+  -- Post-install/update hook with neovim command
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-
 
 end)

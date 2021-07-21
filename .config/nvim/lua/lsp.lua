@@ -80,3 +80,6 @@ require'lspconfig'.texlab.setup{
 }
 require'lspconfig'.tsserver.setup{}
 
+require'lspconfig'.phpactor.setup{
+	cmd = { "/home/hendry/.local/share/nvim/lspinstall/phpactor/bin/phpactor", "language-server" }
+}

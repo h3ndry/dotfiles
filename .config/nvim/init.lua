@@ -39,6 +39,64 @@ require'compe'.setup {
 }
 
 
+require('formatter').setup({
+  logging = false,
+  filetype = {
+    javascript = {
+        -- prettier
+       function()
+          return {
+            exe = "prettier",
+            args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), '--single-quote'},
+            stdin = true
+          }
+        end
+    },
+    rust = {
+      -- Rustfmt
+      function()
+        return {
+          exe = "rustfmt",
+          args = {"--emit=stdout"},
+          stdin = true
+        }
+      end
+    },
+    lua = {
+        -- luafmt
+        function()
+          return {
+            exe = "luafmt",
+            args = {"--indent-count", 2, "--stdin"},
+            stdin = true
+          }
+        end
+    },
+    cpp = {
+        -- clang-format
+       function()
+          return {
+            exe = "clang-format",
+            args = {},
+            stdin = true,
+            cwd = vim.fn.expand('%:p:h')  -- Run clang-format in cwd of the file.
+          }
+        end
+    }
+  }
+})
+
+
+
+-- -- Use the `default_options` as the second parameter, which uses
+-- -- `foreground` for every mode. This is the inverse of the previous
+-- -- setup configuration.
+-- require 'colorizer'.setup {
+--   '*'; -- Highlight all files, but customize some others.
+--   css = { rgb_fn = true; }; -- Enable parsing rgb(...) functions in css.
+--   html = { names = false; } -- Disable parsing "names" like Blue or Gray
+-- }
+
 -- Highlight on yank
 vim.api.nvim_exec(
   [[
@@ -84,15 +142,15 @@ vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
 
--- Example config in Lua
-vim.g.tokyonight_style = "night"
-vim.g.tokyonight_italic_functions = true
-vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
-
 --Set colorscheme (order is important here)
 vim.o.termguicolors = true
 vim.g.onedark_terminal_italics = 2
 vim.cmd [[colorscheme tokyonight]]
+
+-- Example config in Lua
+vim.g.tokyonight_style = "night"
+vim.g.tokyonight_italic_functions = true
+vim.g.tokyonight_sidebars = { "qf", "vista_kind", "terminal", "packer" }
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noinsert'
@@ -211,6 +269,9 @@ set noswapfile
 set shortmess+=c
 
 set laststatus=1
+
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 ]],
   false
