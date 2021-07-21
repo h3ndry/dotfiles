@@ -20,7 +20,7 @@ Print
 	maim --select | tee ~/pictures/screenshots/$(date +%s).png | xclip -selection clipboard -t image/png && notify-send "Screenshot has been captured" "Location: ~/pictures/screenshot"
 
 # make sxhkd reload its configuration files:
-super + u
+super + o
   st -e ~/.local/bin/quickmove.sh
 
 
