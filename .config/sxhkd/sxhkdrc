@@ -21,7 +21,18 @@ Print
 
 # make sxhkd reload its configuration files:
 super + o
-  st -e ~/.local/bin/quickmove.sh
+  ~/.local/bin/quickmove.sh
+
+# open calculatpr
+super + C
+  gnome-calculator
+
+
+
+# make sxhkd reload its configuration files:
+super + z
+  ~/.local/bin/network.sh
+
 
 
 super + Pause
