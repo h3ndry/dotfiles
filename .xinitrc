@@ -1,11 +1,12 @@
 #!/bin/sh
 #
 #
-~/xsidle.sh slock &
 dunst &
 sxhkd &
 slstatus &
-mpd &
+# mpd &
+xautolock -time 10 -locker slock &
+xbanish &
 [[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap &
 # feh --no-fehbg --bg-fill '/home/hendry/Pictures/wallhaven-l33vdl.jpg'
 
