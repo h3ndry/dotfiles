@@ -73,6 +73,14 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/hendry/.local/share/nvim/site/pack/packer/start/ReplaceWithRegister"
   },
+  ["formatter.nvim"] = {
+    loaded = true,
+    path = "/home/hendry/.local/share/nvim/site/pack/packer/start/formatter.nvim"
+  },
+  ["gitsigns.nvim"] = {
+    loaded = true,
+    path = "/home/hendry/.local/share/nvim/site/pack/packer/start/gitsigns.nvim"
+  },
   ["lexima.vim"] = {
     loaded = true,
     path = "/home/hendry/.local/share/nvim/site/pack/packer/start/lexima.vim"
@@ -80,6 +88,10 @@ _G.packer_plugins = {
   ["lsp_extensions.nvim"] = {
     loaded = true,
     path = "/home/hendry/.local/share/nvim/site/pack/packer/start/lsp_extensions.nvim"
+  },
+  ["nvim-colorizer.lua"] = {
+    loaded = true,
+    path = "/home/hendry/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua"
   },
   ["nvim-compe"] = {
     loaded = true,
@@ -104,6 +116,10 @@ _G.packer_plugins = {
   ["packer.nvim"] = {
     loaded = true,
     path = "/home/hendry/.local/share/nvim/site/pack/packer/start/packer.nvim"
+  },
+  ["plenary.nvim"] = {
+    loaded = true,
+    path = "/home/hendry/.local/share/nvim/site/pack/packer/start/plenary.nvim"
   },
   ["tokyonight.nvim"] = {
     loaded = true,

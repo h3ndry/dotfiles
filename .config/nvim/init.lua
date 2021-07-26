@@ -88,14 +88,30 @@ require('formatter').setup({
 
 
 
--- -- Use the `default_options` as the second parameter, which uses
--- -- `foreground` for every mode. This is the inverse of the previous
--- -- setup configuration.
--- require 'colorizer'.setup {
---   '*'; -- Highlight all files, but customize some others.
---   css = { rgb_fn = true; }; -- Enable parsing rgb(...) functions in css.
---   html = { names = false; } -- Disable parsing "names" like Blue or Gray
--- }
+-- Use the `default_options` as the second parameter, which uses
+-- `foreground` for every mode. This is the inverse of the previous
+-- setup configuration.
+require 'colorizer'.setup {
+  '*'; -- Highlight all files, but customize some others.
+  css = { rgb_fn = true; }; -- Enable parsing rgb(...) functions in css.
+  html = { names = false; } -- Disable parsing "names" like Blue or Gray
+}
+
+
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+    custom_captures = {
+      -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
+      ["foo.bar"] = "Identifier",
+    },
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
 
 -- Highlight on yank
 vim.api.nvim_exec(

@@ -15,15 +15,15 @@ local opts = {noremap = true, silent = true}
 buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
 buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
-buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+-- buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
 buf_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
 buf_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
 buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-buf_set_keymap("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+-- buf_set_keymap("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 buf_set_keymap("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+-- buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
 buf_set_keymap("n", "<space>E", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
 buf_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
 buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
@@ -83,9 +83,9 @@ vim.api.nvim_set_keymap("n", "<leader>.", ":e<space>**/", {noremap = true})
 vim.api.nvim_set_keymap("n", "<leader>sT", ":tjump *", {noremap = true})
 
 -- My greates remap ever... I don't see the need of fzf
-vim.api.nvim_set_keymap("n", "<leader>pp", ":find ", {noremap = true})
-vim.api.nvim_set_keymap("n", "<leader>pv", ":vertical sfind ", {noremap = true})
-vim.api.nvim_set_keymap("n", "<leader>ps", ":sfind ", {noremap = true})
+vim.api.nvim_set_keymap("n", "<leader>ff", ":find ", {noremap = true})
+vim.api.nvim_set_keymap("n", "<leader>fv", ":vertical sfind ", {noremap = true})
+vim.api.nvim_set_keymap("n", "<leader>fs", ":sfind ", {noremap = true})
 
 -- Managing buffers
 vim.api.nvim_set_keymap("n", "<leader>bd", ":bdelete<CR>", {noremap = true, silent = true})
@@ -98,55 +98,4 @@ vim.api.nvim_set_keymap("n", "<leader>O", ":unhide<CR>", opts)
 -- Random
 vim.api.nvim_set_keymap("n", "<leader>;", ":", {noremap = true, silent = false})
 
-require "nvim-treesitter.configs".setup {
-  textobjects = {
-    select = {
-      enable = true,
-      -- Automatically jump forward to textobj, similar to targets.vim
-      lookahead = true,
-      keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
-        -- Or you can define your own textobjects like this
-        ["iF"] = {
-          python = "(function_definition) @function",
-          cpp = "(function_definition) @function",
-          c = "(function_definition) @function",
-          java = "(method_declaration) @function"
-        }
-      }
-    },
-    swap = {
-      enable = true,
-      swap_next = {
-        ["<leader>a"] = "@parameter.inner"
-      },
-      swap_previous = {
-        ["<leader>A"] = "@parameter.inner"
-      }
-    },
-    move = {
-      enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
-      goto_next_start = {
-        ["]m"] = "@function.outer",
-        ["]]"] = "@class.outer"
-      },
-      goto_next_end = {
-        ["]M"] = "@function.outer",
-        ["]["] = "@class.outer"
-      },
-      goto_previous_start = {
-        ["[m"] = "@function.outer",
-        ["[["] = "@class.outer"
-      },
-      goto_previous_end = {
-        ["[M"] = "@function.outer",
-        ["[]"] = "@class.outer"
-      }
-    }
-  }
-}
+require "nvim-treesitter.configs".setup {}
