@@ -7,7 +7,30 @@
 !add Control = Control_R
 !add control = Super_L Super_R
 
+! Make the capslock key behave like exscape
+keycode 66 = Escape NoSymbol Escape
+
+! Make the menu key a right window key
 clear lock
 keycode 135 = Menu NoSymbol Menu
-keycode 66 = Escape NoSymbol Escape
 keycode 135 = Super_R
+
+
+!Swap right control and right alt
+remove Control = Control_R
+remove Mod1 = Alt_R
+keycode 105 = Alt_R
+keycode 108 = Control_R
+add Control = Control_R
+add Mod1 = Alt_R
+
+
+! clear control
+remove Control = Control_L
+remove Mod1 = Alt_L
+keycode 37 = Alt_L
+keycode 64 = Control_L
+add Control = Control_L
+add mod1 = Alt_L
+
+
