@@ -55,18 +55,26 @@ vim.api.nvim_set_keymap("i", "<C-i>", "<C-Right>", opts)
 vim.api.nvim_set_keymap("v", "<leader>s", ":so ~/.config/nvim/init.lua<CR>", opts)
 
 -- Sorce config file
-vim.api.nvim_set_keymap("n", "<leader>f", ":FormatWrite<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>F", ":FormatWrite<CR>", opts)
 
 -- Y yank until the end of line
 vim.api.nvim_set_keymap("n", "Y", "y$", {noremap = true})
 
+
+vim.api.nvim_set_keymap("n", "J", "mzJ`z`", {noremap = true})
+vim.api.nvim_set_keymap("n", "n", "nzzzv", {noremap = true})
+vim.api.nvim_set_keymap("n", "N", "Nzzzv", {noremap = true})
+
 -- NEXT n PREV buffer
 vim.api.nvim_set_keymap("n", "<leader>t", ":bel 10sp term://zsh<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>T", ":bel 10sp <CR>", opts)
 
 -- This work better for me
 vim.api.nvim_set_keymap("n", "<leader>e", ":Ex<CR>", opts)
--- vim.api.nvim_set_keymap('n', '<leader>ee', ":Ex<CR>", opts)
--- vim.api.nvim_set_keymap('n', '<leader>ex', ":Ex<CR>", opts)
+
+--Remap for dealing with word wrap
+vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
+vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
 
 -- Hop Maping, I tried to map straight from the API just to see the difference
 vim.api.nvim_set_keymap("n", "<leader>gw", "<cmd>lua require'hop'.hint_words()<cr>", {})
@@ -87,13 +95,17 @@ vim.api.nvim_set_keymap("n", "<leader>ff", ":find ", {noremap = true})
 vim.api.nvim_set_keymap("n", "<leader>fv", ":vertical sfind ", {noremap = true})
 vim.api.nvim_set_keymap("n", "<leader>fs", ":sfind ", {noremap = true})
 
--- Managing buffers
+-- Managing buffers and Windows
 vim.api.nvim_set_keymap("n", "<leader>bd", ":bdelete<CR>", {noremap = true, silent = true})
-vim.api.nvim_set_keymap("n", "<leader>q", ":close<CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("n", "<leader>n", ":bn<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>N", ":bp<CR>", opts)
+
+vim.api.nvim_set_keymap("n", "<leader>q", ":close<CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("n", "<leader>o", ":only<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>O", ":unhide<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>_", ":res<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>|", ":vert res<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>w", "<C-w>", opts)
 
 -- Random
 vim.api.nvim_set_keymap("n", "<leader>;", ":", {noremap = true, silent = false})

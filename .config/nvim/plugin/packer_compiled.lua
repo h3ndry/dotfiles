@@ -73,6 +73,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/hendry/.local/share/nvim/site/pack/packer/start/ReplaceWithRegister"
   },
+  firenvim = {
+    loaded = true,
+    path = "/home/hendry/.local/share/nvim/site/pack/packer/start/firenvim"
+  },
   ["formatter.nvim"] = {
     loaded = true,
     path = "/home/hendry/.local/share/nvim/site/pack/packer/start/formatter.nvim"
