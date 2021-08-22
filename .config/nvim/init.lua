@@ -1,7 +1,65 @@
-require "plugins"
+require("packer").startup(
+  function(use)
+    -- Packer can manage itself
+    use "wbthomason/packer.nvim"
+    use "tpope/vim-commentary"
+    use "h3ndry/ReplaceWithRegister"
+    use "tpope/vim-repeat"
+    use "cohama/lexima.vim"
+    use "h3ndry/vim-sandwich"
+    use "h3ndry/tokyonight.nvim"
+    use "SirVer/ultisnips"
+    use "honza/vim-snippets"
+    use "neovim/nvim-lspconfig"
+    use "hrsh7th/nvim-compe"
+    use "kabouzeid/nvim-lspinstall"
+    use "nvim-lua/lsp_extensions.nvim"
+    use "hrsh7th/vim-vsnip"
+    use "hrsh7th/vim-vsnip-integ"
+    use "OrangeT/vim-csharp"
+    use "tpope/vim-capslock"
+    use "nvim-treesitter/nvim-treesitter-textobjects"
+    use "mhartington/formatter.nvim"
+    use "norcalli/nvim-colorizer.lua"
+
+    -- use {
+    --   "phaazon/hop.nvim",
+    --   as = "hop",
+    --   config = function()
+    --     -- you can configure Hop the way you like here; see :h hop-config
+    --     require "hop".setup {keys = "etovxqpdygfblzhckisuran"}
+    --   end
+    -- }
+
+    use {
+      "glacambre/firenvim",
+      run = function()
+        vim.fn["firenvim#install"](0)
+      end
+    }
+
+    -- if work.. work
+    use {
+      "lewis6991/gitsigns.nvim",
+      requires = {
+        "nvim-lua/plenary.nvim"
+      }
+    }
+
+    -- Post-install/update hook with neovim command
+    use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
+  end
+)
+
 require "keymap"
+
 require "lsp"
 require "setting"
+
+--Set colorswcheme (order is important here)
+vim.o.termguicolors = true
+vim.g.onedark_terminal_italics = 2
+vim.cmd [[colorscheme tokyonight]]
 
 -- Nvim compe setting
 -- Highlight on yank
@@ -11,13 +69,15 @@ vim.api.nvim_exec(
     autocmd!
     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
   augroup end
-]], false)
+]],
+  false
+)
 
 vim.o.completeopt = "menuone,noselect"
 
 -- do not display info on the top of window
 vim.g.netrw_banner = 0
-    vim.g.netrw_liststyle = 3
+vim.g.netrw_liststyle = 3
 
 --Incremental live completion
 vim.o.inccommand = "nosplit"
@@ -54,21 +114,16 @@ vim.o.scrolloff = 2
 vim.o.updatetime = 250
 vim.wo.signcolumn = "yes"
 
---Set colorscheme (order is important here)
-vim.o.termguicolors = true
-vim.g.onedark_terminal_italics = 2
-vim.cmd [[colorscheme tokyonight]]
-
 -- Example config in Lua
 vim.g.tokyonight_style = "night"
 vim.g.tokyonight_italic_functions = true
 vim.g.tokyonight_sidebars = {"qf", "vista_kind", "terminal", "packer"}
 
 --Map blankline
-vim.g.indent_blankline_char = '┊'
-vim.g.indent_blankline_filetype_exclude = { 'help', 'packer' }
-vim.g.indent_blankline_buftype_exclude = { 'terminal', 'nofile' }
-vim.g.indent_blankline_char_highlight = 'LineNr'
+vim.g.indent_blankline_char = "┊"
+vim.g.indent_blankline_filetype_exclude = {"help", "packer"}
+vim.g.indent_blankline_buftype_exclude = {"terminal", "nofile"}
+vim.g.indent_blankline_char_highlight = "LineNr"
 vim.g.indent_blankline_show_trailing_blankline_indent = false
 
 -- Set completeopt to have a better completion experience
@@ -134,10 +189,10 @@ augroup END
 set path+=**
 set wildignore+=**/node_modules/**
 
-set spelllang=en
 set nowrap
 
 set noswapfile
+
 
 set shortmess+=c
 
@@ -183,6 +238,7 @@ require "compe".setup {
   }
 }
 
+-- Formater setting
 require("formatter").setup(
   {
     logging = false,
@@ -231,7 +287,6 @@ require("formatter").setup(
         -- Rustfmt
         function()
           return {
-
             exe = "prettier",
             args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote"},
             stdin = true
@@ -276,6 +331,7 @@ require("formatter").setup(
 -- Use the `default_options` as the second parameter, which uses
 -- `foreground` for every mode. This is the inverse of the previous
 -- setup configuration.
+
 require "colorizer".setup {
   "*", -- Highlight all files, but customize some others.
   css = {rgb_fn = true}, -- Enable parsing rgb(...) functions in css.
@@ -307,51 +363,48 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   }
 }
 
-require "lspconfig".rust_analyzer.setup {
-  capabilities = capabilities
-}
+-- local t = function(str)
+--   return vim.api.nvim_replace_termcodes(str, true, true, true)
+-- end
 
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
+-- local check_back_space = function()
+--   local col = vim.fn.col(".") - 1
+--   return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
+-- end
 
-local check_back_space = function()
-  local col = vim.fn.col(".") - 1
-  return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
-end
+-- -- Use (s-)tab to:
+-- --- move to prev/next item in completion menuone
+-- --- jump to prev/next snippet's placeholder
+-- _G.tab_complete = function()
+--   if vim.fn.pumvisible() == 1 then
+--     return t "<C-n>"
+--   elseif vim.fn["vsnip#available"](1) == 1 then
+--     return t "<Plug>(vsnip-expand-or-jump)"
+--   elseif check_back_space() then
+--     return t "<Tab>"
+--   else
+--     return vim.fn["compe#complete"]()
+--   end
+-- end
+-- _G.s_tab_complete = function()
+--   if vim.fn.pumvisible() == 1 then
+--     return t "<C-p>"
+--   elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+--     return t "<Plug>(vsnip-jump-prev)"
+--   else
+--     -- If <S-Tab> is not working in your terminal, change it to <C-h>
+--     return t "<S-Tab>"
+--   end
+-- end
 
--- Use (s-)tab to:
---- move to prev/next item in completion menuone
---- jump to prev/next snippet's placeholder
-_G.tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-n>"
-  elseif vim.fn["vsnip#available"](1) == 1 then
-    return t "<Plug>(vsnip-expand-or-jump)"
-  elseif check_back_space() then
-    return t "<Tab>"
-  else
-    return vim.fn["compe#complete"]()
-  end
-end
-_G.s_tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-p>"
-  elseif vim.fn["vsnip#jumpable"](-1) == 1 then
-    return t "<Plug>(vsnip-jump-prev)"
-  else
-    -- If <S-Tab> is not working in your terminal, change it to <C-h>
-    return t "<S-Tab>"
-  end
-end
-
-vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+-- vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+-- vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+-- vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+-- vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 
 -- Nvim compe setting
--- Highlight on yank
+
+-- setting when I complete suggestion
 vim.api.nvim_exec(
   [[
     inoremap <silent><expr> <C-Space> compe#complete()
@@ -359,25 +412,26 @@ vim.api.nvim_exec(
     inoremap <silent><expr> <C-e>     compe#close('<C-e>')
     inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
     inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
-]], false)
+]],
+  false
+)
 
-require('gitsigns').setup {
+require("gitsigns").setup {
   signs = {
-    add          = {hl = 'GitSignsAdd'   , text = '│', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
-    change       = {hl = 'GitSignsChange', text = '│', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
-    delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-    topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
-    changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    add = {hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn"},
+    add = {hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn"},
+    change = {hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn"},
+    delete = {hl = "GitSignsDelete", text = "_", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn"},
+    topdelete = {hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn"},
+    changedelete = {hl = "GitSignsChange", text = "~", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn"}
   },
   numhl = false,
   linehl = false,
   keymaps = {
     -- Default keymap options
     noremap = true,
-
-    ['n ]c'] = { expr = true, "&diff ? ']c' : '<cmd>lua require\"gitsigns.actions\".next_hunk()<CR>'"},
-    ['n [c'] = { expr = true, "&diff ? '[c' : '<cmd>lua require\"gitsigns.actions\".prev_hunk()<CR>'"},
-
+    ["n ]c"] = {expr = true, '&diff ? \']c\' : \'<cmd>lua require"gitsigns.actions".next_hunk()<CR>\''},
+    ["n [c"] = {expr = true, '&diff ? \'[c\' : \'<cmd>lua require"gitsigns.actions".prev_hunk()<CR>\''},
     -- ['n <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
     -- ['v <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
     -- ['n <leader>hu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
@@ -388,8 +442,8 @@ require('gitsigns').setup {
     -- ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
 
     -- Text objects
-    ['o ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
-    ['x ih'] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
+    ["o ih"] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
+    ["x ih"] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
   },
   watch_index = {
     interval = 1000,
@@ -397,11 +451,11 @@ require('gitsigns').setup {
   },
   current_line_blame = false,
   current_line_blame_delay = 1000,
-  current_line_blame_position = 'eol',
+  current_line_blame_position = "eol",
   sign_priority = 6,
   update_debounce = 100,
   status_formatter = nil, -- Use default
   word_diff = false,
   use_decoration_api = true,
-  use_internal_diff = true,  -- If luajit is present
+  use_internal_diff = true -- If luajit is present
 }

@@ -24,7 +24,7 @@ buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", op
 -- buf_set_keymap("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 buf_set_keymap("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 -- buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-buf_set_keymap("n", "<space>E", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
+-- buf_set_keymap("n", "<space>E", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
 buf_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
 buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
 buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
@@ -71,6 +71,7 @@ vim.api.nvim_set_keymap("n", "<leader>T", ":bel 10sp <CR>", opts)
 
 -- This work better for me
 vim.api.nvim_set_keymap("n", "<leader>e", ":Ex<CR>", opts)
+-- vim.api.nvim_set_keymap("n", "<leader>ex", ":Ex<CR>", opts)
 
 --Remap for dealing with word wrap
 vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
