@@ -92,8 +92,8 @@ vim.wo.relativenumber = true
 --Do not save when switching buffers
 vim.o.hidden = true
 
---Enable mouse mode
-vim.o.mouse = "a"
+----Enable mouse mode
+--vim.o.mouse = "a"
 
 --Enable break indent
 vim.o.breakindent = true
@@ -117,14 +117,7 @@ vim.wo.signcolumn = "yes"
 -- Example config in Lua
 vim.g.tokyonight_style = "night"
 vim.g.tokyonight_italic_functions = true
-vim.g.tokyonight_sidebars = {"qf", "vista_kind", "terminal", "packer"}
-
---Map blankline
-vim.g.indent_blankline_char = "┊"
-vim.g.indent_blankline_filetype_exclude = {"help", "packer"}
-vim.g.indent_blankline_buftype_exclude = {"terminal", "nofile"}
-vim.g.indent_blankline_char_highlight = "LineNr"
-vim.g.indent_blankline_show_trailing_blankline_indent = false
+-- vim.g.tokyonight_sidebars = {"qf", "vista_kind", "terminal", "packer"}
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = "menuone,noinsert"
@@ -144,11 +137,9 @@ vim.api.nvim_exec(
 
 vim.api.nvim_exec(
   [[
-
 let g:UltiSnipsExpandTrigger="<C-Space>"
-let g:UltiSnipsJumpForwardTrigger="<Tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
-
+let g:UltiSnipsJumpForwardTrigger="<C-l>"
+let g:UltiSnipsJumpBackwardTrigger="<C-h>"
 
 au FocusLost * :wa
 au FocusLost * silent! wa
@@ -294,7 +285,6 @@ require("formatter").setup(
         end
       },
       svelte = {
-        -- Rustfmt
         function()
           return {
             exe = "prettier",
