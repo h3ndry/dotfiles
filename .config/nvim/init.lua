@@ -83,7 +83,7 @@ vim.g.netrw_liststyle = 3
 vim.o.inccommand = "nosplit"
 
 --Set highlight on search
-vim.o.hlsearch = false
+-- vim.o.hlsearch = false
 
 --Make line numbers default
 vim.wo.number = true
@@ -180,7 +180,6 @@ augroup END
 set path+=**
 set wildignore+=**/node_modules/**
 
-set nowrap
 
 set noswapfile
 
@@ -353,44 +352,44 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
   }
 }
 
--- local t = function(str)
---   return vim.api.nvim_replace_termcodes(str, true, true, true)
--- end
+local t = function(str)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
+end
 
--- local check_back_space = function()
---   local col = vim.fn.col(".") - 1
---   return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
--- end
+local check_back_space = function()
+  local col = vim.fn.col(".") - 1
+  return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
+end
 
--- -- Use (s-)tab to:
--- --- move to prev/next item in completion menuone
--- --- jump to prev/next snippet's placeholder
--- _G.tab_complete = function()
---   if vim.fn.pumvisible() == 1 then
---     return t "<C-n>"
---   elseif vim.fn["vsnip#available"](1) == 1 then
---     return t "<Plug>(vsnip-expand-or-jump)"
---   elseif check_back_space() then
---     return t "<Tab>"
---   else
---     return vim.fn["compe#complete"]()
---   end
--- end
--- _G.s_tab_complete = function()
---   if vim.fn.pumvisible() == 1 then
---     return t "<C-p>"
---   elseif vim.fn["vsnip#jumpable"](-1) == 1 then
---     return t "<Plug>(vsnip-jump-prev)"
---   else
---     -- If <S-Tab> is not working in your terminal, change it to <C-h>
---     return t "<S-Tab>"
---   end
--- end
+-- Use (s-)tab to:
+--- move to prev/next item in completion menuone
+--- jump to prev/next snippet's placeholder
+_G.tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-n>"
+  elseif vim.fn["vsnip#available"](1) == 1 then
+    return t "<Plug>(vsnip-expand-or-jump)"
+  elseif check_back_space() then
+    return t "<Tab>"
+  else
+    return vim.fn["compe#complete"]()
+  end
+end
+_G.s_tab_complete = function()
+  if vim.fn.pumvisible() == 1 then
+    return t "<C-p>"
+  elseif vim.fn["vsnip#jumpable"](-1) == 1 then
+    return t "<Plug>(vsnip-jump-prev)"
+  else
+    -- If <S-Tab> is not working in your terminal, change it to <C-h>
+    return t "<S-Tab>"
+  end
+end
 
--- vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
--- vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
--- vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
--- vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 
 -- Nvim compe setting
 
