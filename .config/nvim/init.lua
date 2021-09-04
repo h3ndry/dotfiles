@@ -21,15 +21,17 @@ require("packer").startup(
     use "nvim-treesitter/nvim-treesitter-textobjects"
     use "mhartington/formatter.nvim"
     use "norcalli/nvim-colorizer.lua"
+    use {
+	"prettier/vim-prettier","prettier/vim-prettier",
+	ft = { 'javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html' },
+	run = "yarn install"
 
-    -- use {
-    --   "phaazon/hop.nvim",
-    --   as = "hop",
-    --   config = function()
-    --     -- you can configure Hop the way you like here; see :h hop-config
-    --     require "hop".setup {keys = "etovxqpdygfblzhckisuran"}
-    --   end
-    -- }
+    }
+
+    use {
+      "evanleck/vim-svelte",
+      branch = "main"
+    }
 
     use {
       "glacambre/firenvim",
@@ -52,7 +54,6 @@ require("packer").startup(
 )
 
 require "keymap"
-
 require "lsp"
 require "setting"
 
