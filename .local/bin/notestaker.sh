@@ -12,7 +12,6 @@ st -t "Notes" -c "Notes" -e nvim -c "norm Go" \
   -c "norm Go[$(date +%H:%M)] '<note title>'" \
   -c "norm Go----------------------" \
   -c "norm Go" \
-  -c "norm Go" \
   -c "norm zz" \
   -c "startinsert" $noteFilename
 
