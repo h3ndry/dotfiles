@@ -1,3 +1,7 @@
+
+-- Plugins Installation
+-- All The Installed plugins are here at the top
+--
 require("packer").startup(
   function(use)
     -- Packer can manage itself
@@ -27,11 +31,11 @@ require("packer").startup(
 	run = "yarn install"
 
     }
-
-    use {
-      "evanleck/vim-svelte",
-      branch = "main"
-    }
+    use 'karb94/neoscroll.nvim'
+    -- use {
+    --   "evanleck/vim-svelte",
+    --   branch = "main"
+    -- }
 
     use {
       "glacambre/firenvim",
@@ -53,10 +57,92 @@ require("packer").startup(
   end
 )
 
-require "keymap"
-require "lsp"
-require "setting"
 
+-- LSP language_server
+-- Yeah This Good
+--
+
+require'lspconfig'.clangd.setup{
+       cmd = { "clangd", "--background-index" }
+   }
+
+--Enable (broadcasting) snippet capability for completion
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+local bin_name = "/home/hendry/.local/share/nvim/lspinstall/html/vscode-html/html-language-features/server/dist/node/htmlServerMain.js"
+
+require'lspconfig'.html.setup {
+    cmd = {"node", bin_name, "--stdio"},
+    capabilities = capabilities,
+}
+local pid = vim.fn.getpid()
+-- On linux/darwin if using a release build, otherwise under scripts/OmniSharp(.Core)(.cmd)
+local omnisharp_bin = "/home/hendry/.local/share/nvim/lspinstall/csharp/omnisharp/run"
+-- on Windows
+-- local omnisharp_bin = "/path/to/omnisharp/OmniSharp.exe"
+require'lspconfig'.omnisharp.setup{
+    cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
+}
+
+require'lspconfig'.rust_analyzer.setup{
+    cmd = { "/home/hendry/.local/share/nvim/lspinstall/rust/rust-analyzer" }
+}
+
+-- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
+local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
+local sumneko_binary = '/home/hendry/.local/share/nvim/lspinstall/lua/sumneko-lua-language-server'
+
+local runtime_path = vim.split(package.path, ';')
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
+
+require'lspconfig'.sumneko_lua.setup {
+  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
+  settings = {
+    Lua = {
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+        -- Setup your lua path
+        path = runtime_path,
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+}
+
+local svelete_bin = '/home/hendry/.local/share/nvim/lspinstall/svelte/node_modules/svelte-language-server/bin/server.js'
+require'lspconfig'.svelte.setup{
+   cmd = {"node", svelete_bin, "--stdio" }
+}
+
+require'lspconfig'.texlab.setup{
+        cmd = { "/home/hendry/.local/share/nvim/lspinstall/latex/texlab" }
+}
+require'lspconfig'.tsserver.setup{}
+
+require'lspconfig'.phpactor.setup{
+	cmd = { "/home/hendry/.local/share/nvim/lspinstall/phpactor/bin/phpactor", "language-server" }
+}
+
+
+
+-- Default vim configuration.
+-- This are setting that are not provide by plugin but come with nvim
+-- Try to use lua When ever posible
+--
 --Set colorswcheme (order is important here)
 vim.o.termguicolors = true
 vim.g.onedark_terminal_italics = 2
@@ -89,6 +175,10 @@ vim.o.inccommand = "nosplit"
 --Make line numbers default
 vim.wo.number = true
 vim.wo.relativenumber = true
+
+-- vim.wo.tabstop = 4
+-- vim.wo.shiftwidth = 4
+-- vim.wo.expandtab = true
 
 --Do not save when switching buffers
 vim.o.hidden = true
@@ -138,6 +228,14 @@ vim.api.nvim_exec(
 
 vim.api.nvim_exec(
   [[
+
+
+set tabstop=4
+set shiftwidth=4
+set expandtab
+
+:set shiftwidth=0
+
 let g:UltiSnipsExpandTrigger="<C-Space>"
 let g:UltiSnipsJumpForwardTrigger="<C-l>"
 let g:UltiSnipsJumpBackwardTrigger="<C-h>"
@@ -196,6 +294,10 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   false
 )
 
+
+-- Plugings Configuration
+-- Setting that change How an intalled plugin behaviour
+--
 require "compe".setup {
   enabled = true,
   autocomplete = true,
@@ -275,7 +377,6 @@ require("formatter").setup(
         end
       },
       css = {
-        -- Rustfmt
         function()
           return {
             exe = "prettier",
@@ -328,19 +429,18 @@ require "colorizer".setup {
   html = {names = false} -- Disable parsing "names" like Blue or Gray
 }
 
-require "nvim-treesitter.configs".setup {
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
   highlight = {
-    enable = true,
-    custom_captures = {
-      -- Highlight the @foo.bar capture group with the "Identifier" highlight group.
-      ["foo.bar"] = "Identifier"
-    },
+    enable = true,              -- false will disable the whole extension
+    -- disable = { "c", "rust" },  -- list of language that will be disabled
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
     -- Using this option may slow down your editor, and you may see some duplicate highlights.
     -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false
-  }
+    additional_vim_regex_highlighting = false,
+  },
 }
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -449,3 +549,96 @@ require("gitsigns").setup {
   use_decoration_api = true,
   use_internal_diff = true -- If luajit is present
 }
+
+require('neoscroll').setup()
+
+
+-- All Key mapping...
+--
+local opts = {noremap = true, silent = true}
+
+--Remap space as leader key
+vim.api.nvim_set_keymap("", "<Space>", "<Nop>", opts)
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+-- Window navigation movement
+vim.api.nvim_set_keymap("n", "<leader>h", ":wincmd h<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>k", ":wincmd k<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>j", ":wincmd j<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>l", ":wincmd l<CR>", opts)
+
+-- Line  Movement
+vim.api.nvim_set_keymap("n", "<C-j>", ":t.<CR>", opts)
+vim.api.nvim_set_keymap("n", "<C-k>", ":t-1<CR>", opts)
+vim.api.nvim_set_keymap("v", "<C-j>", ":m '>+1<CR>gv=gv", opts)
+vim.api.nvim_set_keymap("v", "<C-k>", ":m '<-2<CR>gv=gv", opts)
+
+-- My greates remap yet
+vim.api.nvim_set_keymap("i", "<C-l>", "<C-o>A", opts)
+vim.api.nvim_set_keymap("i", "<C-e>", "<C-Right>", opts)
+vim.api.nvim_set_keymap("i", "<C-i>", "<C-Right>", opts)
+vim.api.nvim_set_keymap("n", "<Esc>", ":nohlsearch<CR>", opts)
+
+vim.api.nvim_set_keymap("n", "[d", ":lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
+vim.api.nvim_set_keymap("n", "]d", ":lua vim.lsp.diagnostic.goto_next()<CR>", opts)
+vim.api.nvim_set_keymap("n", "gD", ":lua vim.lsp.buf.declaration()<CR>", opts)
+vim.api.nvim_set_keymap("n", "gd", ":lua vim.lsp.buf.definition()<CR>", opts)
+vim.api.nvim_set_keymap("n", "K", ":lua vim.lsp.buf.hover()<CR>", opts)
+-- vim.api.nvim_set_keymap("n", "<C-k>", ":lua vim.lsp.buf.signature_help()<CR>", opts)
+
+-- Sorce config file
+vim.api.nvim_set_keymap("n", "<leader>s", ":so ~/.config/nvim/init.lua<CR>", opts)
+
+-- Sorce config file
+vim.api.nvim_set_keymap("n", "<leader>F", ":FormatWrite<CR>", opts)
+
+-- Y yank until the end of line
+vim.api.nvim_set_keymap("n", "Y", "y$", opts)
+
+vim.api.nvim_set_keymap("n", "J", "mzJ`z`", opts)
+vim.api.nvim_set_keymap("n", "n", "nzzzv", opts)
+vim.api.nvim_set_keymap("n", "N", "Nzzzv", opts)
+
+-- NEXT n PREV buffer
+vim.api.nvim_set_keymap("n", "<leader>t", ":bel 10sp term://zsh<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>T", ":bel 10sp <CR>", opts)
+
+-- This work better for me
+vim.api.nvim_set_keymap("n", "<leader>e", ":Ex<CR>", opts)
+
+--Remap for dealing with word wrap
+vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
+vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
+
+-- Escape terminal
+vim.api.nvim_set_keymap("t", "<C-\\><C-\\>", "<C-\\><C-n>", opts)
+vim.api.nvim_set_keymap("t", "<C-\\>\\", "<C-\\><C-n>", opts)
+
+-- alternative shorcuts without fzf
+vim.api.nvim_set_keymap("n", "<leader>gb", ":buffer ", opts)
+vim.api.nvim_set_keymap("n", "<leader>.", ":e<space>**/", opts)
+vim.api.nvim_set_keymap("n", "<leader>sT", ":tjump *", opts)
+
+-- My greates remap ever... I don't see the need of fzf
+vim.api.nvim_set_keymap("n", "<leader>ff", ":find ", opts)
+vim.api.nvim_set_keymap("n", "<leader>fv", ":vertical sfind ", opts)
+vim.api.nvim_set_keymap("n", "<leader>fs", ":sfind ", opts)
+
+-- Managing buffers and Windows
+vim.api.nvim_set_keymap("n", "<leader>bd", ":bdelete<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>n", ":bn<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>N", ":bp<CR>", opts)
+
+vim.api.nvim_set_keymap("n", "<leader>q", ":close<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>o", ":only<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>O", ":unhide<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>_", ":res<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>|", ":vert res<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>w", "<C-w>", opts)
+
+-- Random
+vim.api.nvim_set_keymap("n", "<leader>;", ":", opts)
+
+
+

@@ -93,6 +93,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/hendry/.local/share/nvim/site/pack/packer/start/lsp_extensions.nvim"
   },
+  ["neoscroll.nvim"] = {
+    loaded = true,
+    path = "/home/hendry/.local/share/nvim/site/pack/packer/start/neoscroll.nvim"
+  },
   ["nvim-colorizer.lua"] = {
     loaded = true,
     path = "/home/hendry/.local/share/nvim/site/pack/packer/start/nvim-colorizer.lua"
@@ -144,6 +148,10 @@ _G.packer_plugins = {
   ["vim-csharp"] = {
     loaded = true,
     path = "/home/hendry/.local/share/nvim/site/pack/packer/start/vim-csharp"
+  },
+  ["vim-prettier"] = {
+    loaded = true,
+    path = "/home/hendry/.local/share/nvim/site/pack/packer/start/vim-prettier"
   },
   ["vim-repeat"] = {
     loaded = true,

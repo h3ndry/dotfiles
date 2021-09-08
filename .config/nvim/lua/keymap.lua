@@ -1,33 +1,4 @@
-local function buf_set_keymap(...)
-  vim.api.nvim_buf_set_keymap(bufnr, ...)
-end
-local function buf_set_option(...)
-  vim.api.nvim_buf_set_option(bufnr, ...)
-end
-
---Enable completion triggered by <c-x><c-o>
-buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
-
--- Mappings.
 local opts = {noremap = true, silent = true}
-
--- See `:help vim.lsp.*` for documentation on any of the below functions
-buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
-buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
--- buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-buf_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-buf_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
-buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
--- buf_set_keymap("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-buf_set_keymap("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
--- buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
--- buf_set_keymap("n", "<space>E", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
-buf_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
-buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
 
 --Remap space as leader key
 vim.api.nvim_set_keymap("", "<Space>", "<Nop>", opts)
@@ -50,20 +21,27 @@ vim.api.nvim_set_keymap("v", "<C-k>", ":m '<-2<CR>gv=gv", opts)
 vim.api.nvim_set_keymap("i", "<C-l>", "<C-o>A", opts)
 vim.api.nvim_set_keymap("i", "<C-e>", "<C-Right>", opts)
 vim.api.nvim_set_keymap("i", "<C-i>", "<C-Right>", opts)
+vim.api.nvim_set_keymap("n", "<Esc>", ":nohlsearch<CR>", opts)
+
+vim.api.nvim_set_keymap("n", "[d", ":lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
+vim.api.nvim_set_keymap("n", "]d", ":lua vim.lsp.diagnostic.goto_next()<CR>", opts)
+vim.api.nvim_set_keymap("n", "gD", ":lua vim.lsp.buf.declaration()<CR>", opts)
+vim.api.nvim_set_keymap("n", "gd", ":lua vim.lsp.buf.definition()<CR>", opts)
+vim.api.nvim_set_keymap("n", "K", ":lua vim.lsp.buf.hover()<CR>", opts)
+-- vim.api.nvim_set_keymap("n", "<C-k>", ":lua vim.lsp.buf.signature_help()<CR>", opts)
 
 -- Sorce config file
-vim.api.nvim_set_keymap("v", "<leader>s", ":so ~/.config/nvim/init.lua<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>s", ":so ~/.config/nvim/init.lua<CR>", opts)
 
 -- Sorce config file
 vim.api.nvim_set_keymap("n", "<leader>F", ":FormatWrite<CR>", opts)
 
 -- Y yank until the end of line
-vim.api.nvim_set_keymap("n", "Y", "y$", {noremap = true})
+vim.api.nvim_set_keymap("n", "Y", "y$", opts)
 
-
-vim.api.nvim_set_keymap("n", "J", "mzJ`z`", {noremap = true})
-vim.api.nvim_set_keymap("n", "n", "nzzzv", {noremap = true})
-vim.api.nvim_set_keymap("n", "N", "Nzzzv", {noremap = true})
+vim.api.nvim_set_keymap("n", "J", "mzJ`z`", opts)
+vim.api.nvim_set_keymap("n", "n", "nzzzv", opts)
+vim.api.nvim_set_keymap("n", "N", "Nzzzv", opts)
 
 -- NEXT n PREV buffer
 vim.api.nvim_set_keymap("n", "<leader>t", ":bel 10sp term://zsh<CR>", opts)
@@ -71,37 +49,31 @@ vim.api.nvim_set_keymap("n", "<leader>T", ":bel 10sp <CR>", opts)
 
 -- This work better for me
 vim.api.nvim_set_keymap("n", "<leader>e", ":Ex<CR>", opts)
--- vim.api.nvim_set_keymap("n", "<leader>ex", ":Ex<CR>", opts)
 
 --Remap for dealing with word wrap
 vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
 vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
 
--- Hop Maping, I tried to map straight from the API just to see the difference
-vim.api.nvim_set_keymap("n", "<leader>gw", "<cmd>lua require'hop'.hint_words()<cr>", {})
-vim.api.nvim_set_keymap("n", "<leader>gc", "<cmd>lua require'hop'.hint_char1()<cr>", {})
-vim.api.nvim_set_keymap("n", "<leader>gl", "<cmd>lua require'hop'.hint_lines()<cr>", {})
-
 -- Escape terminal
-vim.api.nvim_set_keymap("t", "<C-\\><C-\\>", "<C-\\><C-n>", {noremap = true})
-vim.api.nvim_set_keymap("t", "<C-\\>\\", "<C-\\><C-n>", {noremap = true})
+vim.api.nvim_set_keymap("t", "<C-\\><C-\\>", "<C-\\><C-n>", opts)
+vim.api.nvim_set_keymap("t", "<C-\\>\\", "<C-\\><C-n>", opts)
 
 -- alternative shorcuts without fzf
-vim.api.nvim_set_keymap("n", "<leader>gb", ":buffer ", {noremap = true})
-vim.api.nvim_set_keymap("n", "<leader>.", ":e<space>**/", {noremap = true})
-vim.api.nvim_set_keymap("n", "<leader>sT", ":tjump *", {noremap = true})
+vim.api.nvim_set_keymap("n", "<leader>gb", ":buffer ", opts)
+vim.api.nvim_set_keymap("n", "<leader>.", ":e<space>**/", opts)
+vim.api.nvim_set_keymap("n", "<leader>sT", ":tjump *", opts)
 
 -- My greates remap ever... I don't see the need of fzf
-vim.api.nvim_set_keymap("n", "<leader>ff", ":find ", {noremap = true})
-vim.api.nvim_set_keymap("n", "<leader>fv", ":vertical sfind ", {noremap = true})
-vim.api.nvim_set_keymap("n", "<leader>fs", ":sfind ", {noremap = true})
+vim.api.nvim_set_keymap("n", "<leader>ff", ":find ", opts)
+vim.api.nvim_set_keymap("n", "<leader>fv", ":vertical sfind ", opts)
+vim.api.nvim_set_keymap("n", "<leader>fs", ":sfind ", opts)
 
 -- Managing buffers and Windows
-vim.api.nvim_set_keymap("n", "<leader>bd", ":bdelete<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>bd", ":bdelete<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>n", ":bn<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>N", ":bp<CR>", opts)
 
-vim.api.nvim_set_keymap("n", "<leader>q", ":close<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>q", ":close<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>o", ":only<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>O", ":unhide<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>_", ":res<CR>", opts)
@@ -109,6 +81,5 @@ vim.api.nvim_set_keymap("n", "<leader>|", ":vert res<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>w", "<C-w>", opts)
 
 -- Random
-vim.api.nvim_set_keymap("n", "<leader>;", ":", {noremap = true, silent = false})
+vim.api.nvim_set_keymap("n", "<leader>;", ":", opts)
 
-require "nvim-treesitter.configs".setup {}
