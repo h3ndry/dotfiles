@@ -1,4 +1,3 @@
-
 -- Plugins Installation
 -- All The Installed plugins are here at the top
 --
@@ -15,23 +14,61 @@ require("packer").startup(
     use "SirVer/ultisnips"
     use "honza/vim-snippets"
     use "neovim/nvim-lspconfig"
-    use "hrsh7th/nvim-compe"
-    use "kabouzeid/nvim-lspinstall"
-    use "nvim-lua/lsp_extensions.nvim"
+
+    -- Install nvim-cmp, and buffer source as a dependency
+    use {
+      "hrsh7th/nvim-cmp",
+      requires = {
+        "hrsh7th/vim-vsnip",
+        "hrsh7th/cmp-buffer"
+      }
+    }
+
+    use "hrsh7th/cmp-nvim-lsp" -- LSP source for nvim-cmp
+    use "saadparwaiz1/cmp_luasnip" -- Snippets source for nvim-cmp
+    use "L3MON4D3/LuaSnip" -- Snippets plugin
     use "hrsh7th/vim-vsnip"
     use "hrsh7th/vim-vsnip-integ"
+
+    use "rafamadriz/friendly-snippets"
+    use "golang/vscode-go"
+    use "kabouzeid/nvim-lspinstall"
+    use "nvim-lua/lsp_extensions.nvim"
     use "OrangeT/vim-csharp"
     use "tpope/vim-capslock"
-    use "nvim-treesitter/nvim-treesitter-textobjects"
+
+    use {
+      "nvim-treesitter/nvim-treesitter",
+      branch = "0.5-compat"
+    }
+
+    use {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+      branch = "0.5-compat",
+      run = ":TSUpdate"
+    }
+
     use "mhartington/formatter.nvim"
     use "norcalli/nvim-colorizer.lua"
     use {
-	"prettier/vim-prettier","prettier/vim-prettier",
-	ft = { 'javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html' },
-	run = "yarn install"
-
+      "prettier/vim-prettier",
+      ft = {
+        "javascript",
+        "typescript",
+        "css",
+        "less",
+        "scss",
+        "json",
+        "graphql",
+        "markdown",
+        "vue",
+        "svelte",
+        "yaml",
+        "html"
+      },
+      run = "yarn install"
     }
-    use 'karb94/neoscroll.nvim'
+    use "karb94/neoscroll.nvim"
     -- use {
     --   "evanleck/vim-svelte",
     --   branch = "main"
@@ -51,93 +88,111 @@ require("packer").startup(
         "nvim-lua/plenary.nvim"
       }
     }
-
-    -- Post-install/update hook with neovim command
-    use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
   end
 )
 
+-- Add additional capabilities supported by nvim-cmp
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.documentationFormat = {"markdown", "plaintext"}
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.preselectSupport = true
+capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+capabilities.textDocument.completion.completionItem.deprecatedSupport = true
+capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
+capabilities.textDocument.completion.completionItem.tagSupport = {valueSet = {1}}
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    "documentation",
+    "detail",
+    "additionalTextEdits"
+  }
+}
 
 -- LSP language_server
 -- Yeah This Good
 --
+require "lspconfig".clangd.setup {
+  cmd = {"clangd", "--background-index"}
+}
 
-require'lspconfig'.clangd.setup{
-       cmd = { "clangd", "--background-index" }
-   }
+local bin_name =
+  "/home/hendry/.local/share/nvim/lspinstall/html/vscode-html/html-language-features/server/dist/node/htmlServerMain.js"
 
---Enable (broadcasting) snippet capability for completion
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-local bin_name = "/home/hendry/.local/share/nvim/lspinstall/html/vscode-html/html-language-features/server/dist/node/htmlServerMain.js"
-
-require'lspconfig'.html.setup {
-    cmd = {"node", bin_name, "--stdio"},
-    capabilities = capabilities,
+require "lspconfig".html.setup {
+  cmd = {"node", bin_name, "--stdio"},
+  capabilities = capabilities
 }
 local pid = vim.fn.getpid()
 -- On linux/darwin if using a release build, otherwise under scripts/OmniSharp(.Core)(.cmd)
 local omnisharp_bin = "/home/hendry/.local/share/nvim/lspinstall/csharp/omnisharp/run"
 -- on Windows
 -- local omnisharp_bin = "/path/to/omnisharp/OmniSharp.exe"
-require'lspconfig'.omnisharp.setup{
-    cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
+require "lspconfig".omnisharp.setup {
+  cmd = {omnisharp_bin, "--languageserver", "--hostPID", tostring(pid)}
 }
 
-require'lspconfig'.rust_analyzer.setup{
-    cmd = { "/home/hendry/.local/share/nvim/lspinstall/rust/rust-analyzer" }
+require "lspconfig".rust_analyzer.setup {
+  cmd = {"/home/hendry/.local/share/nvim/lspinstall/rust/rust-analyzer"}
 }
 
 -- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
-local sumneko_root_path = vim.fn.stdpath('cache')..'/lspconfig/sumneko_lua/lua-language-server'
-local sumneko_binary = '/home/hendry/.local/share/nvim/lspinstall/lua/sumneko-lua-language-server'
+local sumneko_root_path = vim.fn.stdpath("cache") .. "/lspconfig/sumneko_lua/lua-language-server"
+local sumneko_binary = "/home/hendry/.local/share/nvim/lspinstall/lua/sumneko-lua-language-server"
 
-local runtime_path = vim.split(package.path, ';')
+local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-require'lspconfig'.sumneko_lua.setup {
-  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"};
+require "lspconfig".sumneko_lua.setup {
+  cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
   settings = {
     Lua = {
       runtime = {
         -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
+        version = "LuaJIT",
         -- Setup your lua path
-        path = runtime_path,
+        path = runtime_path
       },
       diagnostics = {
         -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
+        globals = {"vim"}
       },
       workspace = {
         -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
+        library = vim.api.nvim_get_runtime_file("", true)
       },
       -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {
-        enable = false,
-      },
-    },
-  },
+        enable = false
+      }
+    }
+  }
 }
 
-local svelete_bin = '/home/hendry/.local/share/nvim/lspinstall/svelte/node_modules/svelte-language-server/bin/server.js'
-require'lspconfig'.svelte.setup{
-   cmd = {"node", svelete_bin, "--stdio" }
+local svelete_bin = "/home/hendry/.local/share/nvim/lspinstall/svelte/node_modules/svelte-language-server/bin/server.js"
+require "lspconfig".svelte.setup {
+  cmd = {"node", svelete_bin, "--stdio"}
 }
 
-require'lspconfig'.texlab.setup{
-        cmd = { "/home/hendry/.local/share/nvim/lspinstall/latex/texlab" }
+require "lspconfig".texlab.setup {
+  cmd = {"/home/hendry/.local/share/nvim/lspinstall/latex/texlab"}
 }
-require'lspconfig'.tsserver.setup{}
+require "lspconfig".tsserver.setup {}
 
-require'lspconfig'.phpactor.setup{
-	cmd = { "/home/hendry/.local/share/nvim/lspinstall/phpactor/bin/phpactor", "language-server" }
+require "lspconfig".phpactor.setup {
+  cmd = {"/home/hendry/.local/share/nvim/lspinstall/phpactor/bin/phpactor", "language-server"}
 }
 
-
+local nvim_lsp = require("lspconfig")
+-- Enable some language servers with the additional completion capabilities offered by nvim-cmp
+local servers = {"clangd", "rust_analyzer", "pyright", "tsserver"}
+for _, lsp in ipairs(servers) do
+  nvim_lsp[lsp].setup {
+    -- on_attach = my_custom_on_attach,
+    capabilities = capabilities
+  }
+end
 
 -- Default vim configuration.
 -- This are setting that are not provide by plugin but come with nvim
@@ -156,6 +211,23 @@ vim.api.nvim_exec(
     autocmd!
     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
   augroup end
+]],
+  false
+)
+
+vim.api.nvim_exec(
+  [[
+    set spelllang=en
+    set complete+=kspell
+
+    augroup markdownSpell
+        autocmd!
+        autocmd FileType markdown setlocal spell
+        autocmd FileType text setlocal spell
+        autocmd BufRead,BufNewFile *.md setlocal spell
+        autocmd BufRead,BufNewFile *.txt setlocal spell
+    augroup END
+
 ]],
   false
 )
@@ -240,6 +312,22 @@ let g:UltiSnipsExpandTrigger="<C-Space>"
 let g:UltiSnipsJumpForwardTrigger="<C-l>"
 let g:UltiSnipsJumpBackwardTrigger="<C-h>"
 
+" NOTE: You can use other key to expand snippet.
+
+" Expand
+imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
+
+" Expand or jump
+imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
+
+" Jump forward or backward
+imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
 au FocusLost * :wa
 au FocusLost * silent! wa
 
@@ -294,44 +382,110 @@ let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   false
 )
 
-
 -- Plugings Configuration
 -- Setting that change How an intalled plugin behaviour
 --
-require "compe".setup {
-  enabled = true,
-  autocomplete = true,
-  debug = false,
-  min_length = 1,
-  preselect = "enable",
-  throttle_time = 80,
-  source_timeout = 200,
-  resolve_timeout = 800,
-  incomplete_delay = 400,
-  max_abbr_width = 100,
-  max_kind_width = 100,
-  max_menu_width = 100,
-  documentation = {
-    border = {"", "", "", " ", "", "", "", " "}, -- the border option is the same as `|help nvim_open_win|`
-    winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
-    max_width = 120,
-    min_width = 60,
-    max_height = math.floor(vim.o.lines * 0.3),
-    min_height = 1
+-- luasnip setup
+local luasnip = require "luasnip"
+
+-- nvim-cmp setup
+local cmp = require "cmp"
+cmp.setup {
+  snippet = {
+    expand = function(args)
+      require("luasnip").lsp_expand(args.body)
+    end
   },
-  source = {
-    path = true,
-    buffer = true,
-    calc = true,
-    nvim_lsp = true,
-    nvim_lua = true,
-    vsnip = true,
-    ultisnips = true,
-    luasnip = true
+  mapping = {
+    ["<C-p>"] = cmp.mapping.select_prev_item(),
+    ["<C-n>"] = cmp.mapping.select_next_item(),
+    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<C-e>"] = cmp.mapping.close(),
+    ["<CR>"] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true
+    },
+    ["<Tab>"] = function(fallback)
+      if vim.fn.pumvisible() == 1 then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-n>", true, true, true), "n")
+      elseif luasnip.expand_or_jumpable() then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
+      else
+        fallback()
+      end
+    end,
+    ["<S-Tab>"] = function(fallback)
+      if vim.fn.pumvisible() == 1 then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-p>", true, true, true), "n")
+      elseif luasnip.jumpable(-1) then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
+      else
+        fallback()
+      end
+    end
+  },
+  sources = {
+    {name = "nvim_lsp"},
+    {name = "luasnip"}
   }
 }
 
--- Formater setting
+require("nvim-treesitter.configs").setup {
+  textobjects = {
+    select = {
+      enable = true,
+      -- Automatically jump forward to textobj, similar to targets.vim
+      lookahead = true,
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+        -- Or you can define your own textobjects like this
+        ["iF"] = {
+          python = "(function_definition) @function",
+          cpp = "(function_definition) @function",
+          c = "(function_definition) @function",
+          java = "(method_declaration) @function"
+        }
+      }
+    },
+    swap = {
+      enable = true,
+      swap_next = {
+        ["<leader>a"] = "@parameter.inner"
+      },
+      swap_previous = {
+        ["<leader>A"] = "@parameter.inner"
+      }
+    },
+    move = {
+      enable = true,
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        ["]m"] = "@function.outer",
+        ["]]"] = "@class.outer"
+      },
+      goto_next_end = {
+        ["]M"] = "@function.outer",
+        ["]["] = "@class.outer"
+      },
+      goto_previous_start = {
+        ["[m"] = "@function.outer",
+        ["[["] = "@class.outer"
+      },
+      goto_previous_end = {
+        ["[M"] = "@function.outer",
+        ["[]"] = "@class.outer"
+      }
+    }
+  }
+}
+
+--- Formater setting
 require("formatter").setup(
   {
     logging = false,
@@ -429,86 +583,22 @@ require "colorizer".setup {
   html = {names = false} -- Disable parsing "names" like Blue or Gray
 }
 
-require'nvim-treesitter.configs'.setup {
+require("nvim-treesitter.configs").setup {
   ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
   highlight = {
-    enable = true,              -- false will disable the whole extension
+    enable = true, -- false will disable the whole extension
     -- disable = { "c", "rust" },  -- list of language that will be disabled
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
     -- Using this option may slow down your editor, and you may see some duplicate highlights.
     -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
-}
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = {
-    "documentation",
-    "detail",
-    "additionalTextEdits"
+    additional_vim_regex_highlighting = false
   }
 }
 
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local check_back_space = function()
-  local col = vim.fn.col(".") - 1
-  return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
-end
-
--- Use (s-)tab to:
---- move to prev/next item in completion menuone
---- jump to prev/next snippet's placeholder
-_G.tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-n>"
-  elseif vim.fn["vsnip#available"](1) == 1 then
-    return t "<Plug>(vsnip-expand-or-jump)"
-  elseif check_back_space() then
-    return t "<Tab>"
-  else
-    return vim.fn["compe#complete"]()
-  end
-end
-_G.s_tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-p>"
-  elseif vim.fn["vsnip#jumpable"](-1) == 1 then
-    return t "<Plug>(vsnip-jump-prev)"
-  else
-    -- If <S-Tab> is not working in your terminal, change it to <C-h>
-    return t "<S-Tab>"
-  end
-end
-
-vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-
--- Nvim compe setting
-
--- setting when I complete suggestion
-vim.api.nvim_exec(
-  [[
-    inoremap <silent><expr> <C-Space> compe#complete()
-    inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-    inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-    inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-    inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
-]],
-  false
-)
-
 require("gitsigns").setup {
   signs = {
-    add = {hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn"},
     add = {hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn"},
     change = {hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn"},
     delete = {hl = "GitSignsDelete", text = "_", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn"},
@@ -522,15 +612,14 @@ require("gitsigns").setup {
     noremap = true,
     ["n ]c"] = {expr = true, '&diff ? \']c\' : \'<cmd>lua require"gitsigns.actions".next_hunk()<CR>\''},
     ["n [c"] = {expr = true, '&diff ? \'[c\' : \'<cmd>lua require"gitsigns.actions".prev_hunk()<CR>\''},
-    -- ['n <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
-    -- ['v <leader>hs'] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-    -- ['n <leader>hu'] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
-    -- ['n <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
-    -- ['v <leader>hr'] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
-    -- ['n <leader>hR'] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
-    -- ['n <leader>hp'] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
-    -- ['n <leader>hb'] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
-
+    ["n <leader>ys"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+    ["v <leader>ys"] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+    ["n <leader>yu"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
+    ["n <leader>yr"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',
+    ["v <leader>yr"] = '<cmd>lua require"gitsigns".reset_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
+    ["n <leader>yR"] = '<cmd>lua require"gitsigns".reset_buffer()<CR>',
+    ["n <leader>yp"] = '<cmd>lua require"gitsigns".preview_hunk()<CR>',
+    ["n <leader>yb"] = '<cmd>lua require"gitsigns".blame_line(true)<CR>',
     -- Text objects
     ["o ih"] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>',
     ["x ih"] = ':<C-U>lua require"gitsigns.actions".select_hunk()<CR>'
@@ -550,8 +639,7 @@ require("gitsigns").setup {
   use_internal_diff = true -- If luajit is present
 }
 
-require('neoscroll').setup()
-
+require("neoscroll").setup()
 
 -- All Key mapping...
 --
@@ -594,7 +682,7 @@ vim.api.nvim_set_keymap("n", "<leader>s", ":so ~/.config/nvim/init.lua<CR>", opt
 vim.api.nvim_set_keymap("n", "<leader>F", ":FormatWrite<CR>", opts)
 
 -- Y yank until the end of line
-vim.api.nvim_set_keymap("n", "Y", "y$", opts)
+-- vim.api.nvim_set_keymap("n", "Y", "y$", opts)
 
 vim.api.nvim_set_keymap("n", "J", "mzJ`z`", opts)
 vim.api.nvim_set_keymap("n", "n", "nzzzv", opts)
@@ -608,8 +696,8 @@ vim.api.nvim_set_keymap("n", "<leader>T", ":bel 10sp <CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>e", ":Ex<CR>", opts)
 
 --Remap for dealing with word wrap
-vim.api.nvim_set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
-vim.api.nvim_set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
+vim.api.nvim_set_keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", {noremap = true, expr = true, silent = true})
+vim.api.nvim_set_keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", {noremap = true, expr = true, silent = true})
 
 -- Escape terminal
 vim.api.nvim_set_keymap("t", "<C-\\><C-\\>", "<C-\\><C-n>", opts)
@@ -639,6 +727,3 @@ vim.api.nvim_set_keymap("n", "<leader>w", "<C-w>", opts)
 
 -- Random
 vim.api.nvim_set_keymap("n", "<leader>;", ":", opts)
-
-
-
