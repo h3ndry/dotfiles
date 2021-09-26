@@ -12,7 +12,7 @@ autoload -U colors && colors
 
 setopt prompt_subst
 # zstyle ':vcs_info:git*' actionformats "%s  %r/%S %b %m%u%c "
-PROMPT='%{$fg[green]%}%c%{$reset_color%}${vcs_info_msg_0_}$ '
+PROMPT='%{$fg[green]%}%c%{$reset_color%}${vcs_info_msg_0_} $ '
 
 alias s='dwmswallow $WINDOWID;'
 
@@ -25,9 +25,11 @@ acceptandswallow() {
     zle accept-line
 }
 
+zstyle ':completion:*' completer _expand_alias _complete _ignored
+
 # History in cache directory:
-HISTSIZE=10000
-SAVEHIST=10000
+HISTSIZE=1000
+SAVEHIST=1000
 HISTFILE=~/.zsh_history
 setopt appendhistory
 
@@ -38,21 +40,20 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# Include hidden files.
 
+function expand-alias() {
+	zle _expand_alias
+	zle self-insert
+}
+zle -N expand-alias
+bindkey -M main ' ' expand-alias
+
 # vi mode
 bindkey -v
+
 export KEYTIMEOUT=1
-# bindkey '^l' autosuggest-accept
-# bindkey -a '^l' autosuggest-accept
 
 bindkey '^ ' autosuggest-accept
 bindkey -a '^ ' autosuggest-accept
-
-# Use vim keys in tab complete menu:
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -v '^?' backward-delete-char
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
@@ -75,34 +76,8 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
-# Use lf to switch directories and bind it to ctrl-o
-lfcd () {
-    tmp="$(mktemp)"
-    lf -last-dir-path="$tmp" "$@"
-    if [ -f "$tmp" ]; then
-        dir="$(cat "$tmp")"
-        rm -f "$tmp"
-        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
-    fi
-}
-bindkey -s '^o' 'lfcd\n'
-
-# Edit line in vim with ctrl-e:
-autoload edit-command-line; zle -N edit-command-line
-bindkey '^e' edit-command-line
-
-
 ### "bat" as manpager
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
-### "vim" as manpager
-# export MANPAGER='/bin/bash -c "vim -MRn -c \"set buftype=nofile showtabline=0 ft=man ts=8 nomod nolist norelativenumber nonu noma\" -c \"normal L\" -c \"nmap q :qa<CR>\"</dev/tty <(col -b)"'
-
-### "nvim" as manpager
-# export MANPAGER="nvim -c 'set ft=man' -"
-
-
-
 
 export PATH='/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/local/go/bin:/usr/local/nvim/bin:/usr/local/go/bin:/usr/local/nvim/bin:/usr/local/go/bin:/usr/local/nvim/bin:/home/hendry/.dotnet/tools'
 
@@ -110,4 +85,7 @@ source ~/.zsh/aliases.sh
 # source ~/.zsh/zsh-z/zsh-z.plugin.zsh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/zsh-autopair/autopair.zsh
 
+# I love this plugin but it is too slow
+# source ~/.zsh/zsh-vi-mode/zsh-vi-mode.plugin.zsh
