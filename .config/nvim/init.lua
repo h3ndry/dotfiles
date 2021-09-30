@@ -9,11 +9,16 @@ require("packer").startup(
     use "h3ndry/ReplaceWithRegister"
     use "tpope/vim-repeat"
     use "cohama/lexima.vim"
-    use "h3ndry/vim-sandwich"
+    use "tpope/vim-surround"
     use "h3ndry/tokyonight.nvim"
     use "SirVer/ultisnips"
     use "honza/vim-snippets"
     use "neovim/nvim-lspconfig"
+    use "rstacruz/vim-closer"
+    use "andymass/vim-matchup"
+    use "nathom/filetype.nvim"
+
+    use {"iamcco/markdown-preview.nvim", run = "cd app && yarn install", cmd = "MarkdownPreview"}
 
     -- Install nvim-cmp, and buffer source as a dependency
     use {
@@ -68,7 +73,10 @@ require("packer").startup(
       },
       run = "yarn install"
     }
-    use "karb94/neoscroll.nvim"
+
+    -- it make my vim feel so slow... not for me
+    -- use "karb94/neoscroll.nvim"
+
     -- use {
     --   "evanleck/vim-svelte",
     --   branch = "main"
@@ -133,7 +141,7 @@ require "lspconfig".omnisharp.setup {
 }
 
 require "lspconfig".rust_analyzer.setup {
-  cmd = {"/home/hendry/.local/share/nvim/lspinstall/rust/rust-analyzer"}
+  cmd = {"rust_analyzer"}
 }
 
 -- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
@@ -205,12 +213,25 @@ vim.cmd [[colorscheme tokyonight]]
 
 -- Nvim compe setting
 -- Highlight on yank
+-- autocmd VimResized * exe "normal \<c-w>o"
 vim.api.nvim_exec(
   [[
-  augroup YankHighlight
-    autocmd!
-    autocmd TextYankPost * silent! lua vim.highlight.on_yank()
-  augroup end
+    augroup YankHighlight
+        autocmd!
+        autocmd TextYankPost * silent! lua vim.highlight.on_yank()
+    augroup end
+    autocmd VimResized * only
+]],
+  false
+)
+-- Save vim folds
+vim.api.nvim_exec(
+  [[
+augroup remember_folds
+  autocmd!
+  autocmd BufWinLeave * silent!  mkview
+  autocmd BufWinEnter * silent! loadview
+augroup END
 ]],
   false
 )
@@ -223,9 +244,7 @@ vim.api.nvim_exec(
     augroup markdownSpell
         autocmd!
         autocmd FileType markdown setlocal spell
-        autocmd FileType text setlocal spell
         autocmd BufRead,BufNewFile *.md setlocal spell
-        autocmd BufRead,BufNewFile *.txt setlocal spell
     augroup END
 
 ]],
@@ -236,10 +255,12 @@ vim.o.completeopt = "menuone,noselect"
 
 -- do not display info on the top of window
 vim.g.netrw_banner = 0
-vim.g.netrw_liststyle = 3
 
 --Incremental live completion
 vim.o.inccommand = "nosplit"
+
+-- Do not source the default filetype.vim
+vim.g.did_load_filetypes = 1
 
 --Set highlight on search
 -- vim.o.hlsearch = false
@@ -271,11 +292,12 @@ vim.cmd [[set undofile]]
 vim.o.ignorecase = true
 vim.o.smartcase = true
 
-vim.o.scrolloff = 2
+vim.o.scrolloff = 1
 
 --Decrease update time
 vim.o.updatetime = 250
 vim.wo.signcolumn = "yes"
+-- vim.wo.signcolumn = "number"
 
 -- Example config in Lua
 vim.g.tokyonight_style = "night"
@@ -298,6 +320,13 @@ vim.api.nvim_exec(
   false
 )
 
+-- auto save when move lose focus or switch between a split
+vim.api.nvim_exec([[
+    au FocusLost * :wa
+    au FocusLost * silent! wa
+    au BufLeave * silent! wall
+    ]], false)
+
 vim.api.nvim_exec(
   [[
 
@@ -306,30 +335,8 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 
-:set shiftwidth=0
-
-let g:UltiSnipsExpandTrigger="<C-Space>"
-let g:UltiSnipsJumpForwardTrigger="<C-l>"
-let g:UltiSnipsJumpBackwardTrigger="<C-h>"
-
-" NOTE: You can use other key to expand snippet.
-
-" Expand
-imap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-smap <expr> <C-j>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-j>'
-
-" Expand or jump
-imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
-
-" Jump forward or backward
-imap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-smap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-imap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-smap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-
-au FocusLost * :wa
-au FocusLost * silent! wa
+set shiftwidth=0
+set report=0
 
 "Split teminal on right side
 set splitright
@@ -358,12 +365,6 @@ endfunction
 nnoremap <leader>rc :call Exec_on_term("normal")<CR>
 vnoremap <leader>rc :<c-u>call Exec_on_term("visual")<CR>
 
-augroup remember_folds
-    autocmd!
-    au BufWinLeave ?* mkview 1
-    au BufWinEnter ?* silent! loadview 1
-augroup END
-
 set path+=**
 set wildignore+=**/node_modules/**
 
@@ -378,13 +379,14 @@ set laststatus=1
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
+
 ]],
   false
 )
 
 -- Plugings Configuration
--- Setting that change How an intalled plugin behaviour
---
+-- Setting that change How an lets see
+-- autocmd VimResized * wincmd =
 -- luasnip setup
 local luasnip = require "luasnip"
 
@@ -485,7 +487,7 @@ require("nvim-treesitter.configs").setup {
   }
 }
 
---- Formater setting
+-- Formater setting
 require("formatter").setup(
   {
     logging = false,
@@ -555,6 +557,17 @@ require("formatter").setup(
             exe = "luafmt",
             args = {"--indent-count", 2, "--stdin"},
             stdin = true
+          }
+        end
+      },
+      c = {
+        -- clang-format
+        function()
+          return {
+            exe = "clang-format",
+            args = {"--style","GNU"},
+            stdin = true,
+            cwd = vim.fn.expand("%:p:h") -- Run clang-format in cwd of the file.
           }
         end
       },
@@ -639,7 +652,7 @@ require("gitsigns").setup {
   use_internal_diff = true -- If luajit is present
 }
 
-require("neoscroll").setup()
+-- require("neoscroll").setup()
 
 -- All Key mapping...
 --
@@ -684,13 +697,13 @@ vim.api.nvim_set_keymap("n", "<leader>F", ":FormatWrite<CR>", opts)
 -- Y yank until the end of line
 -- vim.api.nvim_set_keymap("n", "Y", "y$", opts)
 
-vim.api.nvim_set_keymap("n", "J", "mzJ`z`", opts)
-vim.api.nvim_set_keymap("n", "n", "nzzzv", opts)
-vim.api.nvim_set_keymap("n", "N", "Nzzzv", opts)
+-- vim.api.nvim_set_keymap("n", "J", "mzJ`z`", opts)
+-- vim.api.nvim_set_keymap("n", "n", "nzzzv", opts)
+-- vim.api.nvim_set_keymap("n", "N", "Nzzzv", opts)
 
 -- NEXT n PREV buffer
-vim.api.nvim_set_keymap("n", "<leader>t", ":bel 10sp term://zsh<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>T", ":bel 10sp <CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>t", ":bel 15sp term://zsh<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>T", ":bel 15sp <CR>", opts)
 
 -- This work better for me
 vim.api.nvim_set_keymap("n", "<leader>e", ":Ex<CR>", opts)
@@ -704,20 +717,19 @@ vim.api.nvim_set_keymap("t", "<C-\\><C-\\>", "<C-\\><C-n>", opts)
 vim.api.nvim_set_keymap("t", "<C-\\>\\", "<C-\\><C-n>", opts)
 
 -- alternative shorcuts without fzf
-vim.api.nvim_set_keymap("n", "<leader>gb", ":buffer ", opts)
+vim.api.nvim_set_keymap("n", "<leader>b", ":buffer ", opts)
 vim.api.nvim_set_keymap("n", "<leader>.", ":e<space>**/", opts)
 vim.api.nvim_set_keymap("n", "<leader>sT", ":tjump *", opts)
 
 -- My greates remap ever... I don't see the need of fzf
-vim.api.nvim_set_keymap("n", "<leader>ff", ":find ", opts)
-vim.api.nvim_set_keymap("n", "<leader>fv", ":vertical sfind ", opts)
-vim.api.nvim_set_keymap("n", "<leader>fs", ":sfind ", opts)
+vim.api.nvim_set_keymap("n", "<leader>f", ":find ", opts)
+vim.api.nvim_set_keymap("n", "<leader>v", ":vertical sfind ", opts)
+vim.api.nvim_set_keymap("n", "<leader>s", ":sfind ", opts)
 
 -- Managing buffers and Windows
-vim.api.nvim_set_keymap("n", "<leader>bd", ":bdelete<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>n", ":bn<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>N", ":bp<CR>", opts)
-
+vim.api.nvim_set_keymap("n", "<leader>bd", ":bdelete!<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>>", ":bn<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader><", ":bp<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>q", ":close<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>o", ":only<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>O", ":unhide<CR>", opts)
