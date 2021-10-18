@@ -19,6 +19,8 @@ alias s='dwmswallow $WINDOWID;'
 bindkey '^\' accept-line-swallow
 bindkey -a '^\' accept-line-swallow
 
+# bindkey -M vicmd v edit-command-line
+
 zle -N accept-line-swallow acceptandswallow
 acceptandswallow() {
     dwmswallow $WINDOWID
@@ -30,7 +32,7 @@ zstyle ':completion:*' completer _expand_alias _complete _ignored
 # History in cache directory:
 HISTSIZE=1000
 SAVEHIST=1000
-HISTFILE=~/.zsh_history
+HISTFILE=~/.cache/zsh/history
 setopt appendhistory
 
 # Basic auto/tab complete:
@@ -49,8 +51,24 @@ bindkey -M main ' ' expand-alias
 
 # vi mode
 bindkey -v
-
 export KEYTIMEOUT=1
+
+# Use vim keys in tab complete menu:
+bindkey -M menuselect 'h' vi-backward-char
+bindkey -M menuselect 'k' vi-up-line-or-history
+bindkey -M menuselect 'l' vi-forward-char
+bindkey -M menuselect 'j' vi-down-line-or-history
+bindkey -v '^?' backward-delete-char
+bindkey -M menuselect '^h' vi-backward-char 
+
+ zstyle ':completion:*:descriptions' format '%B%d%b'
+    zstyle ':completion:*:messages' format '%d'
+    zstyle ':completion:*:warnings' format 'No matches for: %d'
+    zstyle ':completion:*' group-name ''
+
+# Edit line in vim with ctrl-e:
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
 
 bindkey '^ ' autosuggest-accept
 bindkey -a '^ ' autosuggest-accept
@@ -78,14 +96,17 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 ### "bat" as manpager
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
+export LC_ALL=en_US.UTF-8  
+export LANG=en_US.UTF-8
 export PATH='/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/local/go/bin:/usr/local/nvim/bin:/usr/local/go/bin:/usr/local/nvim/bin:/usr/local/go/bin:/usr/local/nvim/bin:/home/hendry/.dotnet/tools'
 
 source ~/.zsh/aliases.sh
-# source ~/.zsh/zsh-z/zsh-z.plugin.zsh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/zsh-autopair/autopair.zsh
-
+# source "/home/hendry/workspace/emsdk/emsdk_env.sh"
 # I love this plugin but it is too slow
 # source ~/.zsh/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+#
+#
+
