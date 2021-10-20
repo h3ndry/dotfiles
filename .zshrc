@@ -100,6 +100,9 @@ export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 export PATH='/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/local/go/bin:/usr/local/nvim/bin:/usr/local/go/bin:/usr/local/nvim/bin:/usr/local/go/bin:/usr/local/nvim/bin:/home/hendry/.dotnet/tools'
 
+# bas dir for all cd command
+export CDPATH=/home/hendry
+
 source ~/.zsh/aliases.sh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -107,6 +110,5 @@ source ~/.zsh/zsh-autopair/autopair.zsh
 # source "/home/hendry/workspace/emsdk/emsdk_env.sh"
 # I love this plugin but it is too slow
 # source ~/.zsh/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-#
 #
 
