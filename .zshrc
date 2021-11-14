@@ -70,8 +70,8 @@ bindkey -M menuselect '^h' vi-backward-char
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
-bindkey '^ ' autosuggest-accept
-bindkey -a '^ ' autosuggest-accept
+bindkey '^y' autosuggest-accept
+bindkey -a '^y' autosuggest-accept
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
@@ -94,11 +94,21 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
+# zsh parameter completion for the dotnet CLI
+_dotnet_zsh_complete()
+{
+  local completions=("$(dotnet complete "$words")")
+
+  reply=( "${(ps:\n:)completions}" )
+}
+
+compctl -K _dotnet_zsh_complete dotnet
+
 ### "bat" as manpager
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export LC_ALL=en_US.UTF-8  
 export LANG=en_US.UTF-8
-export PATH='/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/local/go/bin:/usr/local/nvim/bin:/usr/local/go/bin:/usr/local/nvim/bin:/usr/local/go/bin:/usr/local/nvim/bin:/home/hendry/.dotnet/tools'
+export PATH='/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/local/go/bin:/usr/local/nvim/bin:/usr/local/go/bin:/usr/local/nvim/bin:/usr/local/go/bin:/usr/local/nvim/bin:/home/hendry/.dotnet/tools:/home/hendry/.cargo/bin'
 
 # bas dir for all cd command
 export CDPATH=/home/hendry
