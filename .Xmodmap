@@ -10,6 +10,9 @@
 ! Make the capslock key behave like exscape
 keycode 66 = Escape NoSymbol Escape
 
+! Make the exscape key behave like capslock
+keycode 9 = Caps_Lock NoSymbol Caps_Lock
+
 ! Make the menu key a right window key
 clear lock
 keycode 135 = Menu NoSymbol Menu
