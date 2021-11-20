@@ -1,46 +1,66 @@
--- Plugins Installation
--- All The Installed plugins are here at the top
---
+-- It all start here
 require("packer").startup(
   function(use)
     -- Packer can manage itself
     use "wbthomason/packer.nvim"
-    use "tpope/vim-commentary"
+    -- use "tpope/vim-commentary"
+    use {
+      "numToStr/Comment.nvim",
+      config = function()
+        require("Comment").setup()
+      end
+    }
+
+    -- use "nvim-telescope/telescope-fzy-native.nvim"
+
     use "h3ndry/ReplaceWithRegister"
     use "tpope/vim-repeat"
+
+    -- use 'edluffy/specs.nvim'
+
     use "cohama/lexima.vim"
+
     use "tpope/vim-surround"
     use "h3ndry/tokyonight.nvim"
     use "SirVer/ultisnips"
     use "honza/vim-snippets"
     use "neovim/nvim-lspconfig"
-    use "rstacruz/vim-closer"
+    use "ggandor/lightspeed.nvim"
+
     use "andymass/vim-matchup"
+    use "tpope/vim-capslock"
     use "nathom/filetype.nvim"
 
-    use {"iamcco/markdown-preview.nvim", run = "cd app && yarn install", cmd = "MarkdownPreview"}
+    use {"nvim-telescope/telescope-fzf-native.nvim", run = "make"}
 
-    -- Install nvim-cmp, and buffer source as a dependency
     use {
-      "hrsh7th/nvim-cmp",
-      requires = {
-        "hrsh7th/vim-vsnip",
-        "hrsh7th/cmp-buffer"
-      }
+      "nvim-telescope/telescope.nvim",
+      requires = {{"nvim-lua/plenary.nvim"}}
     }
+    -- use "tversteeg/registers.nvim"
 
-    use "hrsh7th/cmp-nvim-lsp" -- LSP source for nvim-cmp
-    use "saadparwaiz1/cmp_luasnip" -- Snippets source for nvim-cmp
-    use "L3MON4D3/LuaSnip" -- Snippets plugin
-    use "hrsh7th/vim-vsnip"
-    use "hrsh7th/vim-vsnip-integ"
+    use "hrsh7th/nvim-cmp"
+    use "hrsh7th/cmp-buffer"
+    use "hrsh7th/cmp-path"
+    use "hrsh7th/cmp-nvim-lsp"
+    use "saadparwaiz1/cmp_luasnip"
+    use "onsails/lspkind-nvim"
 
     use "rafamadriz/friendly-snippets"
+    use "L3MON4D3/LuaSnip" -- Snippets plugin use "hrsh7th/vim-vsnip"
+    use "hrsh7th/vim-vsnip-integ"
+    use "hrsh7th/vim-vsnip"
+
+    -- Install nvim-cmp, and buffer source as a dependency
+
     use "golang/vscode-go"
-    use "kabouzeid/nvim-lspinstall"
+
+    -- use "kabouzeid/nvim-lspinstall"
+
+    use "williamboman/nvim-lsp-installer"
+
     use "nvim-lua/lsp_extensions.nvim"
     use "OrangeT/vim-csharp"
-    use "tpope/vim-capslock"
 
     use {
       "nvim-treesitter/nvim-treesitter",
@@ -54,12 +74,14 @@ require("packer").startup(
     }
 
     use "mhartington/formatter.nvim"
+
     use "norcalli/nvim-colorizer.lua"
     use {
       "prettier/vim-prettier",
       ft = {
         "javascript",
         "typescript",
+        "typescriptreact",
         "css",
         "less",
         "scss",
@@ -74,14 +96,6 @@ require("packer").startup(
       run = "yarn install"
     }
 
-    -- it make my vim feel so slow... not for me
-    -- use "karb94/neoscroll.nvim"
-
-    -- use {
-    --   "evanleck/vim-svelte",
-    --   branch = "main"
-    -- }
-
     use {
       "glacambre/firenvim",
       run = function()
@@ -89,13 +103,13 @@ require("packer").startup(
       end
     }
 
-    -- if work.. work
     use {
       "lewis6991/gitsigns.nvim",
       requires = {
         "nvim-lua/plenary.nvim"
       }
     }
+    -- use 'sunjon/shade.nvim'
   end
 )
 
@@ -118,24 +132,38 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 -- LSP language_server
--- Yeah This Good
---
+local bin_name =
+  "/home/hendry/.local/share/nvim/lspinstall/html/vscode-html/html-language-features/server/dist/node/htmlServerMain.js"
+local pid = vim.fn.getpid()
+local omnisharp_bin = "/home/hendry/.local/share/nvim/lspinstall/csharp/omnisharp/run"
+local sumneko_root_path = vim.fn.stdpath("cache") .. "/lspconfig/sumneko_lua/lua-language-server"
+local sumneko_binary = "/home/hendry/.local/share/nvim/lspinstall/lua/sumneko-lua-language-server"
+local runtime_path = vim.split(package.path, ";")
+local svelete_bin = "/home/hendry/.local/share/nvim/lspinstall/svelte/node_modules/svelte-language-server/bin/server.js"
+local css_path =
+  "/home/hendry/.local/share/nvim/lspinstall/css/vscode-css/css-language-features/server/dist/node/cssServerMain.js"
+local emmet_ls = "/home/hendry/.local/share/nvim/lsp_servers/emmet_ls/node_modules/emmet-ls/out/server.js"
+
 require "lspconfig".clangd.setup {
   cmd = {"clangd", "--background-index"}
 }
-
-local bin_name =
-  "/home/hendry/.local/share/nvim/lspinstall/html/vscode-html/html-language-features/server/dist/node/htmlServerMain.js"
 
 require "lspconfig".html.setup {
   cmd = {"node", bin_name, "--stdio"},
   capabilities = capabilities
 }
-local pid = vim.fn.getpid()
--- On linux/darwin if using a release build, otherwise under scripts/OmniSharp(.Core)(.cmd)
-local omnisharp_bin = "/home/hendry/.local/share/nvim/lspinstall/csharp/omnisharp/run"
--- on Windows
--- local omnisharp_bin = "/path/to/omnisharp/OmniSharp.exe"
+
+require "lspconfig".emmet_ls.setup {
+  cmd = {"node", emmet_ls, "--stdio"},
+  filetypes = {"html", "css", "svelte", "jsx", "tsx"},
+  capabilities = capabilities
+}
+
+require "lspconfig".cssls.setup {
+  cmd = {"node", css_path, "--stdio"},
+  capabilities = capabilities
+}
+
 require "lspconfig".omnisharp.setup {
   cmd = {omnisharp_bin, "--languageserver", "--hostPID", tostring(pid)}
 }
@@ -144,11 +172,6 @@ require "lspconfig".rust_analyzer.setup {
   cmd = {"rust_analyzer"}
 }
 
--- set the path to the sumneko installation; if you previously installed via the now deprecated :LspInstall, use
-local sumneko_root_path = vim.fn.stdpath("cache") .. "/lspconfig/sumneko_lua/lua-language-server"
-local sumneko_binary = "/home/hendry/.local/share/nvim/lspinstall/lua/sumneko-lua-language-server"
-
-local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
@@ -178,7 +201,118 @@ require "lspconfig".sumneko_lua.setup {
   }
 }
 
-local svelete_bin = "/home/hendry/.local/share/nvim/lspinstall/svelte/node_modules/svelte-language-server/bin/server.js"
+require("telescope").load_extension("fzf")
+
+-- require('neoclip').setup({
+--       history = 1000,
+--       enable_persistant_history = false,
+--       db_path = vim.fn.stdpath("data") .. "/databases/neoclip.sqlite3",
+--       filter = nil,
+--       preview = true,
+--       default_register = '"',
+--       content_spec_column = false,
+--       on_paste = {
+--         set_reg = false,
+--       },
+--       keys = {
+--         i = {
+--           select = '<cr>',
+--           paste = '<c-p>',
+--           paste_behind = '<c-k>',
+--           custom = {},
+--         },
+--         n = {
+--           select = '<cr>',
+--           paste = 'p',
+--           paste_behind = 'P',
+--           custom = {},
+--         },
+--       },
+--     })
+
+require("telescope").setup {
+  defaults = {
+    mappings = {
+      i = {
+        ["<C-h>"] = "which_key"
+      }
+    }
+  },
+  pickers = {},
+  extensions = {
+    fzy_native = {
+      override_generic_sorter = false,
+      override_file_sorter = true
+    }
+  }
+}
+
+-- require('telescope').load_extension('fzy_native')
+
+local lsp_installer = require("nvim-lsp-installer")
+
+lsp_installer.on_server_ready(
+  function(server)
+    local opts = {}
+
+    -- (optional) Customize the options passed to the server
+    -- if server.name == "tsserver" then
+    --     opts.root_dir = function() ... end
+    -- end
+
+    -- This setup() function is exactly the same as lspconfig's setup function (:help lspconfig-quickstart)
+    server:setup(opts)
+    vim.cmd [[ do User LspAttachBuffers ]]
+  end
+)
+
+-- require'shade'.setup({
+--   overlay_opacity = 50,
+--   opacity_step = 1,
+--   keys = {
+--     brightness_up    = '<C-Up>',
+--     brightness_down  = '<C-Down>',
+--     toggle           = '<Leader>s',
+--   }
+-- })
+--
+
+require("lspkind").init(
+  {
+    -- default symbol map
+    preset = "codicons",
+    -- default: {}
+    symbol_map = {
+      Text = "",
+      Method = "",
+      Function = "",
+      Constructor = "",
+      Field = "ﰠ",
+      Variable = "",
+      Class = "ﴯ",
+      Interface = "",
+      Module = "",
+      Property = "ﰠ",
+      Unit = "塞",
+      Value = "",
+      Enum = "",
+      Keyword = "",
+      Snippet = "",
+      Color = "",
+      File = "",
+      Reference = "",
+      Folder = "",
+      EnumMember = "",
+      Constant = "",
+      Struct = "פּ",
+      Event = "",
+      Operator = "",
+      TypeParameter = ""
+    }
+  }
+)
+
+-- okay this seems like a good plugin
 require "lspconfig".svelte.setup {
   cmd = {"node", svelete_bin, "--stdio"}
 }
@@ -193,7 +327,6 @@ require "lspconfig".phpactor.setup {
 }
 
 local nvim_lsp = require("lspconfig")
--- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 local servers = {"clangd", "rust_analyzer", "pyright", "tsserver"}
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
@@ -202,18 +335,7 @@ for _, lsp in ipairs(servers) do
   }
 end
 
--- Default vim configuration.
--- This are setting that are not provide by plugin but come with nvim
--- Try to use lua When ever posible
---
---Set colorswcheme (order is important here)
-vim.o.termguicolors = true
-vim.g.onedark_terminal_italics = 2
-vim.cmd [[colorscheme tokyonight]]
-
--- Nvim compe setting
 -- Highlight on yank
--- autocmd VimResized * exe "normal \<c-w>o"
 vim.api.nvim_exec(
   [[
     augroup YankHighlight
@@ -224,90 +346,31 @@ vim.api.nvim_exec(
 ]],
   false
 )
--- Save vim folds
-vim.api.nvim_exec(
-  [[
-augroup remember_folds
-  autocmd!
-  autocmd BufWinLeave * silent!  mkview
-  autocmd BufWinEnter * silent! loadview
-augroup END
-]],
-  false
-)
+
+-- Save as sudo...
+vim.api.nvim_exec([[
+    cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
+]], false)
+
+vim.api.nvim_exec([[
+    au FocusLost * :wa
+    au FocusLost * silent! wa
+    au BufLeave * silent! wall
+]], false)
 
 vim.api.nvim_exec(
   [[
     set spelllang=en
     set complete+=kspell
-
     augroup markdownSpell
         autocmd!
         autocmd FileType markdown setlocal spell
         autocmd BufRead,BufNewFile *.md setlocal spell
     augroup END
-
 ]],
   false
 )
 
-vim.o.completeopt = "menuone,noselect"
-
--- do not display info on the top of window
-vim.g.netrw_banner = 0
-
---Incremental live completion
-vim.o.inccommand = "nosplit"
-
--- Do not source the default filetype.vim
-vim.g.did_load_filetypes = 1
-
---Set highlight on search
--- vim.o.hlsearch = false
-
---Make line numbers default
-vim.wo.number = true
-vim.wo.relativenumber = true
-
--- vim.wo.tabstop = 4
--- vim.wo.shiftwidth = 4
--- vim.wo.expandtab = true
-
---Do not save when switching buffers
-vim.o.hidden = true
-
-----Enable mouse mode
---vim.o.mouse = "a"
-
---Enable break indent
-vim.o.breakindent = true
-
---Disable word wrape
-vim.o.wrap = false
-
---Save undo history
-vim.cmd [[set undofile]]
-
---Case insensitive searching UNLESS /C or capital in search
-vim.o.ignorecase = true
-vim.o.smartcase = true
-
-vim.o.scrolloff = 1
-
---Decrease update time
-vim.o.updatetime = 250
-vim.wo.signcolumn = "yes"
--- vim.wo.signcolumn = "number"
-
--- Example config in Lua
-vim.g.tokyonight_style = "night"
-vim.g.tokyonight_italic_functions = true
--- vim.g.tokyonight_sidebars = {"qf", "vista_kind", "terminal", "packer"}
-
--- Set completeopt to have a better completion experience
-vim.o.completeopt = "menuone,noinsert"
-
---Disable numbers in terminal mode
 vim.api.nvim_exec(
   [[
   augroup Terminal
@@ -320,78 +383,81 @@ vim.api.nvim_exec(
   false
 )
 
--- auto save when move lose focus or switch between a split
-vim.api.nvim_exec([[
-    au FocusLost * :wa
-    au FocusLost * silent! wa
-    au BufLeave * silent! wall
-    ]], false)
-
 vim.api.nvim_exec(
   [[
+    set tabstop=4
+    set shiftwidth=4
+    set expandtab
+    set shiftwidth=0
+    set report=0
+    set splitright
+    set path+=**
+    set wildignore+=**/node_modules/**
+    set noswapfile
+    set shortmess+=c
+    set laststatus=1
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
+    function! Exec_on_term(cmd)
+      if a:cmd=="normal"
+        exec "normal mk\"vyip"
+      else
+        exec "normal gv\"vy"
+      endif
+      if !exists("g:last_terminal_chan_id")
+        vs
+        terminal
+        let g:last_terminal_chan_id = b:terminal_job_id
+        wincmd p
+      endif
 
-set tabstop=4
-set shiftwidth=4
-set expandtab
+      if getreg('"v') =~ "^\n"
+        call chansend(g:last_terminal_chan_id, expand("%:p")."\n")
+      else
+        call chansend(g:last_terminal_chan_id, @v)
+      endif
+      exec "normal `k"
+    endfunction
 
-set shiftwidth=0
-set report=0
-
-"Split teminal on right side
-set splitright
-" send paragraph under curso to terminal
-function! Exec_on_term(cmd)
-  if a:cmd=="normal"
-    exec "normal mk\"vyip"
-  else
-    exec "normal gv\"vy"
-  endif
-  if !exists("g:last_terminal_chan_id")
-    vs
-    terminal
-    let g:last_terminal_chan_id = b:terminal_job_id
-    wincmd p
-  endif
-
-  if getreg('"v') =~ "^\n"
-    call chansend(g:last_terminal_chan_id, expand("%:p")."\n")
-  else
-    call chansend(g:last_terminal_chan_id, @v)
-  endif
-  exec "normal `k"
-endfunction
-
-nnoremap <leader>rc :call Exec_on_term("normal")<CR>
-vnoremap <leader>rc :<c-u>call Exec_on_term("visual")<CR>
-
-set path+=**
-set wildignore+=**/node_modules/**
-
-
-set noswapfile
-
-
-set shortmess+=c
-
-set laststatus=1
-
-let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-
+    nnoremap <leader>rc :call Exec_on_term("normal")<CR>
+    vnoremap <leader>rc :<c-u>call Exec_on_term("visual")<CR>
 
 ]],
   false
 )
 
+vim.o.termguicolors = true
+vim.g.onedark_terminal_italics = 2
+vim.cmd [[colorscheme tokyonight]]
+vim.g.tokyonight_style = "night"
+vim.g.tokyonight_italic_functions = true
+vim.o.completeopt = "menu,menuone,noinsert"
+vim.g.netrw_banner = 0
+vim.o.inccommand = "nosplit"
+vim.g.did_load_filetypes = 1
+vim.wo.number = true
+vim.wo.relativenumber = true
+vim.o.hidden = true
+vim.o.breakindent = true
+vim.o.wrap = false
+vim.cmd [[set undofile]]
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.scrolloff = 1
+vim.o.updatetime = 250
+vim.wo.signcolumn = "yes"
+
 -- Plugings Configuration
 -- Setting that change How an lets see
 -- autocmd VimResized * wincmd =
 -- luasnip setup
-local luasnip = require "luasnip"
-
--- nvim-cmp setup
+local luasnip = require("luasnip")
 local cmp = require "cmp"
+local lspkind = require("lspkind")
+
+-- luasnip.stup{}
+-- nvim-cmp setup
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -405,32 +471,53 @@ cmp.setup {
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.close(),
-    ["<CR>"] = cmp.mapping.confirm {
+    ["<c-y>"] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true
-    },
-    ["<Tab>"] = function(fallback)
-      if vim.fn.pumvisible() == 1 then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-n>", true, true, true), "n")
-      elseif luasnip.expand_or_jumpable() then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
-      else
-        fallback()
-      end
-    end,
-    ["<S-Tab>"] = function(fallback)
-      if vim.fn.pumvisible() == 1 then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-p>", true, true, true), "n")
-      elseif luasnip.jumpable(-1) then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
-      else
-        fallback()
-      end
-    end
+    }
+
+    -- ["<Tab>"] = function(fallback)
+    --   if vim.fn.pumvisible() == 1 then
+    --     vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-n>", true, true, true), "n")
+    --   elseif luasnip.expand_or_jumpable() then
+    --     vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
+    --   else
+    --     fallback()
+    --   end
+    -- end,
+    -- ["<S-Tab>"] = function(fallback)
+    --   if vim.fn.pumvisible() == 1 then
+    --     vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-p>", true, true, true), "n")
+    --   elseif luasnip.jumpable(-1) then
+    --     vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
+    --   else
+    --     fallback()
+    --   end
+    -- end
+    --
   },
   sources = {
+    -- {name = "gh_issues"},
+    {name = "nvim_lua"},
     {name = "nvim_lsp"},
-    {name = "luasnip"}
+    {name = "path"},
+    {name = "luasnip"},
+    {name = "buffer"}
+  },
+  experimental = {
+    ghost_text = true
+  },
+  formatting = {
+    format = lspkind.cmp_format {
+      with_text = true,
+      menu = {
+        buffer = "[buff]",
+        nvim_lsp = "[LSP]",
+        nvim_lua = "[api]",
+        path = "[path]",
+        luasnip = "[snip]"
+      }
+    }
   }
 }
 
@@ -532,6 +619,15 @@ require("formatter").setup(
           }
         end
       },
+      jsx = {
+        function()
+          return {
+            exe = "prettier",
+            args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote"},
+            stdin = true
+          }
+        end
+      },
       css = {
         function()
           return {
@@ -565,7 +661,7 @@ require("formatter").setup(
         function()
           return {
             exe = "clang-format",
-            args = {"--style","GNU"},
+            args = {"--style", "GNU"},
             stdin = true,
             cwd = vim.fn.expand("%:p:h") -- Run clang-format in cwd of the file.
           }
@@ -587,14 +683,13 @@ require("formatter").setup(
 )
 
 -- Use the `default_options` as the second parameter, which uses
--- `foreground` for every mode. This is the inverse of the previous
--- setup configuration.
-
 require "colorizer".setup {
   "*", -- Highlight all files, but customize some others.
   css = {rgb_fn = true}, -- Enable parsing rgb(...) functions in css.
   html = {names = false} -- Disable parsing "names" like Blue or Gray
 }
+
+require("Comment").setup()
 
 require("nvim-treesitter.configs").setup {
   ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
@@ -609,6 +704,24 @@ require("nvim-treesitter.configs").setup {
     additional_vim_regex_highlighting = false
   }
 }
+
+-- require('specs').setup{
+--     show_jumps  = true,
+--     min_jump = 30,
+--     popup = {
+--         delay_ms = 0, -- delay before popup displays
+--         inc_ms = 10, -- time increments used for fade/resize effects
+--         blend = 10, -- starting blend, between 0-100 (fully transparent), see :h winblend
+--         width = 10,
+--         winhl = "PMenu",
+--         fader = require('specs').linear_fader,
+--         resizer = require('specs').shrink_resizer
+--     },
+--     ignore_filetypes = {},
+--     ignore_buftypes = {
+--         nofile = true,
+--     },
+-- }
 
 require("gitsigns").setup {
   signs = {
@@ -652,10 +765,6 @@ require("gitsigns").setup {
   use_internal_diff = true -- If luajit is present
 }
 
--- require("neoscroll").setup()
-
--- All Key mapping...
---
 local opts = {noremap = true, silent = true}
 
 --Remap space as leader key
@@ -717,14 +826,28 @@ vim.api.nvim_set_keymap("t", "<C-\\><C-\\>", "<C-\\><C-n>", opts)
 vim.api.nvim_set_keymap("t", "<C-\\>\\", "<C-\\><C-n>", opts)
 
 -- alternative shorcuts without fzf
-vim.api.nvim_set_keymap("n", "<leader>b", ":buffer ", opts)
 vim.api.nvim_set_keymap("n", "<leader>.", ":e<space>**/", opts)
 vim.api.nvim_set_keymap("n", "<leader>sT", ":tjump *", opts)
 
--- My greates remap ever... I don't see the need of fzf
-vim.api.nvim_set_keymap("n", "<leader>f", ":find ", opts)
-vim.api.nvim_set_keymap("n", "<leader>v", ":vertical sfind ", opts)
-vim.api.nvim_set_keymap("n", "<leader>s", ":sfind ", opts)
+-- -- buffer jump, useful
+-- vim.api.nvim_set_keymap("n", "<leader>bb", ":buffer ", opts)
+-- vim.api.nvim_set_keymap("n", "<leader>bv", ":vertical sbuffer ", opts)
+-- vim.api.nvim_set_keymap("n", "<leader>bs", ":sbuffer ", opts)
+
+-- -- My greates remap ever... I don't see the need of fzf
+-- vim.api.nvim_set_keymap("n", "<leader>ff", ":find ", opts)
+-- vim.api.nvim_set_keymap("n", "<leader>fv", ":vertical sfind ", opts)
+-- vim.api.nvim_set_keymap("n", "<leader>fs", ":sfind ", opts)
+
+-- nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+-- nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+-- nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+-- nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+
+vim.api.nvim_set_keymap("n", "<leader>f", ":lua require('telescope.builtin').find_files()<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>F", ":lua require('telescope.builtin').buffers()<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>g", ":lua require('telescope.builtin').live_grep()<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>G", ":lua require('telescope.builtin').grep_string()<cr>", opts)
 
 -- Managing buffers and Windows
 vim.api.nvim_set_keymap("n", "<leader>bd", ":bdelete!<CR>", opts)
