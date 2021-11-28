@@ -7,11 +7,14 @@ super + P
 super + M
     st -e neomutt
 
-super + F
-    firefox
+super + B
+    microsoft-edge-dev
+
+super + n
+  ~/.local/bin/notestaker.sh
 
 super + N
-    nautilus
+  ~/.local/bin/notesreader.sh
 
 super + Print
 	maim | tee ~/pictures/screenshots/$(date +%s).png | xclip -selection clipboard -t image/png && notify-send "Screenshot has been captured" "Location: ~/pictures/screenshot"
@@ -30,8 +33,8 @@ super + C
 
 
 # make sxhkd reload its configuration files:
-super + z
-  ~/.local/bin/network.sh
+super + i
+  ~/.local/bin/snippy.sh
 
 
 

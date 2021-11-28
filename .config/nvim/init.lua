@@ -1,17 +1,11 @@
-require'utils.jst_plugins'
+require "utils.jst_plugins"
+
+
 
 require("Comment").setup()
-
-
 local nvim_lsp = require("lspconfig")
-local servers = {"clangd", "rust_analyzer", "pyright", "tsserver", "html", "cssls", "emmet_ls"}
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    -- on_attach = my_custom_on_attach,
-    capabilities = capabilities
-  }
-end
 
+require'lspconfig'.sumneko_lua.setup{}
 
 require "luasnip".config.setup {}
 require "marks".setup {}
@@ -34,7 +28,6 @@ require("telescope").setup {
     }
   }
 }
-
 
 require("lspkind").init(
   {
@@ -71,23 +64,26 @@ require("lspkind").init(
   }
 )
 
-require'utils.setting'
+require "utils.setting"
 
--- Plugings Configuration
--- local luasnip = require("luasnip")
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+local luasnip = require("luasnip")
+
 local cmp = require "cmp"
 local lspkind = require("lspkind")
 
 -- luasnip.stup{}
 -- nvim-cmp setup
 cmp.setup {
-    snippet = {
-      expand = function(args)
-        require'luasnip'.lsp_expand(args.body)
-      end
-    },
-
-
+  snippet = {
+    expand = function(args)
+      require "luasnip".lsp_expand(args.body)
+    end
+  },
   mapping = {
     ["<C-p>"] = cmp.mapping.select_prev_item(),
     ["<C-n>"] = cmp.mapping.select_next_item(),
@@ -98,18 +94,42 @@ cmp.setup {
     ["<c-y>"] = cmp.mapping.confirm {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true
-    }
+    },
+
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif has_words_before() then
+        cmp.complete()
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+
   },
   sources = {
     -- {name = "gh_issues"},
-    {name = "nvim_lsp"},
     {name = "luasnip"},
+    {name = "nvim_lsp"},
     {name = "nvim_lua"},
     {name = "cmp-cmdline"},
     {name = "cmp-treesitter"},
     {name = "cmp-calc"},
     {name = "cmp-spell"},
     {name = "path"},
+    -- {name = "rg"},
     {name = "buffer"}
   },
   experimental = {
@@ -126,32 +146,95 @@ cmp.setup {
         spell = "[SPELL]",
         path = "[PATH]",
         luasnip = "[SNIP]",
-        buffer = "[BUFF]",
+        -- rg = "[RG]",
+        buffer = "[BUFF]"
       }
     }
   }
 }
 
-  cmp.setup.cmdline('?', {
+cmp.setup.cmdline(
+  "?",
+  {
     sources = {
-      { name = 'buffer' }
+      {name = "buffer"}
     }
-  })
+  }
+)
 
-  cmp.setup.cmdline('/', {
+cmp.setup.cmdline(
+  "/",
+  {
     sources = {
-      { name = 'buffer' }
+      {name = "buffer"}
     }
-  })
+  }
+)
 
-  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-  cmp.setup.cmdline(':', {
-    sources = cmp.config.sources({
-      { name = 'path' }
-    }, {
-      { name = 'cmdline' }
-    })
-  })
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(
+  ":",
+  {
+    sources = cmp.config.sources(
+      {
+        {name = "path"}
+      },
+      {
+        {name = "cmdline"}
+      }
+    )
+  }
+)
+
+local sumneko_root_path = '/usr/lib/lua-language-server'
+local sumneko_binary = sumneko_root_path.."/bin/Linux/lua-language-server"
+
+local runtime_path = vim.split(package.path, ';')
+table.insert(runtime_path, "lua/?.lua")
+table.insert(runtime_path, "lua/?/init.lua")
+
+
+local servers = {"clangd", "rust_analyzer", "pyright", "tsserver", "html", "cssls", "emmet_ls", "sumneko_lua"}
+for _, lsp in ipairs(servers) do
+  if lsp == "sumneko_lua" then
+    nvim_lsp.sumneko_lua.setup {
+      cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
+      capabilities = capabilities,
+      settings = {
+        Lua = {
+          capabilities = capabilities,
+          runtime = {
+            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+            version = "LuaJIT",
+            -- Setup your lua path
+            path = vim.split(package.path, ";")
+          },
+          diagnostics = {
+            -- Get the language server to recognize the `vim` global
+            globals = {"vim"}
+          },
+          workspace = {
+            -- Make the server aware of Neovim runtime files
+            library = {
+              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+              [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
+            },
+            ignoreDir = {
+              "/home/simon/Packages"
+            }
+          }
+        }
+      },
+    }
+  else
+    nvim_lsp[lsp].setup {
+      -- on_attach = my_custom_on_attach,
+      capabilities = capabilities
+    }
+  end
+end
+
+
 
 require("nvim-treesitter.configs").setup {
   textobjects = {
@@ -372,6 +455,7 @@ require("gitsigns").setup {
   use_decoration_api = true,
   use_internal_diff = true -- If luajit is present
 }
-require'utils.keymap'
 
-require'snippets'
+require "utils.keymap"
+
+require "snippets"
