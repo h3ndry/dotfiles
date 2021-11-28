@@ -17,6 +17,8 @@ local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
 local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.expand_conditions")
+local sn = ls.snippet_node
+local isn = ls.indent_snippet_node
 
 -- Every unspecified option will be set to the default.
 ls.config.set_config(
@@ -153,476 +155,241 @@ local date_input = function(args, state, fmt)
   return sn(nil, i(1, os.date(fmt)))
 end
 
-ls.snippets = {
-  -- When trying to expand a snippet, luasnip first searches the tables for
-  -- each filetype specified in 'filetype' followed by 'all'.
-  -- If ie. the filetype is 'lua.c'
-  --     - luasnip.lua
-  --     - luasnip.c
-  --     - luasnip.all
-  -- are searched in that order.
-  all = {
-    -- Shorthand for repeating the text in a given node.
-    s("repeat", {i(1, "text"), t({"", ""}), r(1)}),
-    -- Directly insert the ouput from a function evaluated at runtime.
-    s("part", p(os.date, "%Y")),
-    -- Obviously, it's also possible to apply transformations, just like lambdas.
-    s(
-      "dl2",
-      {
-        i(1, "sample_text"),
-        i(2, "sample_text_2"),
-        t({"", ""}),
-        dl(3, l._1:gsub("\n", " linebreak ") .. l._2, {1, 2})
-      }
-    ),
-    -- Alternative printf-like notation for defining snippets. It uses format
-    -- Empty placeholders are numbered automatically starting from 1 or the last
-    -- value of a numbered placeholder. Named placeholders do not affect numbering.
-    -- The delimiters can be changed from the default `{}` to something else.
-    s("fmt4", fmt("foo() { return []; }", i(1, "x"), {delimiters = "[]"})),
-    -- `fmta` is a convenient wrapper that uses `<>` instead of `{}`.
-    s("fmt5", fmta("foo() { return <>; }", i(1, "x"))),
-    -- By default all args must be used. Use strict=false to disable the check
-    s("fmt6", fmt("use {} only", {t("this"), t("not this")}, {strict = false}))
-  },
-  tex = {
-    -- rec_ls is self-referencing. That makes this snippet 'infinite' eg. have as many
-    -- \item as necessary by utilizing a choiceNode.
-    s(
-      "ls",
-      {
-        t({"\\begin{itemize}", "\t\\item "}),
-        i(1),
-        d(2, rec_ls, {}),
-        t({"", "\\end{itemize}"})
-      }
-    )
-  },
-  --     "prefix": "rfce",
-  --     "body": "import { css } from '@emotion/core'\nimport React from 'react'\n\nexport const ${TM_FILENAME_BASE} = (props: {}) => {\n\treturn (\n\t\t<div css={css``}>\n\t\t\t$0\n\t\t</div>\n\t)\n}",
-  --     "description": "Creates a React functional component with emotion import"
-  typescriptreact = {
-    s(
-      "rfc",
-      {
-        t( "import React from 'react'"),
-        t("export const ${TM_FILENAME_BASE} = (props : {}) => {"),
-        t("return ("),
-        t("\t\t<div>"),
-        t("t$0"),
-        t("t\t</div>"),
-        t("\t)")
-      }
-    )
-  }
+local js_thing = {
+  s("rq", {t("require('"), i(1, "module"), t("')")}),
+  s("cr", {t("const "), i(1), t(" require('"), i(2), t("')")}),
+  s(
+    "fe",
+    {
+      i(1),
+      t(".fotEach(("),
+      i(2),
+      t({") => {", "\t"}),
+      i(3),
+      t({"", "})"})
+    }
+  ),
+  s(
+    "map",
+    {
+      i(1),
+      t(".map(("),
+      i(2),
+      t({") => {", "\t"}),
+      i(3),
+      t({"", "})"})
+    }
+  ),
+  s(
+    "filter",
+    {
+      i(1),
+      t(".filter(("),
+      i(2),
+      t({") => {", "\t"}),
+      i(3),
+      t({"", "})"})
+    }
+  ),
+  s(
+    "find",
+    {
+      i(1),
+      t(".find(("),
+      i(2),
+      t({") => {", "\t"}),
+      i(3),
+      t({"", "})"})
+    }
+  ),
+  s(
+    "every",
+    {
+      i(1),
+      t(".every(("),
+      i(2),
+      t({") => {", "\t"}),
+      i(3),
+      t({"", "})"})
+    }
+  ),
+  s(
+    "some",
+    {
+      i(1),
+      t(".some(("),
+      i(2),
+      t({") => {", "\t"}),
+      i(3),
+      t({"", "})"})
+    }
+  ),
+  s("v", {t("var "), i(1, "name")}),
+  s("va", {t("var "), i(1, "name"), t(" = "), i(2)}),
+  s("l", {t("let "), i(1, "name")}),
+  s("c", {t("cosnt "), i(1, "name")}),
+  s("cd", {t("cosnt { "), i(1, "name"), t(" } = "), i(2)}),
+  s("cad", {t("cosnt { "), i(1, "name"), t(" } = "), i(2)}),
+  s(
+    "caf",
+    {
+      t("cosnt "),
+      i(1, "name"),
+      t(" = ( "),
+      i(2),
+      t({" ) => {", "\t return "}),
+      i(0),
+      t({"", "}"})
+    }
+  ),
+  s("la", {t("let "), i(1, "name"), t(" = await "), i(2)}),
+  s("car", {t("const "), i(1, "name"), t({" = [ ", "\t"}), i(2), t({"", "]"})}),
+  s("e", {t("export "), i(1, "name")}),
+  s("ec", {t("export  const "), i(1, "name"), t(" = "), i(2)}),
+  -- s("ef", {t("export  const "), i(1, "name"), t(" = "), i(2)}),
+
+  s("im", {t("import "), i(2, "name"), t(" from '"), i(1), t("'")}),
+  s("ia", {t("import "), i(2, "name"), t(" as "), i(3), t(" from '"), i(1), t("'")}),
+  s("id", {t("import { "), i(2), t(" } from '"), i(1), t("'")}),
+  s("te", {t("throw new"), i(2), t(" } from '"), i(1), t("'")}),
+  s("tc", {t({"try {", "\t"}), i(1), t({"", "} catch ("}), i(2), t({") {", "\t"}), i(3), t({"", "}"})}),
+  --     "body": "try {\n\t${0}\n} finally {\n\t\n}"
+  --     "body": "try {\n\t${0}\n} catch (${1:err}) {\n\t\n} finally {\n\t\n}"
+
+  s(
+    "if",
+    {
+      t("if ( "),
+      i(1),
+      t({" ) {", "\t"}),
+      i(2),
+      t({"", "}"})
+    }
+  ),
+  s(
+    "el",
+    {
+      t({"else { ", "\t"}),
+      i(1),
+      t({"", "}"})
+    }
+  ),
+  s(
+    "ei",
+    {
+      t({"else if ( "}),
+      i(1),
+      t({") { ", "\t"}),
+      i(2),
+      t({"", "}"})
+    }
+  ),
+  --     "body": "try {\n\t${0}\n} catch (${1:err}) {\n\t\n} finally {\n\t\n}"
+  --     "body": "try {\n\t${0}\n} finally {\n\t\n}"
+  --
+  s(
+    "fn",
+    {
+      t({"function "}),
+      i(1, "name"),
+      t({" ( "}),
+      i(2),
+      t({" ) {", "\t"}),
+      i(3),
+      t({"", "}"})
+    }
+  ),
+  s(
+    "asf",
+    {
+      t({"async function "}),
+      i(1, "name"),
+      t({" ( "}),
+      i(2),
+      t({" ) {", "\t"}),
+      i(3),
+      t({"", "}"})
+    }
+  ),
+  s(
+    "aa",
+    {
+      t({"async ( "}),
+      i(1, "arguments"),
+      t({" ) => {", "\t"}),
+      i(2),
+      t({"", "}"})
+    }
+  ),
+  s("cl", {t("console.log("), i(2), t(")")}),
+  s("js", {t("JSON.stringify("), i(2), t(")")}),
+  s("jp", {t("JSON.parse("), i(2), t(")")}),
+  s("te", {i(1, "cond"), t(" ? "), i(2, "true"), t(" : "), i(3, "false")}),
+  s("ta", {t("const = "), i(1, "cond"), t(" ? "), i(2, "true"), t(" : "), i(3, "false")}),
+  s("rt", {t("return "), i(2)}),
+  s("rn", {t("return  null")}),
+  s("ro", {t("return { "), i(1), t(" }")}),
+  s("ra", {t("return [ "), i(1), t(" ]")})
 }
 
--- autotriggered snippets have to be defined in a separate table, luasnip.autosnippets.
-ls.autosnippets = {
+ls.snippets = {
   all = {
     s(
-      "autotrigger",
+      "isn",
       {
-        t("autosnippet")
+        isn(
+          1,
+          {
+            t(
+              {
+                "This is indented as deep as the trigger",
+                "and this is at the beginning of the next line"
+              }
+            )
+          },
+          ""
+        )
       }
     )
-  }
+
+    -- s("trig", c(1, {
+    -- 	t("Ugh boring, a text node"),
+    -- 	i(nil, "At least I can edit something now..."),
+    -- 	f(function(args) return "Still only counts as text!!" end, {})
+    -- }))
+    -- s("trigger", i(1, "This text is SELECTed after expanding the snippet.")),
+
+    -- s("trig", {
+    -- 	i(1),
+    -- 	f(function(args, snip, user_arg_1) return args[1][1] .. user_arg_1 end,
+    -- 		{1},
+    -- 		"Will be appended to text from i(0)"),
+    -- 	i(0)
+    -- })
+
+    -- s("trigger", {
+    -- 	t({"", "After expanding, the cursor is here ->"}), i(1),
+    -- 	t({"After jumping forward once, cursor is here ->"}), i(2),
+    -- 	t({"", "After jumping once more, the snippet is exited there ->"}), i(0),
+    -- })
+    -- s("trigger", t({"Wow! Text!", "And another line."}))
+  },
+  javascript = js_thing,
+  typescript = js_thing,
+  javascriptreact = js_thing,
+  typescriptreact = js_thing,
+  svelte = js_thing,
+  tex = {}
+}
+
+ls.autosnippets = {
+  all = {}
 }
 
 -- in a lua file: search lua-, then c-, then all-snippets.
 ls.filetype_extend("lua", {"c"})
 -- in a cpp file: search c-snippets, then all-snippets only (no cpp-snippets!!).
 ls.filetype_set("cpp", {"c"})
-
---[[
--- Beside defining your own snippets you can also load snippets from "vscode-like" packages
--- that expose snippets in json files, for example <https://github.com/rafamadriz/friendly-snippets>.
--- Mind that this will extend  `ls.snippets` so you need to do it after your own snippets or you
--- will need to extend the table yourself instead of setting a new one.
-]]
---
---   "require": {
---     "prefix": "rq",
---     "body": "require('${1:module}')"
---   },
---
---  "const module = require('module')": {
---     "prefix": "cr",
---     "body": "const ${1:module} = require('${1:module}')"
---   },
---
--- "addEventListener": {
---     "prefix": "ae",
---     "body": "${1:document}.addEventListener('${2:event}', ${3:ev} => {\n\t${0}\n})"
---   },
---   "removeEventListener": {
---     "prefix": "rel",
---     "body": "${1:document}.removeEventListener('${2:event}', ${3:listener})"
---   },
---
---   "forEach loop": {
---     "prefix": "fe",
---     "body": "${1:iterable}.forEach((${2:item}) => {\n\t${0}\n})"
---   },
---   "map": {
---     "prefix": "map",
---     "body": "${1:iterable}.map((${2:item}) => {\n\t${0}\n})"
---   },
---
---
--- "reduce": {
---     "prefix": "reduce",
---     "body": "${1:iterable}.reduce((${2:previous}, ${3:current}) => {\n\t${0}\n}${4:, initial})"
---   },
---   "filter": {
---     "prefix": "filter",
---     "body": "${1:iterable}.filter((${2:item}) => {\n\t${0}\n})"
---   },
---   "find": {
---     "prefix": "find",
---     "body": "${1:iterable}.find((${2:item}) => {\n\t${0}\n})"
---   },
---   "every": {
---     "prefix": "every",
---     "body": "${1:iterable}.every((${2:item}) => {\n\t${0}\n})"
---   },
---   "some": {
---     "prefix": "some",
---     "body": "${1:iterable}.some((${2:item}) => {\n\t${0}\n})"
---   },
---
---
--- "var statement": {
---     "prefix": "v",
---     "body": "var ${1:name}"
---   },
---   "var assignment": {
---     "prefix": "va",
---     "body": "var ${1:name} = ${2:value}"
---   },
---   "let statement": {
---     "prefix": "l",
---     "body": "let ${1:name}"
---   },
---   "const statement": {
---     "prefix": "c",
---     "body": "const ${1:name}"
---   },
---   "const statement from destructuring": {
---     "prefix": "cd",
---     "body": "const { ${2:prop} } = ${1:value}"
---   },
---   "const statement from array destructuring": {
---     "prefix": "cad",
---     "body": "const [ ${2:prop} ] = ${1:value}"
---   },
---   "const assignment awaited": {
---     "prefix": "ca",
---     "body": "const ${1:name} = await ${2:value}"
---   },
---   "const destructuring assignment awaited": {
---     "prefix": "cda",
---     "body": "const { ${1:name} } = await ${2:value}"
---   },
---   "const arrow function assignment": {
---     "prefix": "cf",
---     "body": "const ${1:name} = (${2:arguments}) => {\n\treturn ${0}\n}"
---   },
---
---
---  "let assignment awaited": {
---     "prefix": "la",
---     "body": "let ${1:name} = await ${2:value}"
---   },
---
---
---   "const array": {
---     "prefix": "car",
---     "body": "const ${1:name} = [\n\t${0}\n]"
---   },
---
---
--- "module export": {
---     "prefix": "e",
---     "body": "export ${1:member}"
---   },
---   "module export const": {
---     "prefix": "ec",
---     "body": "export const ${1:member} = ${2:value}"
---   },
---
--- "export named function": {
---     "prefix": "ef",
---     "body": "export function ${1:member} (${2:arguments}) {\n\t${0}\n}"
---   },
---   "module default export": {
---     "prefix": "ed",
---     "body": "export default ${1:member}"
---   },
---   "module default export function": {
---     "prefix": "edf",
---     "body": "export default function ${1:name} (${2:arguments}) {\n\t${0}\n}"
---   },
---   "import module": {
---     "prefix": "im",
---     "body": "import ${2:*} from '${1:module}'"
---   },
---   "import module as": {
---     "prefix": "ia",
---     "body": "import ${2:*} as ${3:name} from '${1:module}'"
---   },
---   "import module destructured": {
---     "prefix": "id",
---     "body": "import {$2} from '${1:module}'"
---   },
---
---   "Array.isArray()": {
---     "prefix": "ia",
---     "body": "Array.isArray(${1:source})"
---   },
---
---   "throw new Error": {
---     "prefix": "tn",
---     "body": "throw new ${0:error}"
---   },
---   "try/catch": {
---     "prefix": "tc",
---     "body": "try {\n\t${0}\n} catch (${1:err}) {\n\t\n}"
---   },
---   "try/finally": {
---     "prefix": "tf",
---     "body": "try {\n\t${0}\n} finally {\n\t\n}"
---   },
---   "try/catch/finally": {
---     "prefix": "tcf",
---     "body": "try {\n\t${0}\n} catch (${1:err}) {\n\t\n} finally {\n\t\n}"
---   },
---
--- "Array.isArray()": {
---     "prefix": "ia",
---     "body": "Array.isArray(${1:source})"
---   },
---   "let and if statement": {
---     "prefix": "lif",
---     "body": "let ${0} \n if (${2:condition}) {\n\t${1}\n}"
---   },
---   "else statement": {
---     "prefix": "el",
---     "body": "lse {\n\t${0}\n}"
---   },
---   "else if statement": {
---     "prefix": "ei",
---     "body": "else if (${1:condition}) {\n\t${0}\n}"
---   },
---   "while iteration decrementing": {
---     "prefix": "wid",
---     "body": "let ${1:array}Index = ${1:array}.length\nwhile (${1:array}Index--) {\n\t${0}\n}"
---   },
---   "throw new Error": {
---     "prefix": "tn",
---     "body": "throw new ${0:error}"
---   },
---   "try/catch": {
---     "prefix": "tc",
---     "body": "try {\n\t${0}\n} catch (${1:err}) {\n\t\n}"
---   },
---   "try/finally": {
---     "prefix": "tf",
---     "body": "try {\n\t${0}\n} finally {\n\t\n}"
---   },
---   "try/catch/finally": {
---     "prefix": "tcf",
---     "body": "try {\n\t${0}\n} catch (${1:err}) {\n\t\n} finally {\n\t\n}"
---   },
---   "anonymous function": {
---     "prefix": "fan",
---     "body": "function (${1:arguments}) {${0}}"
---   },
---   "named function": {
---     "prefix": "fn",
---     "body": "function ${1:name} (${2:arguments}) {\n\t${0}\n}"
---   },
---   "async function": {
---     "prefix": "asf",
---     "body": "async function (${1:arguments}) {\n\t${0}\n}"
---   },
---   "async arrow function": {
---     "prefix": "aa",
---     "body": "async (${1:arguments}) => {\n\t${0}\n}"
---   },
---   "immediately-invoked function expression": {
---     "prefix": "iife",
---     "body": ";(function (${1:arguments}) {\n\t${0}\n})(${2})"
---   },
---   "async immediately-invoked function expression": {
---     "prefix": "aiife",
---     "body": ";(async (${1:arguments}) => {\n\t${0}\n})(${2})"
---   },
---   "arrow function": {
---     "prefix": "af",
---     "body": "(${1:arguments}) => ${2:statement}"
---   },
---   "arrow function with destructuring": {
---     "prefix": "fd",
---     "body": "({${1:arguments}}) => ${2:statement}"
---   },
---   "arrow function with destructuring returning destructured": {
---     "prefix": "fdr",
---     "body": "({${1:arguments}}) => ${1:arguments}"
---   },
---   "arrow function with body": {
---     "prefix": "f",
---     "body": "(${1:arguments}) => {\n\t${0}\n}"
---   },
---   "arrow function with return": {
---     "prefix": "fr",
---     "body": "(${1:arguments}) => {\n\treturn ${0}\n}"
---   },e
---
---   "console.log": {
---     "prefix": "cl",
---     "body": "console.log(${0})"
---   },
---   "console.log a variable": {
---     "prefix": "cv",
---     "body": "console.log('${0}:', ${0})"
---   },
---   "console.error": {
---     "prefix": "ce",
---     "body": "console.error(${0})"
---   },
---   "console.warn": {
---     "prefix": "cw",
---     "body": "console.warn(${0})"
---   },
---   "console.dir": {
---     "prefix": "cod",
---     "body": "console.dir('${0}:', ${0})"
---   },
---
--- "JSON.stringify()": {
---     "prefix": "js",
---     "body": "JSON.stringify($0)"
---   },
---   "JSON.parse()": {
---     "prefix": "jp",
---     "body": "JSON.parse($0)"
---   },
---   "method": {
---     "prefix": "m",
---     "body": "${1:method} (${2:arguments}) {\n\t${0}\n}"
---   },
---   "ternary": {
---     "prefix": "te",
---     "body": "${1:cond} ? ${2:true} : ${3:false}"
---   },
---   "ternary assignment": {
---     "prefix": "ta",
---     "body": "const ${0} = ${1:cond} ? ${2:true} : ${3:false}"
---   },
--- "return this": {
---     "prefix": "rt",
---     "body": "return ${0:this}"
---   },
---   "return null": {
---     "prefix": "rn",
---     "body": "return null"
---   },
---   "return new object": {
---     "prefix": "ro",
---     "body": "return {\n\t${0}\n}"
---   },
---   "return new array": {
---     "prefix": "ra",
---     "body": "return [\n\t${0}\n]"
---   },
---   "return promise": {
---     "prefix": "rp",
---     "body": "return new Promise((resolve, reject) => {\n\t${0}\n})"
---   },
---
--- "wrap selection in arrow function": {
---     "prefix": "wrap selection in arrow function",
---     "body": "() => {\n\t{$TM_SELECTED_TEXT}\n}",
---     "description": "wraps text in arrow function"
---   },
---   "wrap selection in async arrow function": {
---     "prefix": "wrap selection in async arrow function",
---     "body": "async () => {\n\t{$TM_SELECTED_TEXT}\n}",
---     "description": "wraps text in arrow function"
---   },
---
--- "For Loop": {
---     "prefix": "for",
---     "body": [
---       "for (let ${1:index} = 0; ${1:index} < ${2:array}.length; ${1:index}++) {",
---       "\tconst ${3:element} = ${2:array}[${1:index}];",
---       "\t$0",
---       "}"
---     ],
---     "description": "For Loop"
---   },
---   "For-Each Loop": {
---     "prefix": "foreach",
---     "body": ["${1:array}.forEach(${2:element} => {", "\t$0", "});"],
---     "description": "For-Each Loop"
---   },
---
---
---   "If Statement": {
---     "prefix": "if",
---     "body": ["if (${1:condition}) {", "\t$0", "}"],
---     "description": "If Statement"
---   },
---   "If-Else Statement": {
---     "prefix": "ifelse",
---     "body": ["if (${1:condition}) {", "\t$0", "} else {", "\t", "}"],
---     "description": "If-Else Statement"
---   },
---
---   "While Statement": {
---     "prefix": "while",
---     "body": ["while (${1:condition}) {", "\t$0", "}"],
---     "description": "While Statement"
---   },
---   "Do-While Statement": {
---     "prefix": "dowhile",
---     "body": ["do {", "\t$0", "} while (${1:condition});"],
---     "description": "Do-While Statement"
---   },
---
---   "Try-Catch Statement": {
---     "prefix": "trycatch",
---     "body": ["try {", "\t$0", "} catch (${1:error}) {", "\t", "}"],
---     "description": "Try-Catch Statement"
---   },
---   "Set Timeout Function": {
---     "prefix": "settimeout",
---     "body": ["setTimeout(() => {", "\t$0", "}, ${1:timeout});"],
---     "description": "Set Timeout Function"
---   },
---   "Set Interval Function": {
---     "prefix": "setinterval",
---     "body": ["setInterval(() => {", "\t$0", "}, ${1:interval});"],
---     "description": "Set Interval Function"
---   },
---   "Import external module.": {
---     "prefix": "import statement",
---     "body": ["import { $0 } from \"${1:module}\";"],
---     "description": "Import external module."
---   },
---
---   "Log warning to console": {
---     "prefix": "warn",
---     "body": ["console.warn($1);", "$0"],
---     "description": "Log warning to the console"
---   },
---   "Log error to console": {
---     "prefix": "error",
---     "body": ["console.error($1);", "$0"],
---     "description": "Log error to the console"
---   }
 
 --   "reactClassCompoment": {
 --     "prefix": "rcc",
