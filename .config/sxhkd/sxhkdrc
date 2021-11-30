@@ -28,7 +28,7 @@ super + o
 
 # open calculatpr
 super + C
-  gnome-calculator
+  clipcat-menu
 
 
 
