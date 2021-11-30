@@ -224,10 +224,10 @@ local js_thing = {
       t({"", "})"})
     }
   ),
-  s("v", {t("var "), i(1, "name")}),
+  s("v", {t("var "), i(1, "name"), t(" = "), i(2)}),
   s("va", {t("var "), i(1, "name"), t(" = "), i(2)}),
   s("l", {t("let "), i(1, "name")}),
-  s("c", {t("cosnt "), i(1, "name")}),
+  s("c", {t("cosnt "), i(1, "name"), t(" = "), i(2)}),
   s("cd", {t("cosnt { "), i(1, "name"), t(" } = "), i(2)}),
   s("cad", {t("cosnt { "), i(1, "name"), t(" } = "), i(2)}),
   s(
@@ -321,9 +321,9 @@ local js_thing = {
       t({"", "}"})
     }
   ),
-  s("cl", {t("console.log("), i(2), t(")")}),
-  s("js", {t("JSON.stringify("), i(2), t(")")}),
-  s("jp", {t("JSON.parse("), i(2), t(")")}),
+  s("cl", {t("console.log("), i(1), t(")")}),
+  s("js", {t("JSON.stringify("), i(1), t(")")}),
+  s("jp", {t("JSON.parse("), i(1), t(")")}),
   s("te", {i(1, "cond"), t(" ? "), i(2, "true"), t(" : "), i(3, "false")}),
   s("ta", {t("const = "), i(1, "cond"), t(" ? "), i(2, "true"), t(" : "), i(3, "false")}),
   s("rt", {t("return "), i(2)}),
