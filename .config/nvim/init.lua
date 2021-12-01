@@ -194,7 +194,7 @@ table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
 
-local servers = {"clangd", "rust_analyzer", "pyright", "tsserver", "html", "cssls", "emmet_ls", "sumneko_lua"}
+local servers = {"clangd", "rust_analyzer", "pyright", "tsserver", "html", "cssls", "emmet_ls", "sumneko_lua", "texlab"}
 for _, lsp in ipairs(servers) do
   if lsp == "sumneko_lua" then
     nvim_lsp.sumneko_lua.setup {
