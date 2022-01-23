@@ -1,5 +1,6 @@
 local opts = {noremap = true, silent = true}
 
+
 --Remap space as leader key
 vim.api.nvim_set_keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
@@ -19,8 +20,6 @@ vim.api.nvim_set_keymap("v", "<C-k>", ":m '<-2<CR>gv=gv", opts)
 
 -- My greates remap yet
 vim.api.nvim_set_keymap("i", "<C-l>", "<C-o>A", opts)
-vim.api.nvim_set_keymap("i", "<C-e>", "<C-Right>", opts)
-vim.api.nvim_set_keymap("i", "<C-i>", "<C-Right>", opts)
 vim.api.nvim_set_keymap("n", "<Esc>", ":nohlsearch<CR>", opts)
 
 vim.api.nvim_set_keymap("n", "[d", ":lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
@@ -28,24 +27,53 @@ vim.api.nvim_set_keymap("n", "]d", ":lua vim.lsp.diagnostic.goto_next()<CR>", op
 vim.api.nvim_set_keymap("n", "gD", ":lua vim.lsp.buf.declaration()<CR>", opts)
 vim.api.nvim_set_keymap("n", "gd", ":lua vim.lsp.buf.definition()<CR>", opts)
 vim.api.nvim_set_keymap("n", "K", ":lua vim.lsp.buf.hover()<CR>", opts)
--- vim.api.nvim_set_keymap("n", "<C-k>", ":lua vim.lsp.buf.signature_help()<CR>", opts)
+vim.api.nvim_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+vim.api.nvim_set_keymap('n', 'gI', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<space>F', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<space>s', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<space>K', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<space>d', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+
+
+
+  -- -- See `:help vim.lsp.*` for documentation on any of the below functions
+  -- buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  -- buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  -- buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  -- buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  -- buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  -- buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  -- buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  -- buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  -- buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  -- buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  -- buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  -- buf_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+  -- buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  -- buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+  -- buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+  -- buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
 -- Sorce config file
-vim.api.nvim_set_keymap("n", "<leader>s", ":so ~/.config/nvim/init.lua<CR>", opts)
+-- vim.api.nvim_set_keymap("n", "<leader>F", ":FormatWrite<CR>", opts)
 
--- Sorce config file
-vim.api.nvim_set_keymap("n", "<leader>F", ":FormatWrite<CR>", opts)
 
--- Y yank until the end of line
--- vim.api.nvim_set_keymap("n", "Y", "y$", opts)
+vim.api.nvim_set_keymap("n", "J", "mzJ`z`", opts)
+vim.api.nvim_set_keymap("n", "n", "nzzzv", opts)
+vim.api.nvim_set_keymap("n", "N", "Nzzzv", opts)
 
--- vim.api.nvim_set_keymap("n", "J", "mzJ`z`", opts)
--- vim.api.nvim_set_keymap("n", "n", "nzzzv", opts)
--- vim.api.nvim_set_keymap("n", "N", "Nzzzv", opts)
+vim.api.nvim_set_keymap("n", "d", '"xd', opts)
+vim.api.nvim_set_keymap("n", "D", '"xD', opts)
+vim.api.nvim_set_keymap("n", "c", '"xc', opts)
+vim.api.nvim_set_keymap("n", "C", '"xC', opts)
 
 -- NEXT n PREV buffer
-vim.api.nvim_set_keymap("n", "<leader>t", ":bel 15sp term://zsh<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>T", ":bel 15sp <CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>t", ":bel 10sp term://zsh<CR>", opts)
+-- vim.api.nvim_set_keymap("n", "<leader>T", ":bel 10sp<CR>", opts)
 
 -- This work better for me
 vim.api.nvim_set_keymap("n", "<leader>e", ":Ex<CR>", opts)
@@ -78,12 +106,13 @@ vim.api.nvim_set_keymap("n", "<leader>sT", ":tjump *", opts)
 -- nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
 vim.api.nvim_set_keymap("n", "<leader>f", ":lua require('telescope.builtin').find_files()<cr>", opts)
-vim.api.nvim_set_keymap("n", "<leader>F", ":lua require('telescope.builtin').buffers()<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>b", ":lua require('telescope.builtin').buffers()<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>g", ":lua require('telescope.builtin').live_grep()<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>G", ":lua require('telescope.builtin').grep_string()<cr>", opts)
 
+
 -- Managing buffers and Windows
-vim.api.nvim_set_keymap("n", "<leader>bd", ":bdelete!<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>B", ":bdelete!<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>>", ":bn<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader><", ":bp<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>q", ":close<CR>", opts)
@@ -92,9 +121,6 @@ vim.api.nvim_set_keymap("n", "<leader>O", ":unhide<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>_", ":res<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>|", ":vert res<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>w", "<C-w>", opts)
-
-vim.api.nvim_set_keymap("n", "<leader>R", ':call Exec_on_term("normal")<CR>', opts)
-vim.api.nvim_set_keymap("n", "<leader>R", ':<c-u>call Exec_on_term("visual")<CR>', opts)
 
 -- Random
 vim.api.nvim_set_keymap("n", "<leader>;", ":", opts)

@@ -26,11 +26,12 @@ require("packer").startup(
     use "golang/vscode-go"
     use "nvim-lua/lsp_extensions.nvim"
     use "OrangeT/vim-csharp"
-    use { "nvim-treesitter/nvim-treesitter", branch = "0.5-compat" }
-    use { "nvim-treesitter/nvim-treesitter-textobjects", branch = "0.5-compat", run = ":TSUpdate" }
+    use {"nvim-treesitter/nvim-treesitter", branch = "0.5-compat"}
+    use {"nvim-treesitter/nvim-treesitter-textobjects", branch = "0.5-compat", run = ":TSUpdate"}
     use "mhartington/formatter.nvim"
     use "norcalli/nvim-colorizer.lua"
     use "lewis6991/gitsigns.nvim"
+    use "norcalli/nvim-terminal.lua"
     use {
       "prettier/vim-prettier",
       ft = {
@@ -54,10 +55,11 @@ require("packer").startup(
     use "hrsh7th/cmp-cmdline"
     use "hrsh7th/cmp-calc"
     use "f3fora/cmp-spell"
-      use "lukas-reineke/cmp-rg"
+    use "lukas-reineke/cmp-rg"
     use "hrsh7th/cmp-buffer"
     use "hrsh7th/cmp-path"
+    -- use "RRethy/vim-illuminate"
   end
 )
 
-
+require "terminal".setup()

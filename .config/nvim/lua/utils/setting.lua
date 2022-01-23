@@ -1,17 +1,13 @@
-vim.api.nvim_exec(
-  [[
-    augroup YankHighlight
-        autocmd!
-        autocmd TextYankPost * silent! lua vim.highlight.on_yank()
-    augroup end
-    autocmd VimResized * only
-]],
-  false
-)
 
 -- Save as sudo...
 vim.api.nvim_exec([[
     cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
+]], false)
+
+
+-- Use clipboard asynch
+vim.api.nvim_exec([[
+      set clipboard=unnamedplus
 ]], false)
 
 vim.api.nvim_exec([[
@@ -52,15 +48,14 @@ vim.api.nvim_exec(
     set expandtab
     set shiftwidth=0
     set report=0
-    set splitright
     set path+=**
     set wildignore+=**/node_modules/**
-    set noswapfile
     set shortmess+=c
-    set laststatus=1
+    set laststatus=0
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
+    :set splitright
     function! Exec_on_term(cmd)
       if a:cmd=="normal"
         exec "normal mk\"vyip"
@@ -82,6 +77,21 @@ vim.api.nvim_exec(
       exec "normal `k"
     endfunction
 
+    nnoremap <space>R :call Exec_on_term("normal")<CR>
+    vnoremap <space>R :<c-u>call Exec_on_term("visual")<CR>
+
+
+    highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
+    highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6
+    highlight! CmpItemAbbrMatchFuzzy guibg=NONE guifg=#569CD6
+    highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE
+    highlight! CmpItemKindInterface guibg=NONE guifg=#9CDCFE
+    highlight! CmpItemKindText guibg=NONE guifg=#9CDCFE
+    highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0
+    highlight! CmpItemKindMethod guibg=NONE guifg=#C586C0
+    highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4
+    highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
+    highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
 
 ]],
   false
@@ -105,5 +115,5 @@ vim.o.wrap = false
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.scrolloff = 1
-vim.o.updatetime = 250
+vim.o.updatetime = 300
 vim.wo.signcolumn = "yes"

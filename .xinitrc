@@ -5,7 +5,7 @@
 dunst &
 sxhkd &
 slstatus &
-# mpd &
+mpd &
 xautolock -time 8 -locker slock &
 xbanish &
 [[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap &

@@ -1,6 +1,12 @@
 # Simnanga Hendry Khoza
 # Tue Jun  8 13:36:08 2021
 
+case $TERM in
+    xterm*)
+        precmd () {print -Pn "\e]0;string\a"}
+        ;;
+esac
+
 autoload -Uz vcs_info
 zstyle ':vcs_info:git*' formats "(%b)"
 zstyle ':vcs_info:*' check-for-changes true "(%b*)"
@@ -22,6 +28,7 @@ bindkey -a '^\' accept-line-swallow
 # bindkey -M vicmd v edit-command-line
 
 zle -N accept-line-swallow acceptandswallow
+
 acceptandswallow() {
     dwmswallow $WINDOWID
     zle accept-line
@@ -47,7 +54,11 @@ function expand-alias() {
 	zle self-insert
 }
 zle -N expand-alias
-bindkey -M main ' ' expand-alias
+
+bindkey -a ' ' expand-alias
+bindkey ' ' expand-alias
+
+
 
 # vi mode
 bindkey -v
@@ -117,8 +128,13 @@ source ~/.zsh/aliases.sh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/zsh-autopair/autopair.zsh
+source ~/workspace/cmdtime/cmdtime.plugin.zsh
 # source "/home/hendry/workspace/emsdk/emsdk_env.sh"
 # I love this plugin but it is too slow
 # source ~/.zsh/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 #
 
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
