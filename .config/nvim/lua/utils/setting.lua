@@ -1,15 +1,24 @@
 
+-- Highlight on yank
+vim.cmd  [[
+  augroup YankHighlight
+    autocmd!
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank()
+  augroup end
+]]
+
 -- Save as sudo...
 vim.api.nvim_exec([[
     cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 ]], false)
 
 
--- Use clipboard asynch
-vim.api.nvim_exec([[
-      set clipboard=unnamedplus
-]], false)
+-- -- Use clipboard asynch
+-- vim.api.nvim_exec([[
+--       set clipboard=unnamedplus
+-- ]], false)
 
+-- auto save on FocusLost
 vim.api.nvim_exec([[
     au FocusLost * :wa
     au FocusLost * silent! wa

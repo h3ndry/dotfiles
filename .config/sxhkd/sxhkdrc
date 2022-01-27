@@ -17,10 +17,10 @@ super + N
   ~/.local/bin/notesreader.sh
 
 super + Print
-	maim | tee ~/pictures/screenshots/$(date +%s).png | xclip -selection clipboard -t image/png && notify-send "Screenshot has been captured" "Location: ~/pictures/screenshot"
+	maim | tee ~/Pictures/screenshots/$(date +%s).png | xclip -selection clipboard -t image/png && notify-send "Screenshot has been captured" "Location: ~/pictures/screenshot"
 
 Print
-	maim --select | tee ~/pictures/screenshots/$(date +%s).png | xclip -selection clipboard -t image/png && notify-send "Screenshot has been captured" "Location: ~/pictures/screenshot"
+	maim --select | tee ~/Pictures/screenshots/$(date +%s).png | xclip -selection clipboard -t image/png && notify-send "Screenshot has been captured" "Location: ~/pictures/screenshot"
 
 # make sxhkd reload its configuration files:
 super + o

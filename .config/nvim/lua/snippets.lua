@@ -227,17 +227,17 @@ local js_thing = {
   s("v", {t("var "), i(1, "name"), t(" = "), i(2)}),
   s("va", {t("var "), i(1, "name"), t(" = "), i(2)}),
   s("l", {t("let "), i(1, "name")}),
-  s("c", {t("cosnt "), i(1, "name"), t(" = "), i(2)}),
-  s("cd", {t("cosnt { "), i(1, "name"), t(" } = "), i(2)}),
-  s("cad", {t("cosnt { "), i(1, "name"), t(" } = "), i(2)}),
+  s("c", {t("const "), i(1, "name"), t(" = "), i(2)}),
+  s("cd", {t("const { "), i(1, "name"), t(" } = "), i(2)}),
+  s("cad", {t("const { "), i(1, "name"), t(" } = "), i(2)}),
   s(
     "caf",
     {
-      t("cosnt "),
+      t("const"),
       i(1, "name"),
-      t(" = ( "),
+      t(" = ("),
       i(2),
-      t({" ) => {", "\t return "}),
+      t({") => {", "\t return "}),
       i(0),
       t({"", "}"})
     }
@@ -246,15 +246,15 @@ local js_thing = {
   s("car", {t("const "), i(1, "name"), t({" = [ ", "\t"}), i(2), t({"", "]"})}),
   s("e", {t("export "), i(1, "name")}),
   s("ec", {t("export  const "), i(1, "name"), t(" = "), i(2)}),
-  -- s("ef", {t("export  const "), i(1, "name"), t(" = "), i(2)}),
+
+  s("eda", {t("export  { default as  "), i(2, "Name"), t(" } from '"), i(1, "path"), t("'")}),
+  s("ed", {t("export  { "), i(2, "Name"), t(" } from '"), i(1, "path"), t("'")}),
 
   s("im", {t("import "), i(2, "name"), t(" from '"), i(1), t("'")}),
   s("ia", {t("import "), i(2, "name"), t(" as "), i(3), t(" from '"), i(1), t("'")}),
   s("id", {t("import { "), i(2), t(" } from '"), i(1), t("'")}),
   s("te", {t("throw new"), i(2), t(" } from '"), i(1), t("'")}),
   s("tc", {t({"try {", "\t"}), i(1), t({"", "} catch ("}), i(2), t({") {", "\t"}), i(3), t({"", "}"})}),
-  --     "body": "try {\n\t${0}\n} finally {\n\t\n}"
-  --     "body": "try {\n\t${0}\n} catch (${1:err}) {\n\t\n} finally {\n\t\n}"
 
   s(
     "if",
@@ -284,9 +284,6 @@ local js_thing = {
       t({"", "}"})
     }
   ),
-  --     "body": "try {\n\t${0}\n} catch (${1:err}) {\n\t\n} finally {\n\t\n}"
-  --     "body": "try {\n\t${0}\n} finally {\n\t\n}"
-  --
   s(
     "fn",
     {
@@ -321,6 +318,20 @@ local js_thing = {
       t({"", "}"})
     }
   ),
+
+
+  s(
+    "for",
+    {
+      t({"for ( let"}),
+      i(1),
+      t({") {", "\t"}),
+      i(2),
+      t({"", "}"})
+    }
+  ),
+
+
   s("cl", {t("console.log("), i(1), t(")")}),
   s("js", {t("JSON.stringify("), i(1), t(")")}),
   s("jp", {t("JSON.parse("), i(1), t(")")}),

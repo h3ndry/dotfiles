@@ -66,10 +66,10 @@ vim.api.nvim_set_keymap("n", "J", "mzJ`z`", opts)
 vim.api.nvim_set_keymap("n", "n", "nzzzv", opts)
 vim.api.nvim_set_keymap("n", "N", "Nzzzv", opts)
 
-vim.api.nvim_set_keymap("n", "d", '"xd', opts)
-vim.api.nvim_set_keymap("n", "D", '"xD', opts)
-vim.api.nvim_set_keymap("n", "c", '"xc', opts)
-vim.api.nvim_set_keymap("n", "C", '"xC', opts)
+-- vim.api.nvim_set_keymap("n", "d", '"xd', opts)
+-- vim.api.nvim_set_keymap("n", "D", '"xD', opts)
+-- vim.api.nvim_set_keymap("n", "c", '"xc', opts)
+-- vim.api.nvim_set_keymap("n", "C", '"xC', opts)
 
 -- NEXT n PREV buffer
 vim.api.nvim_set_keymap("n", "<leader>t", ":bel 10sp term://zsh<CR>", opts)
@@ -122,7 +122,11 @@ vim.api.nvim_set_keymap("n", "<leader>_", ":res<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>|", ":vert res<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>w", "<C-w>", opts)
 
+
+-- Clear white space on empty lines and end of line
+vim.api.nvim_set_keymap('n', '<F6>', [[:let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>]], { noremap = true, silent = true })
+
+
 -- Random
 vim.api.nvim_set_keymap("n", "<leader>;", ":", opts)
-
 

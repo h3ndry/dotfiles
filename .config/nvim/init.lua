@@ -21,8 +21,7 @@ end
 local cmp = require "cmp"
 local lspkind = require("lspkind")
 local luasnip = require("luasnip")
-local sumneko_root_path = "/usr/lib/lua-language-server"
-local sumneko_binary = sumneko_root_path .. "/bin/Linux/lua-language-server"
+
 local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
@@ -50,8 +49,8 @@ cmp.setup {
     end
   },
   mapping = {
-    ["<C-p>"] = cmp.mapping.select_prev_item(),
-    ["<C-n>"] = cmp.mapping.select_next_item(),
+    -- ["<C-p>"] = cmp.mapping.select_prev_item(),
+    -- ["<C-n>"] = cmp.mapping.select_next_item(),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
     ["<C-f>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
@@ -74,6 +73,7 @@ cmp.setup {
       end,
       {"i", "s"}
     ),
+
     ["<C-p>"] = cmp.mapping(
       function(fallback)
         if cmp.visible() then
@@ -94,7 +94,7 @@ cmp.setup {
     {name = "nvim_lua"},
     {name = "cmp-cmdline"},
     {name = "cmp-treesitter"},
-    {name = "cmp-calc"},
+    {name = "calc"},
     {name = "cmp-spell"},
     {name = "path"},
     -- {name = "rg"},
@@ -107,13 +107,13 @@ cmp.setup {
     format = lspkind.cmp_format {
       with_text = true,
       menu = {
+        luasnip = "[SNIP]",
         nvim_lsp = "[LSP]",
         nvim_lua = "[API]",
         calc = "[CALC]",
         cmdline = "[CMD]",
         spell = "[SPELL]",
         path = "[PATH]",
-        luasnip = "[SNIP]",
         -- rg = "[RG]",
         buffer = "[BUFF]"
       }
@@ -172,17 +172,14 @@ cmp.setup.cmdline(
 
 for _, lsp in ipairs(servers) do
   if lsp == "sumneko_lua" then
-    nvim_lsp.sumneko_lua.setup {
-      cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
-      capabilities = capabilities,
+    require "lspconfig".sumneko_lua.setup {
       settings = {
         Lua = {
-          capabilities = capabilities,
           runtime = {
             -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
             version = "LuaJIT",
             -- Setup your lua path
-            path = vim.split(package.path, ";")
+            path = runtime_path
           },
           diagnostics = {
             -- Get the language server to recognize the `vim` global
@@ -190,13 +187,11 @@ for _, lsp in ipairs(servers) do
           },
           workspace = {
             -- Make the server aware of Neovim runtime files
-            library = {
-              [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-              [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
-            },
-            ignoreDir = {
-              "/home/hendry/Packages"
-            }
+            library = vim.api.nvim_get_runtime_file("", true)
+          },
+          -- Do not send telemetry data containing a randomized but unique identifier
+          telemetry = {
+            enable = false
           }
         }
       }

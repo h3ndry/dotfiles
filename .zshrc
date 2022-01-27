@@ -20,10 +20,6 @@ setopt prompt_subst
 # zstyle ':vcs_info:git*' actionformats "%s  %r/%S %b %m%u%c "
 PROMPT='%{$fg[green]%}%c%{$reset_color%}${vcs_info_msg_0_} $ '
 
-alias s='dwmswallow $WINDOWID;'
-
-bindkey '^\' accept-line-swallow
-bindkey -a '^\' accept-line-swallow
 
 # bindkey -M vicmd v edit-command-line
 
@@ -48,15 +44,6 @@ zstyle ':completion:*' menu select
 zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# Include hidden files.
-
-function expand-alias() {
-	zle _expand_alias
-	zle self-insert
-}
-zle -N expand-alias
-
-bindkey -a ' ' expand-alias
-bindkey ' ' expand-alias
 
 
 
@@ -83,6 +70,18 @@ bindkey '^e' edit-command-line
 
 bindkey '^y' autosuggest-accept
 bindkey -a '^y' autosuggest-accept
+
+
+function expand-alias() {
+	zle _expand_alias
+	zle self-insert
+}
+zle -N expand-alias
+bindkey -M main ' ' expand-alias
+
+alias s='dwmswallow $WINDOWID;'
+bindkey '^\' accept-line-swallow
+bindkey -a '^\' accept-line-swallow
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select {

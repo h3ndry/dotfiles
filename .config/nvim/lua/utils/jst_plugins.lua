@@ -58,6 +58,11 @@ require("packer").startup(
     use "lukas-reineke/cmp-rg"
     use "hrsh7th/cmp-buffer"
     use "hrsh7th/cmp-path"
+
+use {
+  'nvim-lualine/lualine.nvim',
+  requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+}
     -- use "RRethy/vim-illuminate"
   end
 )
