@@ -109,6 +109,7 @@ vim.api.nvim_set_keymap("n", "<leader>f", ":lua require('telescope.builtin').fin
 vim.api.nvim_set_keymap("n", "<leader>b", ":lua require('telescope.builtin').buffers()<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>g", ":lua require('telescope.builtin').live_grep()<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>G", ":lua require('telescope.builtin').grep_string()<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>re", ":lua require('telescope.builtin').registers()<cr>", opts)
 
 
 -- Managing buffers and Windows

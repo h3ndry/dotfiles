@@ -3,3 +3,5 @@
 	name = Hendry
 [merge]
 	tool = nvimdiff
+[core]
+	editor = nvim

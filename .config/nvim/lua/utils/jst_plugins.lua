@@ -32,6 +32,7 @@ require("packer").startup(
     use "norcalli/nvim-colorizer.lua"
     use "lewis6991/gitsigns.nvim"
     use "norcalli/nvim-terminal.lua"
+    use "amadeus/vim-convert-color-to"
     use {
       "prettier/vim-prettier",
       ft = {
@@ -59,11 +60,6 @@ require("packer").startup(
     use "hrsh7th/cmp-buffer"
     use "hrsh7th/cmp-path"
 
-use {
-  'nvim-lualine/lualine.nvim',
-  requires = { 'kyazdani42/nvim-web-devicons', opt = true }
-}
-    -- use "RRethy/vim-illuminate"
   end
 )
 

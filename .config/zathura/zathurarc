@@ -3,38 +3,59 @@ set selection-clipboard clipboard
 map <C-i> zoom in
 map <C-o> zoom out
 #}}}
+
+
 # {{{ COLORS
-set default-bg                  "#090909"
+set default-bg                  "#1f1f1f"
 set default-fg                  "#7e7e7e"
 
 set statusbar-fg                "#cccccc"
-set statusbar-bg                "#090909"
+set statusbar-bg                "#1f1f1f"
 set statusbar-basename          "true"
 
-set inputbar-bg                 "#090909"
-set inputbar-fg                 "#f9f5f7"
+set inputbar-bg                 "#1f1f1f"
+set inputbar-fg                 "#cccccc"
 
-set notification-bg             "#0c0c0c"
+set notification-bg             "#1f1f1f"
 set notification-fg             "#f9f5f7"
 
-set notification-error-bg       "#0c0c0c"
+set notification-error-bg       "#1f1f1f"
 set notification-error-fg       "#cc241d"
 
-set notification-warning-bg     "#0c0c0c"
+set notification-warning-bg     "#1f1f1f"
 set notification-warning-fg     "#cc241d"
 
 set highlight-color             "#fabd2f"
 set highlight-active-color      "#458588"
 
-set completion-bg               "#3c3836"
+set completion-bg               "#1f1f1f"
 set completion-fg               "#458588"
 
 set completion-highlight-fg     "#a89984"
-set completion-highlight-bg     "#458588"
+set completion-highlight-bg     "#1f1f1f"
 
-set recolor-lightcolor          "#080808"
-set recolor-darkcolor           "#a3a3a3"
+set recolor-lightcolor          "#1c1c1c"
+set recolor-darkcolor           "#cccccc"
 
 set recolor                     "true"
 set recolor-keephue             "true"
 # }}}
+
+
+# {{{ Things I copied over the internet
+# Open document in fit-width mode by default
+set adjust-open "best-fit"
+
+# One page per row by default
+set pages-per-row 1
+
+#stop at page boundries
+set scroll-page-aware "true"
+set smooth-scroll "true"
+set scroll-full-overlap 0.01
+set scroll-step 240
+
+#zoom settings
+set zoom-min 10
+
+set font "JetBrainsMono 10"

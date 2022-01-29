@@ -60,7 +60,13 @@ vim.api.nvim_exec(
     set path+=**
     set wildignore+=**/node_modules/**
     set shortmess+=c
+    let g:netrw_liststyle=3
+
+    let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
     set laststatus=0
+    set fillchars=stl:\ 
+    set statusline=\ 
+
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
