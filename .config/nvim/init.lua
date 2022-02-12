@@ -37,7 +37,8 @@ local servers = {
   "sumneko_lua",
   "texlab",
   "svelte",
-  "bashls"
+  "bashls",
+  "csharp_ls"
 }
 
 -- luasnip.stup{}
@@ -131,12 +132,20 @@ require("telescope").setup {
   },
   pickers = {},
   extensions = {
-    fzy_native = {
+    fzf = {
       override_generic_sorter = false,
       override_file_sorter = true
-    }
+    },
+    bookmarks = {
+      -- Available: 'brave', 'buku', 'chrome', 'edge', 'safari', 'firefox'
+      selected_browser = 'brave',
+  }
   }
 }
+
+require('telescope').load_extension('fzf')
+require('telescope').load_extension('bookmarks')
+
 cmp.setup.cmdline(
   "?",
   {
@@ -213,34 +222,63 @@ require("lspkind").init(
     preset = "codicons",
     -- default: {}
     symbol_map = {
-      Text = " ",
-      Method = " ",
-      Function = " ",
-      Constructor = " ",
-      Field = " ",
+      Text = " ",
+      Method = " ",
+      Function = " ",
+      Constructor = " ",
+      Field = " ",
       Variable = " ",
-      Class = " ",
-      Interface = " ",
-      Module = " ",
+      Class = " ",
+      Interface = " ",
+      Module = " ",
       Property = " ",
       Unit = " ",
-      Value = " ",
-      Enum = " ",
-      Keyword = " ",
-      Snippet = " ",
-      Color = " ",
+      Value = " ",
+      Enum = " ",
+      Keyword = " ",
+      Snippet = " ",
+      Color = " ",
       File = " ",
       Reference = " ",
       Folder = " ",
       EnumMember = " ",
-      Constant = " ",
-      Struct = " ",
-      Event = " ",
+      Constant = " ",
+      Struct = " ",
+      Event = " ",
       Operator = " ",
-      TypeParameter = " "
+      TypeParameter = " "
     }
   }
 )
+local cmp_kinds = {
+  Text = '  ',
+  Method = '  ',
+  Function = '  ',
+  Constructor = '  ',
+  Field = '  ',
+  Variable = '  ',
+  Class = '  ',
+  Interface = '  ',
+  Module = '  ',
+  Property = '  ',
+  Unit = '  ',
+  Value = '  ',
+  Enum = '  ',
+  Keyword = '  ',
+  Snippet = '  ',
+  Color = '  ',
+  File = '  ',
+  Reference = '  ',
+  Folder = '  ',
+  EnumMember = '  ',
+  Constant = '  ',
+  Struct = '  ',
+  Event = '  ',
+  Operator = '  ',
+  TypeParameter = '  ',
+} 
+
+
 
 require("nvim-treesitter.configs").setup {
   textobjects = {

@@ -52,6 +52,9 @@ vim.api.nvim_exec(
 
 vim.api.nvim_exec(
   [[
+
+	:set shada='1000,f1
+
     set tabstop=4
     set shiftwidth=4
     set expandtab

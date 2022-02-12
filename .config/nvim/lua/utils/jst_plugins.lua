@@ -33,6 +33,7 @@ require("packer").startup(
     use "lewis6991/gitsigns.nvim"
     use "norcalli/nvim-terminal.lua"
     use "amadeus/vim-convert-color-to"
+    use 'dhruvmanila/telescope-bookmarks.nvim'
     use {
       "prettier/vim-prettier",
       ft = {
