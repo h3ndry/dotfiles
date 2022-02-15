@@ -17,8 +17,10 @@ require("packer").startup(
     use {"nvim-telescope/telescope-fzf-native.nvim", run = "make"}
     use "nvim-lua/plenary.nvim"
     use "nvim-telescope/telescope.nvim"
-    use "L3MON4D3/LuaSnip"
     use "rafamadriz/friendly-snippets"
+
+    use "L3MON4D3/LuaSnip"
+
     use "saadparwaiz1/cmp_luasnip"
     use "hrsh7th/nvim-cmp"
     use "hrsh7th/cmp-nvim-lsp"
@@ -33,7 +35,7 @@ require("packer").startup(
     use "lewis6991/gitsigns.nvim"
     use "norcalli/nvim-terminal.lua"
     use "amadeus/vim-convert-color-to"
-    use 'dhruvmanila/telescope-bookmarks.nvim'
+    use "dhruvmanila/telescope-bookmarks.nvim"
     use {
       "prettier/vim-prettier",
       ft = {
@@ -60,7 +62,8 @@ require("packer").startup(
     use "lukas-reineke/cmp-rg"
     use "hrsh7th/cmp-buffer"
     use "hrsh7th/cmp-path"
-
+    use "jlcrochet/vim-razor"
+    -- use "OrangeT/vim-csharp"
   end
 )
 

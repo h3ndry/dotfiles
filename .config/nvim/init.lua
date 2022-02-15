@@ -1,8 +1,9 @@
 require "utils.jst_plugins"
 require("Comment").setup()
 require "lspconfig".sumneko_lua.setup {}
-require "luasnip".config.setup {}
+-- require "luasnip".config.setup {}
 require "marks".setup {}
+-- require "vim-csharp".setup {}
 require("telescope").load_extension("fzf")
 require "utils.setting"
 require "utils.keymap"
@@ -38,7 +39,8 @@ local servers = {
   "texlab",
   "svelte",
   "bashls",
-  "csharp_ls"
+  -- "csharp_ls",
+  -- "omnisharp"
 }
 
 -- luasnip.stup{}
@@ -74,7 +76,6 @@ cmp.setup {
       end,
       {"i", "s"}
     ),
-
     ["<C-p>"] = cmp.mapping(
       function(fallback)
         if cmp.visible() then
@@ -138,13 +139,13 @@ require("telescope").setup {
     },
     bookmarks = {
       -- Available: 'brave', 'buku', 'chrome', 'edge', 'safari', 'firefox'
-      selected_browser = 'brave',
-  }
+      selected_browser = "brave"
+    }
   }
 }
 
-require('telescope').load_extension('fzf')
-require('telescope').load_extension('bookmarks')
+require("telescope").load_extension("fzf")
+require("telescope").load_extension("bookmarks")
 
 cmp.setup.cmdline(
   "?",
@@ -216,69 +217,78 @@ for _, lsp in ipairs(servers) do
   end
 end
 
+local pid = vim.fn.getpid()
+-- On linux/darwin if using a release build, otherwise under scripts/OmniSharp(.Core)(.cmd)
+-- local omnisharp_bin = "/path/to/omnisharp-repo/run"
+-- on Windows
+-- local omnisharp_bin = "/path/to/omnisharp/OmniSharp.exe"
+require'lspconfig'.omnisharp.setup{
+    cmd = { "omnisharp", "--languageserver" , "--hostPID", tostring(pid)},
+      capabilities = capabilities
+
+}
+
 require("lspkind").init(
   {
     -- default symbol map
     preset = "codicons",
     -- default: {}
     symbol_map = {
-      Text = " ",
-      Method = " ",
-      Function = " ",
-      Constructor = " ",
-      Field = " ",
-      Variable = " ",
-      Class = " ",
-      Interface = " ",
-      Module = " ",
-      Property = " ",
-      Unit = " ",
-      Value = " ",
-      Enum = " ",
-      Keyword = " ",
-      Snippet = " ",
-      Color = " ",
-      File = " ",
-      Reference = " ",
-      Folder = " ",
-      EnumMember = " ",
-      Constant = " ",
-      Struct = " ",
-      Event = " ",
-      Operator = " ",
-      TypeParameter = " "
+      Text = "  ",
+      Method = "  ",
+      Function = "  ",
+      Constructor = "  ",
+      Field = "  ",
+      Variable = "  ",
+      Class = "  ",
+      Interface = "  ",
+      Module = "  ",
+      Property = "  ",
+      Unit = "  ",
+      Value = "  ",
+      Enum = "  ",
+      Keyword = "  ",
+      Snippet = "  ",
+      Color = "  ",
+      File = "  ",
+      Reference = "  ",
+      Folder = "  ",
+      EnumMember = "  ",
+      Constant = "  ",
+      Struct = "  ",
+      Event = "  ",
+      Operator = "  ",
+      TypeParameter = "  "
     }
   }
 )
 local cmp_kinds = {
-  Text = '  ',
-  Method = '  ',
-  Function = '  ',
-  Constructor = '  ',
-  Field = '  ',
-  Variable = '  ',
-  Class = '  ',
-  Interface = '  ',
-  Module = '  ',
-  Property = '  ',
-  Unit = '  ',
-  Value = '  ',
-  Enum = '  ',
-  Keyword = '  ',
-  Snippet = '  ',
-  Color = '  ',
-  File = '  ',
-  Reference = '  ',
-  Folder = '  ',
-  EnumMember = '  ',
-  Constant = '  ',
-  Struct = '  ',
-  Event = '  ',
-  Operator = '  ',
-  TypeParameter = '  ',
-} 
-
-
+  Text = "  ",
+  Method = "  ",
+  Function = "  ",
+  Constructor = "  ",
+  Field = "  ",
+  Variable = "  ",
+  Class = "  ",
+  Interface = "  ",
+  Module = "  ",
+  Property = "  ",
+  Unit = "  ",
+  Value = "  ",
+  Enum = "  ",
+  Keyword = "  ",
+  Snippet = "  ",
+  Color = "  ",
+  File = "  ",
+  Reference = "  ",
+  Folder = "  ",
+  EnumMember = "  ",
+  Constant = "  ",
+  Struct = "  ",
+  Event = "  ",
+  Operator = "  ",
+  TypeParameter = "  "
+}
 
 require("nvim-treesitter.configs").setup {
   textobjects = {
