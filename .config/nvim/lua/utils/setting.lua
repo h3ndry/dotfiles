@@ -133,5 +133,5 @@ vim.o.wrap = false
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.scrolloff = 1
-vim.o.updatetime = 300
+vim.o.updatetime = 200
 vim.wo.signcolumn = "yes"

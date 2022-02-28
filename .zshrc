@@ -18,7 +18,12 @@ autoload -U colors && colors
 
 setopt prompt_subst
 # zstyle ':vcs_info:git*' actionformats "%s  %r/%S %b %m%u%c "
+
 PROMPT='%{$fg[green]%}%c%{$reset_color%}${vcs_info_msg_0_} $ '
+
+# print -n "\033k TITLE \033\134"
+
+  # print -n "\033]0; st $(pwd | sed -e "s;^$HOME;~;")\a"
 
 
 # bindkey -M vicmd v edit-command-line
@@ -104,11 +109,11 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
+
 # zsh parameter completion for the dotnet CLI
 _dotnet_zsh_complete()
 {
   local completions=("$(dotnet complete "$words")")
-
   reply=( "${(ps:\n:)completions}" )
 }
 

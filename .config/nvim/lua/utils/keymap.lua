@@ -22,8 +22,9 @@ vim.api.nvim_set_keymap("v", "<C-k>", ":m '<-2<CR>gv=gv", opts)
 vim.api.nvim_set_keymap("i", "<C-l>", "<C-o>A", opts)
 vim.api.nvim_set_keymap("n", "<Esc>", ":nohlsearch<CR>", opts)
 
-vim.api.nvim_set_keymap("n", "[d", ":lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-vim.api.nvim_set_keymap("n", "]d", ":lua vim.lsp.diagnostic.goto_next()<CR>", opts)
+vim.api.nvim_set_keymap("n", "[d", ":lua vim.diagnostic.goto_prev()<CR>", opts)
+vim.api.nvim_set_keymap("n", "]d", ":lua vim.diagnostic.goto_next()<CR>", opts)
+vim.api.nvim_set_keymap("n", "gd", ":lua vim.lsp.buf.definition()<CR>", opts)
 vim.api.nvim_set_keymap("n", "gD", ":lua vim.lsp.buf.declaration()<CR>", opts)
 vim.api.nvim_set_keymap("n", "gd", ":lua vim.lsp.buf.definition()<CR>", opts)
 vim.api.nvim_set_keymap("n", "K", ":lua vim.lsp.buf.hover()<CR>", opts)
@@ -36,6 +37,7 @@ vim.api.nvim_set_keymap('n', '<space>K', '<cmd>lua vim.lsp.buf.signature_help()<
 vim.api.nvim_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<space>d', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<space>i', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
 
 
 
@@ -107,15 +109,23 @@ vim.api.nvim_set_keymap("n", "<leader>sT", ":tjump *", opts)
 
 vim.api.nvim_set_keymap("n", "<leader>f", ":lua require('telescope.builtin').find_files()<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>b", ":lua require('telescope.builtin').buffers()<cr>", opts)
-vim.api.nvim_set_keymap("n", "<leader>g", ":lua require('telescope.builtin').live_grep()<cr>", opts)
-vim.api.nvim_set_keymap("n", "<leader>G", ":lua require('telescope.builtin').grep_string()<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>rg", ":lua require('telescope.builtin').live_grep()<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>rr", ":lua require('telescope.builtin').grep_string()<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>re", ":lua require('telescope.builtin').registers()<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>gb", ":lua require('telescope.builtin').git_branches()<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>gs", ":lua require('telescope.builtin').git_status()<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>gc", ":Git commit -v <CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>G", ":Git ", opts)
+vim.api.nvim_set_keymap("n", "<leader>gp", ":Git push ", opts)
+vim.api.nvim_set_keymap("n", "<leader>gm", ":Git merge ", opts)
 
 
 -- Managing buffers and Windows
 vim.api.nvim_set_keymap("n", "<leader>B", ":bdelete!<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>>", ":bn<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader><", ":bp<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>.", ":cnext<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>,", ":cprevious<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>q", ":close<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>o", ":only<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>O", ":unhide<CR>", opts)

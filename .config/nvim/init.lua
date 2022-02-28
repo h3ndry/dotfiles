@@ -39,6 +39,7 @@ local servers = {
   "texlab",
   "svelte",
   "bashls",
+  "volar",
   -- "csharp_ls",
   -- "omnisharp"
 }
@@ -225,7 +226,6 @@ local pid = vim.fn.getpid()
 require'lspconfig'.omnisharp.setup{
     cmd = { "omnisharp", "--languageserver" , "--hostPID", tostring(pid)},
       capabilities = capabilities
-
 }
 
 require("lspkind").init(
@@ -262,33 +262,7 @@ require("lspkind").init(
     }
   }
 )
-local cmp_kinds = {
-  Text = "  ",
-  Method = "  ",
-  Function = "  ",
-  Constructor = "  ",
-  Field = "  ",
-  Variable = "  ",
-  Class = "  ",
-  Interface = "  ",
-  Module = "  ",
-  Property = "  ",
-  Unit = "  ",
-  Value = "  ",
-  Enum = "  ",
-  Keyword = "  ",
-  Snippet = "  ",
-  Color = "  ",
-  File = "  ",
-  Reference = "  ",
-  Folder = "  ",
-  EnumMember = "  ",
-  Constant = "  ",
-  Struct = "  ",
-  Event = "  ",
-  Operator = "  ",
-  TypeParameter = "  "
-}
+
 
 require("nvim-treesitter.configs").setup {
   textobjects = {
@@ -484,6 +458,7 @@ require("gitsigns").setup {
     ["n ]c"] = {expr = true, '&diff ? \']c\' : \'<cmd>lua require"gitsigns.actions".next_hunk()<CR>\''},
     ["n [c"] = {expr = true, '&diff ? \'[c\' : \'<cmd>lua require"gitsigns.actions".prev_hunk()<CR>\''},
     ["n <leader>ys"] = '<cmd>lua require"gitsigns".stage_hunk()<CR>',
+    ["n <leader>yS"] = '<cmd>lua require"gitsigns".stage_buffer()<CR>',
     ["v <leader>ys"] = '<cmd>lua require"gitsigns".stage_hunk({vim.fn.line("."), vim.fn.line("v")})<CR>',
     ["n <leader>yu"] = '<cmd>lua require"gitsigns".undo_stage_hunk()<CR>',
     ["n <leader>yr"] = '<cmd>lua require"gitsigns".reset_hunk()<CR>',

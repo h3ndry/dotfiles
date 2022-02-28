@@ -18,6 +18,7 @@ require("packer").startup(
     use "nvim-lua/plenary.nvim"
     use "nvim-telescope/telescope.nvim"
     use "rafamadriz/friendly-snippets"
+    use "tpope/vim-fugitive"
 
     use "L3MON4D3/LuaSnip"
 
