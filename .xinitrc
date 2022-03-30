@@ -19,6 +19,6 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 #     [-x "$f" ] && . "&f"
 #   done
 # unset f
-# fi
 
-exec dwm
+# fi
+ exec dwm

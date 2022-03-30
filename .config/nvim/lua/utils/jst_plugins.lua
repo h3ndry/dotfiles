@@ -10,8 +10,8 @@ require("packer").startup(
     use "tpope/vim-surround"
     use "h3ndry/tokyonight.nvim"
     use "neovim/nvim-lspconfig"
-    use "ggandor/lightspeed.nvim"
     use "andymass/vim-matchup"
+    use "ggandor/lightspeed.nvim"
     use "tpope/vim-capslock"
     use "nathom/filetype.nvim"
     use {"nvim-telescope/telescope-fzf-native.nvim", run = "make"}
