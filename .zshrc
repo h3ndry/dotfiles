@@ -38,8 +38,8 @@ acceptandswallow() {
 zstyle ':completion:*' completer _expand_alias _complete _ignored
 
 # History in cache directory:
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=100000
+SAVEHIST=100000
 HISTFILE=~/.cache/zsh/history
 setopt appendhistory
 

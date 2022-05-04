@@ -1,6 +1,6 @@
 -- It all start here
 require("packer").startup(
-  function(use)
+    function(use)
     use "wbthomason/packer.nvim"
     use "numToStr/Comment.nvim"
     use "h3ndry/ReplaceWithRegister"
@@ -13,8 +13,8 @@ require("packer").startup(
     use "andymass/vim-matchup"
     use "ggandor/lightspeed.nvim"
     use "tpope/vim-capslock"
-    use "nathom/filetype.nvim"
-    use {"nvim-telescope/telescope-fzf-native.nvim", run = "make"}
+    -- use "nathom/filetype.nvim"
+    use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
     use "nvim-lua/plenary.nvim"
     use "nvim-telescope/telescope.nvim"
     use "rafamadriz/friendly-snippets"
@@ -29,8 +29,13 @@ require("packer").startup(
     use "golang/vscode-go"
     use "nvim-lua/lsp_extensions.nvim"
     use "OrangeT/vim-csharp"
-    use {"nvim-treesitter/nvim-treesitter", branch = "0.5-compat"}
-    use {"nvim-treesitter/nvim-treesitter-textobjects", branch = "0.5-compat", run = ":TSUpdate"}
+
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate'
+    }
+    use "nvim-treesitter/nvim-treesitter-textobjects"
+
     use "mhartington/formatter.nvim"
     use "norcalli/nvim-colorizer.lua"
     use "lewis6991/gitsigns.nvim"
@@ -38,23 +43,23 @@ require("packer").startup(
     use "amadeus/vim-convert-color-to"
     use "dhruvmanila/telescope-bookmarks.nvim"
     use {
-      "prettier/vim-prettier",
-      ft = {
-        "javascript",
-        "typescript",
-        "typescriptreact",
-        "css",
-        "less",
-        "scss",
-        "json",
-        "graphql",
-        "markdown",
-        "vue",
-        "svelte",
-        "yaml",
-        "html"
-      },
-      run = "yarn install"
+        "prettier/vim-prettier",
+        ft = {
+            "javascript",
+            "typescript",
+            "typescriptreact",
+            "css",
+            "less",
+            "scss",
+            "json",
+            "graphql",
+            "markdown",
+            "vue",
+            "svelte",
+            "yaml",
+            "html"
+        },
+        run = "yarn install"
     }
     use "ray-x/cmp-treesitter"
     use "hrsh7th/cmp-cmdline"
@@ -64,8 +69,14 @@ require("packer").startup(
     use "hrsh7th/cmp-buffer"
     use "hrsh7th/cmp-path"
     use "jlcrochet/vim-razor"
+    use "nkakouros-original/numbers.nvim"
+    use "windwp/nvim-ts-autotag"
+    use "kyazdani42/nvim-web-devicons"
     -- use "OrangeT/vim-csharp"
-  end
+    use "folke/trouble.nvim"
+    use "kyazdani42/nvim-tree.lua"
+    use "Hoffs/omnisharp-extended-lsp.nvim"
+end
 )
 
 require "terminal".setup()

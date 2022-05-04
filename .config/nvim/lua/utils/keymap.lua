@@ -30,7 +30,7 @@ vim.api.nvim_set_keymap("n", "gd", ":lua vim.lsp.buf.definition()<CR>", opts)
 vim.api.nvim_set_keymap("n", "K", ":lua vim.lsp.buf.hover()<CR>", opts)
 vim.api.nvim_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 vim.api.nvim_set_keymap('n', 'gI', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-vim.api.nvim_set_keymap('n', '<space>F', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+vim.api.nvim_set_keymap('n', '<space>F', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<space>s', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<space>K', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
@@ -74,11 +74,11 @@ vim.api.nvim_set_keymap("n", "N", "Nzzzv", opts)
 -- vim.api.nvim_set_keymap("n", "C", '"xC', opts)
 
 -- NEXT n PREV buffer
-vim.api.nvim_set_keymap("n", "<leader>t", ":bel 10sp term://zsh<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>t", ":bel 16sp term://zsh<CR>", opts)
 -- vim.api.nvim_set_keymap("n", "<leader>T", ":bel 10sp<CR>", opts)
 
 -- This work better for me
-vim.api.nvim_set_keymap("n", "<leader>e", ":Ex<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
 
 --Remap for dealing with word wrap
 vim.api.nvim_set_keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", {noremap = true, expr = true, silent = true})
@@ -132,6 +132,7 @@ vim.api.nvim_set_keymap("n", "<leader>O", ":unhide<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>_", ":res<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>|", ":vert res<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>w", "<C-w>", opts)
+vim.api.nvim_set_keymap("n", "<leader>scb", ":set scb!<CR>", opts)
 
 
 -- Clear white space on empty lines and end of line
@@ -141,3 +142,10 @@ vim.api.nvim_set_keymap('n', '<F6>', [[:let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let 
 -- Random
 vim.api.nvim_set_keymap("n", "<leader>;", ":", opts)
 
+-- Lua
+vim.api.nvim_set_keymap("n", "<leader>xx", "<cmd>Trouble<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>xw", "<cmd>Trouble workspace_diagnostics<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", opts)
+vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>", opts)
