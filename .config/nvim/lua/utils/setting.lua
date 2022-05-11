@@ -1,3 +1,6 @@
+vim.o.swapfile = false
+vim.o.tabstop = 4
+
 
 -- Highlight on yank
 vim.cmd  [[
@@ -53,7 +56,8 @@ vim.api.nvim_exec(
 vim.api.nvim_exec(
   [[
 
-	:set shada='1000,f1
+	set shada='1000,f1
+    set noswapfile
 
     set tabstop=4
     set shiftwidth=4
@@ -123,7 +127,7 @@ vim.g.tokyonight_italic_functions = true
 vim.o.completeopt = "menu,menuone,noinsert"
 vim.g.netrw_banner = 0
 vim.o.inccommand = "nosplit"
-vim.g.did_load_filetypes = 1
+-- vim.g.did_load_filetypes = 1
 vim.wo.number = true
 vim.wo.relativenumber = true
 vim.o.hidden = true

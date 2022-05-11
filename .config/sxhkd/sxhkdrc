@@ -1,5 +1,5 @@
-# super + o ; {p,f,n}
-# 	{passmenu,firefox,nautilus}
+super + R; {c,n,r}
+ 	{speedcrunch,nmtui,nautilus}
 
 super + P
     passmenu
@@ -8,13 +8,13 @@ super + M
     st -e neomutt
 
 super + B
-    microsoft-edge-dev
+    microsoft-edge-stable & notify-send "Opening Microsoft Edge" "Location: ~/pictures/screenshot"
 
 super + n
   ~/.local/bin/notestaker.sh
 
 super + N
-  ~/.local/bin/notesreader.sh
+  ~/.local/bin/notesreader.sh 
 
 super + Print
 	maim | tee ~/Pictures/screenshots/$(date +%s).png | xclip -selection clipboard -t image/png && notify-send "Screenshot has been captured" "Location: ~/pictures/screenshot"
@@ -28,14 +28,11 @@ super + o
 
 # open calculatpr
 super + C
-  clipcat-menu
-
-
+  clipmenu
 
 # make sxhkd reload its configuration files:
 super + i
   ~/.local/bin/snippy.sh
-
 
 
 super + Pause

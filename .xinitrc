@@ -7,8 +7,8 @@ slstatus &
 systemctl --user start mpd &
 xautolock -time 8 -locker slock &
 xbanish &
+clipmenud &
 [[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap &
-clipcatd &
 # xcompmgr &
 # feh --no-fehbg --bg-fill '/home/hendry/Pictures/wallhaven-l33vdl.jpg'
 # feh --no-fehbg --bg-fill '/home/hendry/Pictures/wallpaper.jpg' &

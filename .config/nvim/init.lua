@@ -42,7 +42,7 @@ local servers = {
     "svelte",
     "bashls",
     "volar",
-    -- "csharp_ls",
+    "angularls",
     -- "omnisharp"
 }
 
@@ -59,7 +59,7 @@ cmp.setup {
         -- ["<C-n>"] = cmp.mapping.select_next_item(),
         ["<C-d>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<C-Space>"] = cmp.mapping.complete({}),
         ["<C-e>"] = cmp.mapping.close(),
         ["<c-y>"] = cmp.mapping.confirm {
             behavior = cmp.ConfirmBehavior.Replace,
@@ -150,38 +150,34 @@ require("telescope").setup {
 require("telescope").load_extension("fzf")
 require("telescope").load_extension("bookmarks")
 
-cmp.setup.cmdline(
-    "?",
-    {
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = {
-        { name = "buffer" }
+        { name = 'buffer' }
     }
-}
-)
+})
 
-cmp.setup.cmdline(
-    "/",
-    {
+
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('?', {
+    mapping = cmp.mapping.preset.cmdline(),
     sources = {
-        { name = "buffer" }
+        { name = 'buffer' }
     }
-}
-)
+})
+
 
 -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
-cmp.setup.cmdline(
-    ":",
-    {
-    sources = cmp.config.sources(
-        {
-            { name = "path" }
-        },
-        {
-        { name = "cmdline" }
-    }
-    )
-}
-)
+cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        { name = 'path' }
+    }, {
+        { name = 'cmdline' }
+    })
+})
+
 
 for _, lsp in ipairs(servers) do
     if lsp == "sumneko_lua" then
@@ -228,7 +224,8 @@ require 'lspconfig'.omnisharp.setup({
         ["textDocument/definition"] = require('omnisharp_extended').handler,
     },
     cmd = { omnisharp_bin, '--languageserver', '--hostPID', tostring(pid) },
-    capabilities = capabilities
+    capabilities = capabilities,
+    -- filetypes = { "cs", "vb", "cshtml" }
     -- rest of your settings
 })
 
@@ -269,58 +266,58 @@ require("lspkind").init(
 )
 
 
-require("nvim-treesitter.configs").setup {
-    textobjects = {
-        select = {
-            enable = true,
-            -- Automatically jump forward to textobj, similar to targets.vim
-            lookahead = true,
-            keymaps = {
-                -- You can use the capture groups defined in textobjects.scm
-                ["af"] = "@function.outer",
-                ["if"] = "@function.inner",
-                ["ac"] = "@class.outer",
-                ["ic"] = "@class.inner",
-                -- Or you can define your own textobjects like this
-                -- ["iF"] = {
-                --     python = "(function_definition) @function",
-                --     cpp = "(function_definition) @function",
-                --     c = "(function_definition) @function",
-                --     java = "(method_declaration) @function"
-                -- }
-            }
-        },
-        swap = {
-            enable = true,
-            swap_next = {
-                ["<leader>a"] = "@parameter.inner"
-            },
-            swap_previous = {
-                ["<leader>A"] = "@parameter.inner"
-            }
-        },
-        move = {
-            enable = true,
-            set_jumps = true, -- whether to set jumps in the jumplist
-            goto_next_start = {
-                ["]m"] = "@function.outer",
-                ["]]"] = "@class.outer"
-            },
-            goto_next_end = {
-                ["]M"] = "@function.outer",
-                ["]["] = "@class.outer"
-            },
-            goto_previous_start = {
-                ["[m"] = "@function.outer",
-                ["[["] = "@class.outer"
-            },
-            goto_previous_end = {
-                ["[M"] = "@function.outer",
-                ["[]"] = "@class.outer"
-            }
-        }
-    }
-}
+-- require("nvim-treesitter.configs").setup {
+--     textobjects = {
+--         select = {
+--             enable = true,
+--             -- Automatically jump forward to textobj, similar to targets.vim
+--             lookahead = true,
+--             keymaps = {
+--                 -- You can use the capture groups defined in textobjects.scm
+--                 ["af"] = "@function.outer",
+--                 ["if"] = "@function.inner",
+--                 ["ac"] = "@class.outer",
+--                 ["ic"] = "@class.inner",
+--                 -- Or you can define your own textobjects like this
+--                 -- ["iF"] = {
+--                 --     python = "(function_definition) @function",
+--                 --     cpp = "(function_definition) @function",
+--                 --     c = "(function_definition) @function",
+--                 --     java = "(method_declaration) @function"
+--                 -- }
+--             }
+--         },
+--         swap = {
+--             enable = true,
+--             swap_next = {
+--                 ["<leader>a"] = "@parameter.inner"
+--             },
+--             swap_previous = {
+--                 ["<leader>A"] = "@parameter.inner"
+--             }
+--         },
+--         move = {
+--             enable = true,
+--             set_jumps = true, -- whether to set jumps in the jumplist
+--             goto_next_start = {
+-- --                 ["]m"] = "@function.outer",
+--                 ["]]"] = "@class.outer"
+--             },
+--             goto_next_end = {
+--                 ["]M"] = "@function.outer",
+--                 ["]["] = "@class.outer"
+--             },
+--             goto_previous_start = {
+--                 ["[m"] = "@function.outer",
+--                 ["[["] = "@class.outer"
+--             },
+--             goto_previous_end = {
+--                 ["[M"] = "@function.outer",
+--                 ["[]"] = "@class.outer"
+--             }
+--         }
+--     }
+-- }
 
 -- Formater setting
 require("formatter").setup(
@@ -511,16 +508,16 @@ require('gitsigns').setup {
         end, { expr = true })
 
         -- Actions
-        map({ 'n', 'v' }, '<leader>hs', ':Gitsigns stage_hunk<CR>')
-        map({ 'n', 'v' }, '<leader>hr', ':Gitsigns reset_hunk<CR>')
-        map('n', '<leader>hS', gs.stage_buffer)
-        map('n', '<leader>hu', gs.undo_stage_hunk)
-        map('n', '<leader>hR', gs.reset_buffer)
-        map('n', '<leader>hp', gs.preview_hunk)
-        map('n', '<leader>hb', function() gs.blame_line { full = true } end)
+        map({ 'n', 'v' }, '<leader>ys', ':Gitsigns stage_hunk<CR>')
+        map({ 'n', 'v' }, '<leader>yr', ':Gitsigns reset_hunk<CR>')
+        map('n', '<leader>yS', gs.stage_buffer)
+        map('n', '<leader>yu', gs.undo_stage_hunk)
+        map('n', '<leader>yR', gs.reset_buffer)
+        map('n', '<leader>yp', gs.preview_hunk)
+        map('n', '<leader>yb', function() gs.blame_line { full = true } end)
         map('n', '<leader>tb', gs.toggle_current_line_blame)
-        map('n', '<leader>hd', gs.diffthis)
-        map('n', '<leader>hD', function() gs.diffthis('~') end)
+        map('n', '<leader>yd', gs.diffthis)
+        map('n', '<leader>yD', function() gs.diffthis('~') end)
         map('n', '<leader>td', gs.toggle_deleted)
 
         -- Text object
@@ -529,20 +526,26 @@ require('gitsigns').setup {
 
 }
 
-require 'nvim-tree'.setup {
-    view = {
-        width = 50,
-    },
-    git = {
-        enable = false,
-    },
-    actions = {
-        open_file = {
-            quit_on_open = true
-        }
-    }
-}
---       𥉉  ﮏ   ﰸ  
+-- require 'nvim-tree'.setup {
+--     view = {
+--         width = 50,
+--         mappings = {
+--             custom_only = false,
+--             list = {
+--                 { key = { "<CR>", "o" }, action = "edit_in_place", mode = "n" },
+--             },
+--         },
+--     },
+--     git = {
+--         enable = false,
+--     },
+--     actions = {
+--         open_file = {
+--             quit_on_open = false
+--         }
+--     }
+-- }
+-- --       𥉉  ﮏ   ﰸ  
 --
 local signs = { Error = "", Warn = "", Hint = "", Info = "" }
 for type, icon in pairs(signs) do

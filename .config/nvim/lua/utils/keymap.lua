@@ -78,7 +78,7 @@ vim.api.nvim_set_keymap("n", "<leader>t", ":bel 16sp term://zsh<CR>", opts)
 -- vim.api.nvim_set_keymap("n", "<leader>T", ":bel 10sp<CR>", opts)
 
 -- This work better for me
-vim.api.nvim_set_keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>e", ":Ex <CR>", opts)
 
 --Remap for dealing with word wrap
 vim.api.nvim_set_keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", {noremap = true, expr = true, silent = true})
@@ -91,6 +91,12 @@ vim.api.nvim_set_keymap("t", "<C-\\>\\", "<C-\\><C-n>", opts)
 -- alternative shorcuts without fzf
 vim.api.nvim_set_keymap("n", "<leader>.", ":e<space>**/", opts)
 vim.api.nvim_set_keymap("n", "<leader>sT", ":tjump *", opts)
+
+
+-- Insert timestamp in file
+vim.api.nvim_set_keymap("n", "<F3>", 'i<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR><Esc>', opts)
+vim.api.nvim_set_keymap("i", "<F3>", '<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>', opts)
+
 
 -- -- buffer jump, useful
 -- vim.api.nvim_set_keymap("n", "<leader>bb", ":buffer ", opts)
