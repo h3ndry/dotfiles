@@ -64,9 +64,9 @@ vim.api.nvim_set_keymap('n', '<space>i', '<cmd>lua vim.lsp.buf.implementation()<
 -- vim.api.nvim_set_keymap("n", "<leader>F", ":FormatWrite<CR>", opts)
 
 
-vim.api.nvim_set_keymap("n", "J", "mzJ`z`", opts)
-vim.api.nvim_set_keymap("n", "n", "nzzzv", opts)
-vim.api.nvim_set_keymap("n", "N", "Nzzzv", opts)
+-- vim.api.nvim_set_keymap("n", "J", "mzJ`z`", opts)
+-- vim.api.nvim_set_keymap("n", "n", "nzzzv", opts)
+-- vim.api.nvim_set_keymap("n", "N", "Nzzzv", opts)
 
 -- vim.api.nvim_set_keymap("n", "d", '"xd', opts)
 -- vim.api.nvim_set_keymap("n", "D", '"xD', opts)
