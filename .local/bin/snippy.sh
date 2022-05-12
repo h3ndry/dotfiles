@@ -2,7 +2,7 @@
 
 SNIPS=${HOME}/.config/snippets
 
-FILE=`ls ${SNIPS} | dmenu`
+FILE=`fd --base-directory=${SNIPS} . | dmenu`
 
 if [ -f ${SNIPS}/${FILE} ]; then
   DATA=$([ -x "${SNIPS}/${FILE}" ] && bash "${SNIPS}/${FILE}" || head --bytes=-1 ${SNIPS}/${FILE})

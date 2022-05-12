@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
 
-items=`find ~/workspace -maxdepth 1 -mindepth 1 -type d`
-items+=`find ~/playground -maxdepth 1 -mindepth 1 -type d`
-items+=`find ~/.config -maxdepth 1 -mindepth 1 -type d`
-# items+=`find ~ -maxdepth 1 -mindepth 1 -type d`
+items=`fd --max-depth=1 --type=d  --min-depth=1 . '/home/hendry/workspace'`
+items+=`fd --max-depth=1 --type=d  --min-depth=1 . '/home/hendry/playground'`
+items+=`fd --max-depth=1 --type=d  --min-depth=1 . '/home/hendry/.config'`
 
 FOLDER=`echo "$items" | dmenu`
 
