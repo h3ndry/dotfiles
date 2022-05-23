@@ -1,13 +1,15 @@
 #!/usr/bin/env bash
 
-items=`fd --max-depth=1 --type=d  --min-depth=1 . '/home/hendry/workspace'`
-items+=`fd --max-depth=1 --type=d  --min-depth=1 . '/home/hendry/playground'`
-items+=`fd --max-depth=1 --type=d  --min-depth=1 . '/home/hendry/.config'`
+BASE='/home/hendry/'
+
+items=`fd --max-depth=1 --type=d --base-directory=${BASE}  . 'workspace'`
+items+=`fd --max-depth=1 --type=d  --base-directory=${BASE} . 'playground'`
+items+=`fd --max-depth=1 --type=d  --base-directory=${BASE} . '.config'`
 
 FOLDER=`echo "$items" | dmenu`
 
 if [ -d "$FOLDER" ]; then
-    st -t "Neovim $FOLDER" -c "NIDE"  -e nvim ${FOLDER} --cmd "cd $FOLDER" 
+    st -t "Neovim $FOLDER" -c "NIDE"  -e nvim ${BASE}${FOLDER} --cmd "cd ${BASE}$FOLDER" 
 fi
 
 # echo "$items" | fzf | xargs -I {} nvim {} --cmd 'cd {}'

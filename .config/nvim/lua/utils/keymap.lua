@@ -31,7 +31,7 @@ vim.api.nvim_set_keymap("n", "K", ":lua vim.lsp.buf.hover()<CR>", opts)
 vim.api.nvim_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
 vim.api.nvim_set_keymap('n', 'gI', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<space>F', '<cmd>lua vim.lsp.buf.format()<CR>', opts)
-vim.api.nvim_set_keymap('n', '<space>s', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+-- vim.api.nvim_set_keymap('n', '<space>s', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<space>K', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
 vim.api.nvim_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
@@ -62,6 +62,9 @@ vim.api.nvim_set_keymap('n', '<space>i', '<cmd>lua vim.lsp.buf.implementation()<
 
 -- Sorce config file
 -- vim.api.nvim_set_keymap("n", "<leader>F", ":FormatWrite<CR>", opts)
+
+-- Supper Mapping to substitue
+vim.api.nvim_set_keymap("n", "<leader>s", ":%s/<C-R><C-W>/<C-R>0/g<CR>", opts)
 
 
 -- vim.api.nvim_set_keymap("n", "J", "mzJ`z`", opts)

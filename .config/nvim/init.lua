@@ -563,3 +563,4 @@ require("trouble").setup {
         other = "﫠"
     },
 }
+

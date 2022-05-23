@@ -6,12 +6,13 @@ require("packer").startup(
     use "h3ndry/ReplaceWithRegister"
     use "tpope/vim-repeat"
     use "cohama/lexima.vim"
-    use "chentau/marks.nvim"
+    -- use "chentau/marks.nvim"
+    use "chentoast/marks.nvim"
     use "tpope/vim-surround"
     use "h3ndry/tokyonight.nvim"
     use "neovim/nvim-lspconfig"
     use "andymass/vim-matchup"
-    -- use "ggandor/lightspeed.nvim"
+    use "ggandor/lightspeed.nvim"
     use "tpope/vim-capslock"
     -- use "nathom/filetype.nvim"
     use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
@@ -21,6 +22,7 @@ require("packer").startup(
     use "tpope/vim-fugitive"
 
     use "L3MON4D3/LuaSnip"
+    -- use 'sunjon/shade.nvim'
 
     use "saadparwaiz1/cmp_luasnip"
     use "hrsh7th/nvim-cmp"
