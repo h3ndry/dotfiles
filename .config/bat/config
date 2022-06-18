@@ -1,6 +1,6 @@
 
 # Set the theme to "TwoDark"
-# --theme="ansi"
+# --theme="zenburn"
 
 # Show line numbers, Git modifications and file header (but no grid)
 --style="changes"

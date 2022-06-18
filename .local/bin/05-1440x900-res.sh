@@ -20,13 +20,13 @@ pscircle --output=$output \
 	--toplists-bar-height=3 \
 	--cpulist-center=400.0:-80.0 \
 	--memlist-center=400.0:80.0 \
-    --background-color=0d1117FF
-
+    --background-color=0d1117FF 
 
 if command -v feh >/dev/null; then
 	feh --bg-fill $output
 	rm $output
 fi
 
-sleep 30;
+sleep 130;
+
 done;

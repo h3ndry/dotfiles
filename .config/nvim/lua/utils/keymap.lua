@@ -77,7 +77,7 @@ vim.api.nvim_set_keymap("n", "<leader>s", ":%s/<C-R><C-W>/<C-R>0/g<CR>", opts)
 -- vim.api.nvim_set_keymap("n", "C", '"xC', opts)
 
 -- NEXT n PREV buffer
-vim.api.nvim_set_keymap("n", "<leader>t", ":bel 16sp term://zsh<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>t", ":tabnew | term <CR>", opts)
 -- vim.api.nvim_set_keymap("n", "<leader>T", ":bel 10sp<CR>", opts)
 
 -- This work better for me
@@ -158,3 +158,6 @@ vim.api.nvim_set_keymap("n", "<leader>xd", "<cmd>Trouble document_diagnostics<cr
 vim.api.nvim_set_keymap("n", "<leader>xl", "<cmd>Trouble loclist<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>xq", "<cmd>Trouble quickfix<cr>", opts)
 vim.api.nvim_set_keymap("n", "gR", "<cmd>Trouble lsp_references<cr>", opts)
+
+vim.keymap.set("n", "y", "<Plug>(YankyYank)", {})
+vim.keymap.set("x", "y", "<Plug>(YankyYank)", {})

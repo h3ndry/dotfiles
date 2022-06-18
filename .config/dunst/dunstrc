@@ -29,7 +29,7 @@
     # the top and down respectively.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "300x5-8+20"
+    # geometry = 0
 
     # Show how many messages are currently hidden (because of geometry).
     indicate_hidden = yes
@@ -54,7 +54,7 @@
     separator_height = 1
 
     # Padding between text and separator.
-    padding = 12
+    padding = 8
 
     # Horizontal padding.
     horizontal_padding = 12
@@ -87,11 +87,11 @@
 
     ### Text ###
 
-    font = System San Francisco Display 10
+    font = JetBrainsMono 10
 
     # The spacing between lines.  If the height is smaller than the
     # font height, it will get raised to the font height.
-    line_height = 1
+    line_height = 0
 
     # Possible values are:
     # full: Allow a small subset of html markup in notifications:
@@ -140,7 +140,7 @@
     # Show age of message if message is older than show_age_threshold
     # seconds.
     # Set to -1 to disable.
-    show_age_threshold = 60
+    show_age_threshold = -1
 
     # Split notifications into multiple lines if they don't fit into
     # geometry.
@@ -207,7 +207,7 @@
     # Print a notification on startup.
     # This is mainly for error detection, since dbus (re-)starts dunst
     # automatically after a crash.
-    startup_notification = false
+    startup_notification = true
 
     # Manage dunst's desire for talking
     # Can be one of the following values:
@@ -288,6 +288,7 @@
     history = ctrl+grave
 
     # Context menu.
+    # Context menu.
     context = ctrl+shift+period
 
 [urgency_low]
@@ -300,8 +301,9 @@
     #icon = /path/to/icon
 
 [urgency_normal]
-    background = "#0a0a0f"
+    background = "#000000"
     foreground = "#eeeeee"
+    frame_color = "#000000"
     timeout = 5
     # Icon for notifications with normal urgency, uncomment to enable
     #icon = /path/to/icon

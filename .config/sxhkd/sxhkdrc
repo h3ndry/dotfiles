@@ -8,7 +8,7 @@ super + M
     st -e neomutt
 
 super + B
-    microsoft-edge-stable & notify-send "Opening Microsoft Edge" "Location: ~/pictures/screenshot"
+    firefox & notify-send "Opening FireFox" "FireFox would open in a moment at tag 9"
 
 super + n
   ~/.local/bin/notestaker.sh

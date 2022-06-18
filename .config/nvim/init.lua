@@ -12,8 +12,6 @@ require "snippets"
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
-
-
 local nvim_lsp = require("lspconfig")
 
 local has_words_before = function()
@@ -43,7 +41,7 @@ local servers = {
     "bashls",
     "volar",
     "angularls",
-    -- "omnisharp"
+    "omnisharp"
 }
 
 -- luasnip.stup{}
@@ -205,6 +203,20 @@ for _, lsp in ipairs(servers) do
                 }
             }
         }
+    elseif lsp == "omnisharp" then
+        local pid = vim.fn.getpid()
+        local omnisharp_bin = "/usr/bin/omnisharp"
+
+        require 'lspconfig'.omnisharp.setup({
+            handlers = {
+                ["textDocument/definition"] = require('omnisharp_extended').handler,
+            },
+            cmd = { omnisharp_bin, '--languageserver', '--hostPID', tostring(pid) },
+            capabilities = capabilities,
+            -- filetypes = { "cs", "vb", "cshtml" }
+            -- rest of your settings
+        })
+
     else
         nvim_lsp[lsp].setup {
             capabilities = capabilities
@@ -216,53 +228,41 @@ for _, lsp in ipairs(servers) do
     end
 end
 
-local pid = vim.fn.getpid()
-local omnisharp_bin = "/usr/bin/omnisharp"
-
-require 'lspconfig'.omnisharp.setup({
-    handlers = {
-        ["textDocument/definition"] = require('omnisharp_extended').handler,
-    },
-    cmd = { omnisharp_bin, '--languageserver', '--hostPID', tostring(pid) },
-    capabilities = capabilities,
-    -- filetypes = { "cs", "vb", "cshtml" }
-    -- rest of your settings
-})
 
 
 require("lspkind").init(
     {
-    -- default symbol map
-    preset = "codicons",
-    -- default: {}
-    symbol_map = {
-        Text = "  ",
-        Method = "  ",
-        Function = "  ",
-        Constructor = "  ",
-        Field = "  ",
-        Variable = "  ",
-        Class = "  ",
-        Interface = "  ",
-        Module = "  ",
-        Property = "  ",
-        Unit = "  ",
-        Value = "  ",
-        Enum = "  ",
-        Keyword = "  ",
-        Snippet = "  ",
-        Color = "  ",
-        File = "  ",
-        Reference = "  ",
-        Folder = "  ",
-        EnumMember = "  ",
-        Constant = "  ",
-        Struct = "  ",
-        Event = "  ",
-        Operator = "  ",
-        TypeParameter = "  "
+        -- default symbol map
+        preset = "codicons",
+        -- default: {}
+        symbol_map = {
+            Text = "  ",
+            Method = "  ",
+            Function = "  ",
+            Constructor = "  ",
+            Field = "  ",
+            Variable = "  ",
+            Class = "  ",
+            Interface = "  ",
+            Module = "  ",
+            Property = "  ",
+            Unit = "  ",
+            Value = "  ",
+            Enum = "  ",
+            Keyword = "  ",
+            Snippet = "  ",
+            Color = "  ",
+            File = "  ",
+            Reference = "  ",
+            Folder = "  ",
+            EnumMember = "  ",
+            Constant = "  ",
+            Struct = "  ",
+            Event = "  ",
+            Operator = "  ",
+            TypeParameter = "  "
+        }
     }
-}
 )
 
 
@@ -322,109 +322,109 @@ require("lspkind").init(
 -- Formater setting
 require("formatter").setup(
     {
-    logging = false,
-    filetype = {
-        javascript = {
-            -- prettier
-            function()
-                return {
-                    exe = "prettier",
-                    args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
-                    stdin = true
-                }
-            end
-        },
-        typescript = {
-            -- prettier
-            function()
-                return {
-                    exe = "prettier",
-                    args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
-                    stdin = true
-                }
-            end
-        },
-        html = {
-            -- prettier
-            function()
-                return {
-                    exe = "prettier",
-                    args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
-                    stdin = true
-                }
-            end
-        },
-        rust = {
-            -- Rustfmt
-            function()
-                return {
-                    exe = "rustfmt",
-                    args = { "--emit=stdout" },
-                    stdin = true
-                }
-            end
-        },
-        jsx = {
-            function()
-                return {
-                    exe = "prettier",
-                    args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
-                    stdin = true
-                }
-            end
-        },
-        css = {
-            function()
-                return {
-                    exe = "prettier",
-                    args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
-                    stdin = true
-                }
-            end
-        },
-        svelte = {
-            function()
-                return {
-                    exe = "prettier",
-                    args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
-                    stdin = true
-                }
-            end
-        },
-        lua = {
-            -- luafmt
-            function()
-                return {
-                    exe = "luafmt",
-                    args = { "--indent-count", 2, "--stdin" },
-                    stdin = true
-                }
-            end
-        },
-        c = {
-            -- clang-format
-            function()
-                return {
-                    exe = "clang-format",
-                    args = { "--style", "GNU" },
-                    stdin = true,
-                    cwd = vim.fn.expand("%:p:h") -- Run clang-format in cwd of the file.
-                }
-            end
-        },
-        cpp = {
-            -- clang-format
-            function()
-                return {
-                    exe = "clang-format",
-                    args = {},
-                    stdin = true,
-                    cwd = vim.fn.expand("%:p:h") -- Run clang-format in cwd of the file.
-                }
-            end
+        logging = false,
+        filetype = {
+            javascript = {
+                -- prettier
+                function()
+                    return {
+                        exe = "prettier",
+                        args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
+                        stdin = true
+                    }
+                end
+            },
+            typescript = {
+                -- prettier
+                function()
+                    return {
+                        exe = "prettier",
+                        args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
+                        stdin = true
+                    }
+                end
+            },
+            html = {
+                -- prettier
+                function()
+                    return {
+                        exe = "prettier",
+                        args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
+                        stdin = true
+                    }
+                end
+            },
+            rust = {
+                -- Rustfmt
+                function()
+                    return {
+                        exe = "rustfmt",
+                        args = { "--emit=stdout" },
+                        stdin = true
+                    }
+                end
+            },
+            jsx = {
+                function()
+                    return {
+                        exe = "prettier",
+                        args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
+                        stdin = true
+                    }
+                end
+            },
+            css = {
+                function()
+                    return {
+                        exe = "prettier",
+                        args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
+                        stdin = true
+                    }
+                end
+            },
+            svelte = {
+                function()
+                    return {
+                        exe = "prettier",
+                        args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
+                        stdin = true
+                    }
+                end
+            },
+            lua = {
+                -- luafmt
+                function()
+                    return {
+                        exe = "luafmt",
+                        args = { "--indent-count", 2, "--stdin" },
+                        stdin = true
+                    }
+                end
+            },
+            c = {
+                -- clang-format
+                function()
+                    return {
+                        exe = "clang-format",
+                        args = { "--style", "GNU" },
+                        stdin = true,
+                        cwd = vim.fn.expand("%:p:h") -- Run clang-format in cwd of the file.
+                    }
+                end
+            },
+            cpp = {
+                -- clang-format
+                function()
+                    return {
+                        exe = "clang-format",
+                        args = {},
+                        stdin = true,
+                        cwd = vim.fn.expand("%:p:h") -- Run clang-format in cwd of the file.
+                    }
+                end
+            }
         }
     }
-}
 )
 
 -- Use the `default_options` as the second parameter, which uses
@@ -563,4 +563,3 @@ require("trouble").setup {
         other = "﫠"
     },
 }
-

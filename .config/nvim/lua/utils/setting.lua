@@ -121,8 +121,8 @@ vim.api.nvim_exec(
 
 vim.o.termguicolors = true
 vim.g.onedark_terminal_italics = 2
-vim.cmd [[colorscheme tokyonight]]
-vim.g.tokyonight_style = "night"
+vim.cmd [[colorscheme github_dark]]
+-- vim.g.tokyonight_style = "night"
 vim.g.tokyonight_italic_functions = true
 vim.o.completeopt = "menu,menuone,noinsert"
 vim.g.netrw_banner = 0

@@ -7,7 +7,9 @@ slstatus &
 systemctl --user start mpd &
 xautolock -time 8 -locker slock &
 xbanish &
+# compton &
 clipmenud &
+./.local/bin/05-1440x900-res.sh &
 [[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap &
 # xcompmgr &
 # feh --no-fehbg --bg-fill '/home/hendry/Pictures/wallhaven-l33vdl.jpg'
