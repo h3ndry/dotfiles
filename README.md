@@ -10,6 +10,8 @@ help me get staff done.
 - Neovim
 - sxhd
 - zathura
+- ncmpcpp
+- mutt
 
 
 ### Scrips

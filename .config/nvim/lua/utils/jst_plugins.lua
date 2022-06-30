@@ -22,6 +22,11 @@ require("packer").startup(
         use "tpope/vim-fugitive"
 
         use "L3MON4D3/LuaSnip"
+        use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
+        use {
+            'declancm/cinnamon.nvim',
+            config = function() require('cinnamon').setup() end
+        }
         -- use 'sunjon/shade.nvim'
 
         use "saadparwaiz1/cmp_luasnip"
@@ -31,14 +36,12 @@ require("packer").startup(
         use "golang/vscode-go"
         use "nvim-lua/lsp_extensions.nvim"
         use "OrangeT/vim-csharp"
-
         use {
             'nvim-treesitter/nvim-treesitter',
             run = ':TSUpdate'
         }
         use "nvim-treesitter/nvim-treesitter-textobjects"
         use { 'lewis6991/github_dark.nvim' }
-
         use "mhartington/formatter.nvim"
         use "norcalli/nvim-colorizer.lua"
         use "lewis6991/gitsigns.nvim"
@@ -79,17 +82,18 @@ require("packer").startup(
         use "folke/trouble.nvim"
         use "kyazdani42/nvim-tree.lua"
         use "Hoffs/omnisharp-extended-lsp.nvim"
+        use "github/copilot.vim"
         -- Lua
-        use({
-            "gbprod/yanky.nvim",
-            config = function()
-                require("yanky").setup({
-                    -- your configuration comes here
-                    -- or leave it empty to use the default settings
-                    -- refer to the configuration section below
-                })
-            end
-        })
+        -- use({
+        --     "gbprod/yanky.nvim",
+        --     config = function()
+        --         require("yanky").setup({
+        --             -- your configuration comes here
+        --             -- or leave it empty to use the default settings
+        --             -- refer to the configuration section below
+        --         })
+        --     end
+        -- })
     end
 )
 

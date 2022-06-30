@@ -1,6 +1,7 @@
 require "utils.jst_plugins"
 require("Comment").setup()
 require "lspconfig".sumneko_lua.setup {}
+-- require('cinnamon').setup()
 -- require "luasnip".config.setup {}
 require "marks".setup {}
 -- require "vim-csharp".setup {}

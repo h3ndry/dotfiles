@@ -27,7 +27,7 @@ super + o
   ~/.local/bin/quickmove.sh
 
 # open calculatpr
-super + C
+super + I
   clipmenu
 
 # make sxhkd reload its configuration files:

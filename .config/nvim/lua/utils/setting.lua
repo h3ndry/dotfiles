@@ -24,6 +24,7 @@ vim.api.nvim_exec([[
 -- auto save on FocusLost
 vim.api.nvim_exec([[
     au FocusLost * :wa
+    au FocusLost * :wa
     au FocusLost * silent! wa
     au BufLeave * silent! wall
 ]], false)
