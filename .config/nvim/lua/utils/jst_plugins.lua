@@ -83,17 +83,16 @@ require("packer").startup(
         use "kyazdani42/nvim-tree.lua"
         use "Hoffs/omnisharp-extended-lsp.nvim"
         use "github/copilot.vim"
-        -- Lua
-        -- use({
-        --     "gbprod/yanky.nvim",
-        --     config = function()
-        --         require("yanky").setup({
-        --             -- your configuration comes here
-        --             -- or leave it empty to use the default settings
-        --             -- refer to the configuration section below
-        --         })
-        --     end
-        -- })
+        use({
+            "gbprod/yanky.nvim",
+            config = function()
+                require("yanky").setup({
+                    -- your configuration comes here
+                    -- or leave it empty to use the default settings
+                    -- refer to the configuration section below
+                })
+            end
+        })
     end
 )
 

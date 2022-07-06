@@ -546,9 +546,9 @@ require('gitsigns').setup {
 --         }
 --     }
 -- }
--- --       𥉉  ﮏ   ﰸ  
+-- --       
 --
-local signs = { Error = "", Warn = "", Hint = "", Info = "" }
+local signs = { Error = "", Warn = "", Hint = "i", Info = "i" }
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
@@ -557,10 +557,10 @@ end
 require("trouble").setup {
     signs = {
         -- icons / text used for a diagnostic
-        error = "",
-        warning = "",
-        hint = "",
-        information = "",
-        other = "﫠"
+        error = "x",
+        warning = "ii",
+        hint = "i",
+        information = "x",
+        other = "o"
     },
 }
