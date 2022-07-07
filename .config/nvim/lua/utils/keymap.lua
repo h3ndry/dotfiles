@@ -77,7 +77,9 @@ vim.api.nvim_set_keymap("n", "<leader>s", ":%s/<C-R><C-W>/<C-R>0/g<CR>", opts)
 -- vim.api.nvim_set_keymap("n", "C", '"xC', opts)
 
 -- NEXT n PREV buffer
-vim.api.nvim_set_keymap("n", "<leader>t", ":tabnew | term <CR>", opts)
+
+vim.api.nvim_set_keymap("n", "<leader>t", ":bel 10sp term://zsh<CR>", opts)
+-- vim.api.nvim_set_keymap("n", "<leader>t", ":tabnew | term <CR>", opts)
 -- vim.api.nvim_set_keymap("n", "<leader>T", ":bel 10sp<CR>", opts)
 
 -- This work better for me
@@ -116,8 +118,8 @@ vim.api.nvim_set_keymap("i", "<F3>", '<C-R>=strftime("%Y-%m-%d %a %I:%M %p")<CR>
 -- nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 -- nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
-vim.api.nvim_set_keymap("n", "<leader>o", ":lua require('telescope.builtin').find_files()<cr>", opts)
-vim.api.nvim_set_keymap("n", "<leader>f", ":lua require('telescope.builtin').buffers()<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>f", ":lua require('telescope.builtin').find_files()<cr>", opts)
+vim.api.nvim_set_keymap("n", "<leader>b", ":lua require('telescope.builtin').buffers()<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>rg", ":lua require('telescope.builtin').live_grep()<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>rr", ":lua require('telescope.builtin').grep_string()<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>re", ":lua require('telescope.builtin').registers()<cr>", opts)
@@ -136,8 +138,8 @@ vim.api.nvim_set_keymap("n", "<leader><", ":bp<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>.", ":cnext<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>,", ":cprevious<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>q", ":close<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>O", ":only<CR>", opts)
--- vim.api.nvim_set_keymap("n", "<leader>O", ":unhide<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>o", ":only<CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>O", ":unhide<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>_", ":res<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>|", ":vert res<CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>w", "<C-w>", opts)

@@ -77,7 +77,7 @@ require("packer").startup(
         use "jlcrochet/vim-razor"
         use "nkakouros-original/numbers.nvim"
         use "windwp/nvim-ts-autotag"
-        use "kyazdani42/nvim-web-devicons"
+        -- use "kyazdani42/nvim-web-devicons"
         -- use "OrangeT/vim-csharp"
         use "folke/trouble.nvim"
         use "kyazdani42/nvim-tree.lua"
