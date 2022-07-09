@@ -42,7 +42,7 @@ HISTSIZE=100000
 SAVEHIST=100000
 HISTFILE=~/.cache/zsh/history
 setopt appendhistory
-
+fpath+=~/.zfunc
 # Basic auto/tab complete:
 autoload -U compinit
 zstyle ':completion:*' menu select
@@ -144,3 +144,16 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PATH="$HOME/.poetry/bin:$PATH"
+# Load pyenv automatically by appending
+# the following to
+# ~/.zprofile (for login shells)
+# and ~/.zshrc (for interactive shells) :
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+
+eval "$(pyenv init -)"
+
+# Restart your shell for the changes to take effect.
+
+

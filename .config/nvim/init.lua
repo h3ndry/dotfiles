@@ -527,25 +527,7 @@ require('gitsigns').setup {
 
 }
 
--- require 'nvim-tree'.setup {
---     view = {
---         width = 50,
---         mappings = {
---             custom_only = false,
---             list = {
---                 { key = { "<CR>", "o" }, action = "edit_in_place", mode = "n" },
---             },
---         },
---     },
---     git = {
---         enable = false,
---     },
---     actions = {
---         open_file = {
---             quit_on_open = false
---         }
---     }
--- }
+
 -- --       
 --
 local signs = { Error = "", Warn = "", Hint = "i", Info = "i" }
@@ -564,3 +546,12 @@ require("trouble").setup {
         other = "o"
     },
 }
+
+-- changing lightspeed colors
+vim.api.nvim_exec(
+  [[
+    highlight! LightspeedOneCharMatch guibg=#0d1117 guifg=NONE
+    highlight! LightspeedCursor guibg=#FFFF00 guifg=#000000
+]],
+  false
+)

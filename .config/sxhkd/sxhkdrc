@@ -1,5 +1,5 @@
-super + R; {c,n,r}
- 	{speedcrunch,nmtui,nautilus}
+super + r; {w,s,t,f,p}
+ 	{whatsapp-nativefier & notify-send "Opening WhatsApp" "WhatsApp would be open in a moment at tag 8", slack & notify-send "Opening Slack" "Slack would be open in a moment at tag 8", thunderbird & notify-send "Opening Thunderbird" "Thunderbird would be open in a moment at tag 7", firefox & notify-send "Opening FireFox" "FireFox would open in a moment at tag 9", export _JAVA_AWT_WM_NONREPARENTING=1 && pycharm  & notify-send "Opening Pycharm" "Pycharm would open in a moment at tag 2" }
 
 super + P
     passmenu
