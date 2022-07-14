@@ -3,6 +3,7 @@ require("Comment").setup()
 require "lspconfig".sumneko_lua.setup {}
 -- require('cinnamon').setup()
 -- require "luasnip".config.setup {}
+require("nvim-surround").setup({})
 require "marks".setup {}
 -- require "vim-csharp".setup {}
 require("telescope").load_extension("fzf")
