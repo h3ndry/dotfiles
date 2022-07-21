@@ -43,6 +43,8 @@ local servers = {
     "bashls",
     "volar",
     "angularls",
+    "ltex",
+    -- "ltex-ls",
     "omnisharp"
 }
 

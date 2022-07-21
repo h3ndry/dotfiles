@@ -8,7 +8,7 @@ require("packer").startup(
         use "cohama/lexima.vim"
         -- use "chentau/marks.nvim"
         use "chentoast/marks.nvim"
-        -- use "tpope/vim-surround"
+        use "danilamihailov/beacon.nvim"
         use "h3ndry/tokyonight.nvim"
         use "neovim/nvim-lspconfig"
         use "andymass/vim-matchup"
@@ -82,6 +82,8 @@ require("packer").startup(
         use "folke/trouble.nvim"
         use "kyazdani42/nvim-tree.lua"
         use "Hoffs/omnisharp-extended-lsp.nvim"
+        use "kovetskiy/sxhkd-vim"
+
         use "github/copilot.vim"
         use({
             "kylechui/nvim-surround",

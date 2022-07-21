@@ -37,6 +37,8 @@ vim.api.nvim_exec(
         autocmd!
         autocmd FileType markdown setlocal spell
         autocmd BufRead,BufNewFile *.md setlocal spell
+        autocmd FileType gitcommit setlocal spell
+        autocmd FileType gitcommit setlocal complete+=kspell
     augroup END
 ]],
   false

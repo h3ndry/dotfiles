@@ -1,4 +1,3 @@
-# Simnanga Hendry Khoza
 # Tue Jun  8 13:36:08 2021
 
 case $TERM in
@@ -121,7 +120,7 @@ compctl -K _dotnet_zsh_complete dotnet
 
 ### "bat" as manpager
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-export PATH='/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/local/go/bin:/usr/local/nvim/bin:/usr/local/go/bin:/usr/local/nvim/bin:/usr/local/go/bin:/usr/local/nvim/bin:/home/hendry/.dotnet/tools:/home/hendry/.cargo/bin'
+export PATH='/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/local/go/bin:/usr/local/nvim/bin:/usr/local/go/bin:/usr/local/nvim/bin:/usr/local/go/bin:/usr/local/nvim/bin:/home/hendry/.dotnet/tools:/home/hendry/.cargo/bin:/home/hendry/.local/bin'
 
 # bas dir for all cd command
 export CDPATH=/home/hendry
@@ -149,9 +148,14 @@ export PATH="$HOME/.poetry/bin:$PATH"
 
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-
 eval "$(pyenv init -)"
 
 # Restart your shell for the changes to take effect.
 
 
+# bun completions
+[ -s "/home/hendry/.bun/_bun" ] && source "/home/hendry/.bun/_bun"
+
+# bun
+export BUN_INSTALL="/home/hendry/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
