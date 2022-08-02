@@ -42,7 +42,7 @@ local servers = {
     "svelte",
     "bashls",
     "volar",
-    "angularls",
+    -- "angularls",
     "ltex",
     -- "ltex-ls",
     "omnisharp"
@@ -338,6 +338,15 @@ require("formatter").setup(
                     }
                 end
             },
+            python = {
+                function()
+                    return {
+                        exe = "black",
+                        args = { vim.api.nvim_buf_get_name(0) },
+                        -- stdin = true
+                    }
+                end
+            },
             typescript = {
                 -- prettier
                 function()
@@ -531,9 +540,9 @@ require('gitsigns').setup {
 }
 
 
--- --       
---
-local signs = { Error = "", Warn = "", Hint = "i", Info = "i" }
+-- --                 
+-- error error
+local signs = { Error = ' ', Warn = '', Hint = 'i', Info = 'i' }
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
@@ -552,9 +561,17 @@ require("trouble").setup {
 
 -- changing lightspeed colors
 vim.api.nvim_exec(
-  [[
+    [[
     highlight! LightspeedOneCharMatch guibg=#0d1117 guifg=NONE
     highlight! LightspeedCursor guibg=#FFFF00 guifg=#000000
-]],
-  false
+]]   ,
+    false
 )
+
+
+require('lualine').setup({
+    options = {
+        section_separators = { left = '', right = '' },
+        component_separators = { left = '', right = '' }
+    }
+})

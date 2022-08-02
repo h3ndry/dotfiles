@@ -73,9 +73,9 @@ vim.api.nvim_exec(
     let g:netrw_liststyle=3
 
     let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
-    set laststatus=0
-    set fillchars=stl:\ 
-    set statusline=\ 
+    set laststatus=3
+    " set fillchars=stl:\ 
+    " set statusline=\ 
 
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -118,6 +118,9 @@ vim.api.nvim_exec(
     highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
     highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
 
+
+    imap <silent><script><expr> <C-y> copilot#Accept("\<CR>")
+    let g:copilot_no_tab_map = v:true
 
 ]],
   false

@@ -79,6 +79,21 @@ require("packer").startup(
         use "windwp/nvim-ts-autotag"
         -- use "kyazdani42/nvim-web-devicons"
         -- use "OrangeT/vim-csharp"
+
+        -- install without yarn or npm
+        use({
+            "iamcco/markdown-preview.nvim",
+            run = function() vim.fn["mkdp#util#install"]() end,
+        })
+
+        use {
+            'nvim-lualine/lualine.nvim',
+            requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+        }
+
+        use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install",
+            setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
+
         use "folke/trouble.nvim"
         use "kyazdani42/nvim-tree.lua"
         use "Hoffs/omnisharp-extended-lsp.nvim"
