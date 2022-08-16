@@ -1,6 +1,7 @@
 require "utils.jst_plugins"
 require("Comment").setup()
 require "lspconfig".sumneko_lua.setup {}
+
 -- require('cinnamon').setup()
 -- require "luasnip".config.setup {}
 require("nvim-surround").setup({})
@@ -107,9 +108,7 @@ cmp.setup {
         -- {name = "rg"},
         { name = "buffer" }
     },
-    experimental = {
-        ghost_text = true
-    },
+    experimental = { ghost_text = true },
     formatting = {
         format = lspkind.cmp_format {
             with_text = true,
@@ -131,9 +130,7 @@ cmp.setup {
 require("telescope").setup {
     defaults = {
         mappings = {
-            i = {
-                ["<C-h>"] = "which_key"
-            }
+            i = { ["<C-h>"] = "which_key" }
         }
     },
     pickers = {},
@@ -142,10 +139,7 @@ require("telescope").setup {
             override_generic_sorter = false,
             override_file_sorter = true
         },
-        bookmarks = {
-            -- Available: 'brave', 'buku', 'chrome', 'edge', 'safari', 'firefox'
-            selected_browser = "brave"
-        }
+        bookmarks = { selected_browser = "brave" }
     }
 }
 
@@ -186,24 +180,10 @@ for _, lsp in ipairs(servers) do
         require "lspconfig".sumneko_lua.setup {
             settings = {
                 Lua = {
-                    runtime = {
-                        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                        version = "LuaJIT",
-                        -- Setup your lua path
-                        path = runtime_path
-                    },
-                    diagnostics = {
-                        -- Get the language server to recognize the `vim` global
-                        globals = { "vim" }
-                    },
-                    workspace = {
-                        -- Make the server aware of Neovim runtime files
-                        library = vim.api.nvim_get_runtime_file("", true)
-                    },
-                    -- Do not send telemetry data containing a randomized but unique identifier
-                    telemetry = {
-                        enable = false
-                    }
+                    runtime = { version = "LuaJIT", path = runtime_path },
+                    diagnostics = { globals = { "vim" } },
+                    workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+                    telemetry = { enable = false }
                 }
             }
         }
@@ -217,18 +197,9 @@ for _, lsp in ipairs(servers) do
             },
             cmd = { omnisharp_bin, '--languageserver', '--hostPID', tostring(pid) },
             capabilities = capabilities,
-            -- filetypes = { "cs", "vb", "cshtml" }
-            -- rest of your settings
         })
-
     else
-        nvim_lsp[lsp].setup {
-            capabilities = capabilities
-            -- on_attach = function(client)
-            -- [[ other on_attach code ]]
-            -- require 'illuminate'.on_attach(client)
-            -- end,
-        }
+        nvim_lsp[lsp].setup { capabilities = capabilities }
     end
 end
 
@@ -270,58 +241,36 @@ require("lspkind").init(
 )
 
 
--- require("nvim-treesitter.configs").setup {
---     textobjects = {
---         select = {
---             enable = true,
---             -- Automatically jump forward to textobj, similar to targets.vim
---             lookahead = true,
---             keymaps = {
---                 -- You can use the capture groups defined in textobjects.scm
---                 ["af"] = "@function.outer",
---                 ["if"] = "@function.inner",
---                 ["ac"] = "@class.outer",
---                 ["ic"] = "@class.inner",
---                 -- Or you can define your own textobjects like this
---                 -- ["iF"] = {
---                 --     python = "(function_definition) @function",
---                 --     cpp = "(function_definition) @function",
---                 --     c = "(function_definition) @function",
---                 --     java = "(method_declaration) @function"
---                 -- }
---             }
---         },
---         swap = {
---             enable = true,
---             swap_next = {
---                 ["<leader>a"] = "@parameter.inner"
---             },
---             swap_previous = {
---                 ["<leader>A"] = "@parameter.inner"
---             }
---         },
---         move = {
---             enable = true,
---             set_jumps = true, -- whether to set jumps in the jumplist
---             goto_next_start = {
--- --                 ["]m"] = "@function.outer",
---                 ["]]"] = "@class.outer"
---             },
---             goto_next_end = {
---                 ["]M"] = "@function.outer",
---                 ["]["] = "@class.outer"
---             },
---             goto_previous_start = {
---                 ["[m"] = "@function.outer",
---                 ["[["] = "@class.outer"
---             },
---             goto_previous_end = {
---                 ["[M"] = "@function.outer",
---                 ["[]"] = "@class.outer"
---             }
---         }
---     }
--- }
+require("nvim-treesitter.configs").setup({
+    textobjects = {
+        select = {
+            enable = true,
+
+            -- Automatically jump forward to textobj, similar to targets.vim
+            lookahead = true,
+
+            keymaps = {
+                -- You can use the capture groups defined in textobjects.scm
+                ["af"] = "@function.outer",
+                ["if"] = "@function.inner",
+                ["ac"] = "@class.outer",
+                ["ic"] = "@class.inner",
+            },
+            -- You can choose the select mode (default is charwise 'v')
+            selection_modes = {
+                ['@parameter.outer'] = 'v', -- charwise
+                ['@function.outer'] = 'V', -- linewise
+                ['@class.outer'] = '<c-v>', -- blockwise
+            },
+            -- If you set this to `true` (default is `false`) then any textobject is
+            -- extended to include preceding xor succeeding whitespace. Succeeding
+            -- whitespace has priority in order to act similarly to eg the built-in
+            -- `ap`.
+            include_surrounding_whitespace = true,
+        },
+    },
+
+})
 
 -- Formater setting
 require("formatter").setup(
@@ -540,9 +489,9 @@ require('gitsigns').setup {
 }
 
 
--- --                 
--- error error
-local signs = { Error = ' ', Warn = '', Hint = 'i', Info = 'i' }
+-- --       𥉉  ﮏ   ﰸ  
+--                      
+local signs = { Error = "", Warn = "", Hint = "", Info = "" }
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
@@ -551,13 +500,14 @@ end
 require("trouble").setup {
     signs = {
         -- icons / text used for a diagnostic
-        error = "x",
-        warning = "ii",
-        hint = "i",
-        information = "x",
-        other = "o"
+        error = "",
+        warning = "",
+        hint = "",
+        information = "",
+        other = " "
     },
 }
+
 
 -- changing lightspeed colors
 vim.api.nvim_exec(

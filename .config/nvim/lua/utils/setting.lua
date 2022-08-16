@@ -1,9 +1,43 @@
 vim.o.swapfile = false
 vim.o.tabstop = 4
+vim.o.tabstop = 4
+vim.bo.shiftwidth = 4
+vim.o.report = 0
+vim.bo.expandtab = true
 
+
+local function trim_trailing_whitespaces()
+	if vim.bo.modifiable == true then
+		local view = vim.fn.winsaveview()
+		vim.cmd [[keepp %s/\s\+$//e]]
+		vim.cmd "update"
+		vim.fn.winrestview(view)
+	end
+end
+
+
+local function term_config()
+	if vim.bo.buftype == 'terminal' then
+		vim.wo.number = false
+		vim.wo.relativenumber = false
+		vim.cmd [[ startinsert ]]
+	else
+		vim.wo.number = true
+		vim.wo.relativenumber = true
+		trim_trailing_whitespaces()
+	end
+end
+
+-- Super cool, works perfect.... I am proud of myself
+local group_1 = vim.api.nvim_create_augroup("hide-numbers", { clear = true })
+vim.api.nvim_create_autocmd("BufEnter", { callback = term_config, group = group_1 })
+vim.api.nvim_create_autocmd("TermOpen", { callback = term_config, group = group_1 })
+
+local group_2 = vim.api.nvim_create_augroup("auto-save", { clear = true })
+vim.api.nvim_create_autocmd("FocusLost", { callback = trim_trailing_whitespaces, group = group_2 })
 
 -- Highlight on yank
-vim.cmd  [[
+vim.cmd [[
   augroup YankHighlight
     autocmd!
     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
@@ -21,16 +55,20 @@ vim.api.nvim_exec([[
 --       set clipboard=unnamedplus
 -- ]], false)
 
--- auto save on FocusLost
-vim.api.nvim_exec([[
-    au FocusLost * :wa
-    au FocusLost * :wa
-    au FocusLost * silent! wa
-    au BufLeave * silent! wall
-]], false)
+-- -- auto save on FocusLost
+-- --
+-- -- Super cool, works perfect.... I am proud of myself
+
+
+-- vim.api.nvim_exec([[
+--     au FocusLost * :wa
+--     au FocusLost * :wa
+--     au FocusLost * silent! wa
+--     au BufLeave * silent! wall
+-- ]], false)
 
 vim.api.nvim_exec(
-  [[
+	[[
     set spelllang=en
     set complete+=kspell
     augroup markdownSpell
@@ -41,41 +79,24 @@ vim.api.nvim_exec(
         autocmd FileType gitcommit setlocal complete+=kspell
     augroup END
 ]],
-  false
+	false
 )
 
-vim.api.nvim_exec(
-  [[
-  augroup Terminal
-    autocmd!
-    autocmd TermOpen * startinsert
-    autocmd TermOpen * :set nonumber norelativenumber
-    autocmd TermOpen * nnoremap <buffer> <C-c> i<C-c>
-  augroup end
-]],
-  false
-)
 
 vim.api.nvim_exec(
-  [[
-
+	[[
 	set shada='1000,f1
-    set noswapfile
-
-    set tabstop=4
-    set shiftwidth=4
-    set expandtab
-    set shiftwidth=0
-    set report=0
+    " set tabstop=4
     set path+=**
     set wildignore+=**/node_modules/**
     set shortmess+=c
     let g:netrw_liststyle=3
+    set noshowmode
 
     let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
     set laststatus=3
-    " set fillchars=stl:\ 
-    " set statusline=\ 
+    " set fillchars=stl:\
+    " set statusline=\
 
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -123,26 +144,24 @@ vim.api.nvim_exec(
     let g:copilot_no_tab_map = v:true
 
 ]],
-  false
+	false
 )
 
 vim.o.termguicolors = true
 vim.g.onedark_terminal_italics = 2
 vim.cmd [[colorscheme github_dark]]
--- vim.g.tokyonight_style = "night"
-vim.g.tokyonight_italic_functions = true
+-- vim.cmd [[colorscheme poimandres]]
+-- vim.cmd('colorscheme poimandres')
 vim.o.completeopt = "menu,menuone,noinsert"
 vim.g.netrw_banner = 0
 vim.o.inccommand = "nosplit"
 -- vim.g.did_load_filetypes = 1
-vim.wo.number = true
-vim.wo.relativenumber = true
 vim.o.hidden = true
 vim.o.breakindent = true
 vim.o.wrap = false
--- vim.cmd [[set undofile]]
+vim.cmd [[set undofile]]
 vim.o.ignorecase = true
 vim.o.smartcase = true
-vim.o.scrolloff = 1
-vim.o.updatetime = 200
+vim.o.scrolloff = 5
+vim.o.updatetime = 150
 vim.wo.signcolumn = "yes"

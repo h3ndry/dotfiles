@@ -80,11 +80,11 @@ require("packer").startup(
         -- use "kyazdani42/nvim-web-devicons"
         -- use "OrangeT/vim-csharp"
 
-        -- install without yarn or npm
-        use({
-            "iamcco/markdown-preview.nvim",
-            run = function() vim.fn["mkdp#util#install"]() end,
-        })
+        -- -- install without yarn or npm
+        -- use({
+        --     "iamcco/markdown-preview.nvim",
+        --     run = function() vim.fn["mkdp#util#install"]() end,
+        -- })
 
         use {
             'nvim-lualine/lualine.nvim',
@@ -118,6 +118,17 @@ require("packer").startup(
                 })
             end
         })
+        use {
+            'olivercederborg/poimandres.nvim',
+            config = function()
+                require('poimandres').setup {
+                    -- leave this setup function empty for default config
+                    -- or refer to the configuration section
+                    -- for configuration options
+                }
+            end
+        }
+
     end
 )
 
