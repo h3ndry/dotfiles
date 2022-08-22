@@ -14,7 +14,9 @@ items+=`fd --hidden --type=directory --base-directory=/home/hendry/workspace/kri
 FOLDER=`echo "$items" | dmenu`
 
 if [ -d "$FOLDER" ]; then
-    st -t "Neovim $FOLDER" -c "NIDE"  -e nvim ${BASE}${FOLDER} --cmd "cd ${BASE}$FOLDER" 
+	n="$(echo ${FOLDER} | sed 's/\/$//')"
+	n="$(echo ${n} | sed 's/\//->/g')"
+    st -t "neovim - $n" -c "NIDE"  -e nvim ${BASE}${FOLDER} --cmd "cd ${BASE}$FOLDER"
 fi
 
 # echo "$items" | fzf | xargs -I {} nvim {} --cmd 'cd {}'

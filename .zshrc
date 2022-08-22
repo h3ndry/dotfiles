@@ -61,7 +61,7 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
-bindkey -M menuselect '^h' vi-backward-char 
+bindkey -M menuselect '^h' vi-backward-char
 
  zstyle ':completion:*:descriptions' format '%B%d%b'
     zstyle ':completion:*:messages' format '%d'

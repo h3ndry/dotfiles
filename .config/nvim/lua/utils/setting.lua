@@ -162,6 +162,6 @@ vim.o.wrap = false
 vim.cmd [[set undofile]]
 vim.o.ignorecase = true
 vim.o.smartcase = true
-vim.o.scrolloff = 5
+vim.o.scrolloff = 2
 vim.o.updatetime = 150
 vim.wo.signcolumn = "yes"

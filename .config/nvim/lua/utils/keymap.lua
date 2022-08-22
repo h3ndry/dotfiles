@@ -113,8 +113,12 @@ vim.api.nvim_set_keymap("n", "<leader>re", ":lua require('telescope.builtin').re
 vim.api.nvim_set_keymap("n", "<leader>gb", ":lua require('telescope.builtin').git_branches()<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>gs", ":lua require('telescope.builtin').git_status()<cr>", opts)
 vim.api.nvim_set_keymap("n", "<leader>gc", ":Git commit -v <CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>gC", ":Git commit --amend --no-edit <CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>gS", ":Git stash", opts)
+vim.api.nvim_set_keymap("n", "<leader>gSa", ":Git stash apply", opts)
 vim.api.nvim_set_keymap("n", "<leader>G", ":Git ", opts)
-vim.api.nvim_set_keymap("n", "<leader>gp", ":Git push ", opts)
+vim.api.nvim_set_keymap("n", "<leader>gp", ":Git pull <CR>", opts)
+vim.api.nvim_set_keymap("n", "<leader>gP", ":Git push <CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>gm", ":Git merge ", opts)
 
 

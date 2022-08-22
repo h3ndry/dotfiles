@@ -5,3 +5,5 @@
 	tool = nvimdiff
 [core]
 	editor = nvim
+[push]
+	default = simple
