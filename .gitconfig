@@ -6,4 +6,4 @@
 [core]
 	editor = nvim
 [push]
-	default = simple
+	default = current
