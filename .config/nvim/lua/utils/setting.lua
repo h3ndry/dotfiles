@@ -30,7 +30,18 @@ end
 
 -- Super cool, works perfect.... I am proud of myself
 local group_1 = vim.api.nvim_create_augroup("hide-numbers", { clear = true })
-vim.api.nvim_create_autocmd("BufEnter", { callback = term_config, group = group_1 })
+vim.api.nvim_create_autocmd("BufEnter", { callback = function ()
+	if vim.bo.buftype == 'terminal' then
+		vim.wo.number = false
+		vim.wo.relativenumber = false
+		-- vim.cmd [[ startinsert ]]
+	else
+		vim.wo.number = true
+		vim.wo.relativenumber = true
+		trim_trailing_whitespaces()
+	end
+end, group = group_1 })
+
 vim.api.nvim_create_autocmd("TermOpen", { callback = term_config, group = group_1 })
 
 local group_2 = vim.api.nvim_create_augroup("auto-save", { clear = true })

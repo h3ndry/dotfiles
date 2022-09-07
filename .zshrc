@@ -13,6 +13,9 @@ precmd() {
     vcs_info
 }
 
+bindkey -v
+bindkey '^R' history-incremental-search-backward
+
 autoload -U colors && colors
 
 setopt prompt_subst
@@ -83,9 +86,9 @@ function expand-alias() {
 zle -N expand-alias
 bindkey -M main ' ' expand-alias
 
-alias s='dwmswallow $WINDOWID;'
-bindkey '^\' accept-line-swallow
-bindkey -a '^\' accept-line-swallow
+# alias s='dwmswallow $WINDOWID;'
+# bindkey '^\' accept-line-swallow
+# bindkey -a '^\' accept-line-swallow
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select {

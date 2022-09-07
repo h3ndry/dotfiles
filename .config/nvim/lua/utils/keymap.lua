@@ -60,12 +60,15 @@ vim.api.nvim_set_keymap("n", "<leader>s", ":%s/<C-R><C-W>/<C-R>0/g<CR>", opts)
 -- NEXT n PREV buffer
 
 function open_terminal()
-	-- local buffers = vim.api.nvim_list_bufs
-		-- print(buffers[1])
+	local buffers = vim.api.nvim_list_bufs()
+
+	for k, v in pairs(buffers) do
+		print(k)
+	end
 end
 
 vim.api.nvim_set_keymap("n", "<leader>t", ":bel 15sp term://zsh<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>T",':lua open_terminal()<CR>', opts)
+vim.api.nvim_set_keymap("n", "<leader>T", ':lua open_terminal()<CR>', opts)
 -- vim.api.nvim_set_keymap("n", "<leader>t", ":tabnew | term <CR>", opts)
 -- vim.api.nvim_set_keymap("n", "<leader>T", ":bel 10sp<CR>", opts)
 
@@ -117,6 +120,7 @@ vim.api.nvim_set_keymap("n", "<leader>gC", ":Git commit --amend --no-edit <CR>",
 vim.api.nvim_set_keymap("n", "<leader>gS", ":Git stash", opts)
 vim.api.nvim_set_keymap("n", "<leader>gSa", ":Git stash apply", opts)
 vim.api.nvim_set_keymap("n", "<leader>G", ":Git ", opts)
+vim.api.nvim_set_keymap("n", "<leader>ga", ":Git add --update <CR> ", opts)
 vim.api.nvim_set_keymap("n", "<leader>gp", ":Git pull <CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>gP", ":Git push <CR>", opts)
 vim.api.nvim_set_keymap("n", "<leader>gm", ":Git merge ", opts)

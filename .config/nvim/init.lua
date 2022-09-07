@@ -12,6 +12,11 @@ require "utils.setting"
 require "utils.keymap"
 require "snippets"
 
+require'py_lsp'.setup {
+  -- This is optional, but allows to create virtual envs from nvim
+  host_python = "/path/to/python/bin"
+}
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
@@ -105,7 +110,7 @@ cmp.setup {
         { name = "calc" },
         { name = "cmp-spell" },
         { name = "path" },
-        -- {name = "rg"},
+        {name = "rg"},
         { name = "buffer" }
     },
     experimental = { ghost_text = true },
@@ -120,7 +125,7 @@ cmp.setup {
                 cmdline = "[CMD]",
                 spell = "[SPELL]",
                 path = "[PATH]",
-                -- rg = "[RG]",
+                rg = "[RG]",
                 buffer = "[BUFF]"
             }
         }
