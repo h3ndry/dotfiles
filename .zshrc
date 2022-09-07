@@ -42,7 +42,7 @@ zstyle ':completion:*' completer _expand_alias _complete _ignored
 # History in cache directory:
 HISTSIZE=100000
 SAVEHIST=100000
-HISTFILE=~/.cache/zsh/history
+HISTFILE=~/.zsh/history
 setopt appendhistory
 fpath+=~/.zfunc
 # Basic auto/tab complete:
@@ -128,17 +128,6 @@ export PATH='/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/u
 # bas dir for all cd command
 export CDPATH=/home/hendry
 
-source ~/.zsh/aliases.sh
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.zsh/zsh-autopair/autopair.zsh
-source ~/workspace/cmdtime/cmdtime.plugin.zsh
-# source "/home/hendry/workspace/emsdk/emsdk_env.sh"
-# I love this plugin but it is too slow
-# source ~/.zsh/zsh-vi-mode/zsh-vi-mode.plugin.zsh
-#
-
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -157,3 +146,12 @@ export PATH="$HOME/.poetry/bin:$PATH"
 # bun
 export BUN_INSTALL="/home/hendry/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+
+source ~/.zsh/autopair.zsh
+source ~/.zsh/aliases.sh
+source ~/.zsh/zsh-autosuggestions.zsh
+source ~/.zsh/zsh-256color.plugin.zsh
+source ~/.zsh/cmdtime.plugin.zsh
+source ~/.zsh/zsh-vi-mode.zsh
+source ~/.zsh/zsh-syntax-highlighting.zsh
