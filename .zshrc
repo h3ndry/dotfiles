@@ -1,4 +1,6 @@
 # Tue Jun  8 13:36:08 2021
+#
+
 
 case $TERM in
     xterm*)
@@ -151,7 +153,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 source ~/.zsh/autopair.zsh
 source ~/.zsh/aliases.sh
 source ~/.zsh/zsh-autosuggestions.zsh
+# source ~/.zsh/zsh-vi-mode.zsh
 source ~/.zsh/zsh-256color.plugin.zsh
 source ~/.zsh/cmdtime.plugin.zsh
-source ~/.zsh/zsh-vi-mode.zsh
 source ~/.zsh/zsh-syntax-highlighting.zsh

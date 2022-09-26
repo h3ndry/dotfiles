@@ -1,11 +1,3 @@
-vim.o.swapfile = false
-vim.o.tabstop = 4
-vim.o.tabstop = 4
-vim.bo.shiftwidth = 4
-vim.o.report = 0
-vim.bo.expandtab = true
-
-
 local function trim_trailing_whitespaces()
 	if vim.bo.modifiable == true then
 		local view = vim.fn.winsaveview()
@@ -61,23 +53,6 @@ vim.api.nvim_exec([[
 ]], false)
 
 
--- -- Use clipboard asynch
--- vim.api.nvim_exec([[
---       set clipboard=unnamedplus
--- ]], false)
-
--- -- auto save on FocusLost
--- --
--- -- Super cool, works perfect.... I am proud of myself
-
-
--- vim.api.nvim_exec([[
---     au FocusLost * :wa
---     au FocusLost * :wa
---     au FocusLost * silent! wa
---     au BufLeave * silent! wall
--- ]], false)
-
 vim.api.nvim_exec(
 	[[
     set spelllang=en
@@ -97,46 +72,11 @@ vim.api.nvim_exec(
 vim.api.nvim_exec(
 	[[
 	set shada='1000,f1
-    " set tabstop=4
     set path+=**
     set wildignore+=**/node_modules/**
     set shortmess+=c
     let g:netrw_liststyle=3
     set noshowmode
-
-    let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
-    set laststatus=3
-    " set fillchars=stl:\
-    " set statusline=\
-
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-
-    :set splitright
-    function! Exec_on_term(cmd)
-      if a:cmd=="normal"
-        exec "normal mk\"vyip"
-      else
-        exec "normal gv\"vy"
-      endif
-      if !exists("g:last_terminal_chan_id")
-        vs
-        terminal
-        let g:last_terminal_chan_id = b:terminal_job_id
-        wincmd p
-      endif
-
-      if getreg('"v') =~ "^\n"
-        call chansend(g:last_terminal_chan_id, expand("%:p")."\n")
-      else
-        call chansend(g:last_terminal_chan_id, @v)
-      endif
-      exec "normal `k"
-    endfunction
-
-    nnoremap <space>R :call Exec_on_term("normal")<CR>
-    vnoremap <space>R :<c-u>call Exec_on_term("visual")<CR>
-
 
     highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
     highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6
@@ -149,6 +89,7 @@ vim.api.nvim_exec(
     highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4
     highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
     highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
+
 
 
     imap <silent><script><expr> <C-y> copilot#Accept("\<CR>")
@@ -173,6 +114,40 @@ vim.o.wrap = false
 vim.cmd [[set undofile]]
 vim.o.ignorecase = true
 vim.o.smartcase = true
-vim.o.scrolloff = 2
-vim.o.updatetime = 150
 vim.wo.signcolumn = "yes"
+vim.opt.guicursor = ""
+vim.opt.nu = true
+vim.opt.relativenumber = true
+vim.opt.errorbells = false
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+vim.opt.smartindent = true
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+vim.opt.undofile = true
+vim.opt.incsearch = true
+vim.opt.termguicolors = true
+vim.opt.scrolloff = 1
+vim.opt.signcolumn = "yes"
+vim.opt.isfname:append("@-@")
+
+-- Give more space for displaying messages.
+vim.opt.cmdheight = 1
+
+-- Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+-- delays and poor user experience.
+vim.opt.updatetime = 50
+
+-- Don't pass messages to |ins-completion-menu|.
+vim.opt.shortmess:append("c")
+-- vim.opt.colorcolumn = "80"
+vim.g.mapleader = " "
+
+
+
+-- vim.api.nvim_exec([[
+--     highlight! ColorColumn guibg=#242931
+-- ]], false)

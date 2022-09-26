@@ -11,6 +11,8 @@ require("telescope").load_extension("fzf")
 require "utils.setting"
 require "utils.keymap"
 require "snippets"
+-- require "virtualenv"
+-- require "vim-pipenv"
 
 require'py_lsp'.setup {
   -- This is optional, but allows to create virtual envs from nvim
