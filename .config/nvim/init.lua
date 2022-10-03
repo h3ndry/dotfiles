@@ -14,9 +14,9 @@ require "snippets"
 -- require "virtualenv"
 -- require "vim-pipenv"
 
-require'py_lsp'.setup {
-  -- This is optional, but allows to create virtual envs from nvim
-  host_python = "/path/to/python/bin"
+require 'py_lsp'.setup {
+    -- This is optional, but allows to create virtual envs from nvim
+    host_python = "/path/to/python/bin"
 }
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -112,7 +112,7 @@ cmp.setup {
         { name = "calc" },
         { name = "cmp-spell" },
         { name = "path" },
-        {name = "rg"},
+        { name = "rg" },
         { name = "buffer" }
     },
     experimental = { ghost_text = true },
@@ -210,7 +210,10 @@ for _, lsp in ipairs(servers) do
     end
 end
 
-
+local lsp_flags = {
+    -- This is the default in Nvim 0.7+
+    debounce_text_changes = 150,
+}
 
 require("lspkind").init(
     {
