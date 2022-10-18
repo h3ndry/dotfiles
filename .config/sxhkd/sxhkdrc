@@ -1,20 +1,20 @@
 super + r; {w,s,t,f,p}
- 	{whatsapp-nativefier & notify-send "Opening WhatsApp" "WhatsApp would be open in a moment at tag 8", slack & notify-send "Opening Slack" "Slack would be open in a moment at tag 8", thunderbird & notify-send "Opening Thunderbird" "Thunderbird would be open in a moment at tag 7", firefox & notify-send "Opening FireFox" "FireFox would open in a moment at tag 9", export _JAVA_AWT_WM_NONREPARENTING=1 && pycharm  & notify-send "Opening Pycharm" "Pycharm would open in a moment at tag 2"}
+	{whatsapp-nativefier & notify-send "Opening WhatsApp" "WhatsApp would be open in a moment at tag 8", slack & notify-send "Opening Slack" "Slack would be open in a moment at tag 8", thunderbird & notify-send "Opening Thunderbird" "Thunderbird would be open in a moment at tag 7", firefox & notify-send "Opening FireFox" "FireFox would open in a moment at tag 9", export _JAVA_AWT_WM_NONREPARENTING=1 && pycharm  & notify-send "Opening Pycharm" "Pycharm would open in a moment at tag 2"}
 
 super + r; {n,c,i,d}
-    { nautilus & notify-send "Opening Nautilus" "Nautilus would open in a moment at tag 3", speedcrunch, insomnia & notify-send "Opening Insomia" "Insomia would open in a moment at tag 2", discord & notify-send "Opening Discord" "Discord would open in a moment at tag 8"  }
+	{ nautilus & notify-send "Opening Nautilus" "Nautilus would open in a moment at tag 3", speedcrunch, insomnia & notify-send "Opening Insomia" "Insomia would open in a moment at tag 2", discord & notify-send "Opening Discord" "Discord would open in a moment at tag 8"  }
 
 super + P
-    passmenu
+	passmenu
 
 super + M
-    st -e neomutt
+	st -e neomutt
 
 super + n
-  ~/.local/bin/notestaker.sh
+	~/.local/bin/notestaker.sh
 
 super + N
-  ~/.local/bin/notesreader.sh
+	~/.local/bin/notesreader.sh
 
 super + Print
 	maim | tee ~/Pictures/Screenshots/$(date +%s).png | xclip -selection clipboard -t image/png && notify-send "Screenshot has been captured" "Location: ~/pictures/screenshot"
@@ -28,15 +28,20 @@ super + o
 
 # open calculatpr
 super + I
-  clipmenu
+	clipmenu
 
 # make sxhkd reload its configuration files:
 super + i
-  ~/.local/bin/snippy.sh
+	~/.local/bin/snippy.sh
 
 
 super + Pause
-  pkill -USR1 -x sxhkd
+	pkill -USR1 -x sxhkd
+
+
+super + Home
+	~/.local/bin/toggle-monitores.sh
+
 
 # super + alt + control + {h,j,k,l} ; {0-9}
 	# bspc node @{west,south,north,east} -r 0.{0-9}

@@ -129,6 +129,7 @@ vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 vim.opt.incsearch = true
+vim.o.laststatus = 3
 vim.opt.termguicolors = true
 vim.opt.scrolloff = 1
 vim.opt.signcolumn = "yes"

@@ -2,22 +2,12 @@ require "utils.jst_plugins"
 require("Comment").setup()
 require "lspconfig".sumneko_lua.setup {}
 
--- require('cinnamon').setup()
--- require "luasnip".config.setup {}
 require("nvim-surround").setup({})
 require "marks".setup {}
--- require "vim-csharp".setup {}
 require("telescope").load_extension("fzf")
 require "utils.setting"
 require "utils.keymap"
 require "snippets"
--- require "virtualenv"
--- require "vim-pipenv"
-
-require 'py_lsp'.setup {
-    -- This is optional, but allows to create virtual envs from nvim
-    host_python = "/path/to/python/bin"
-}
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -50,14 +40,10 @@ local servers = {
     "svelte",
     "bashls",
     "volar",
-    -- "angularls",
     "ltex",
-    -- "ltex-ls",
     "omnisharp"
 }
 
--- luasnip.stup{}
--- nvim-cmp setup
 cmp.setup {
     snippet = {
         expand = function(args)
@@ -65,8 +51,6 @@ cmp.setup {
         end
     },
     mapping = {
-        -- ["<C-p>"] = cmp.mapping.select_prev_item(),
-        -- ["<C-n>"] = cmp.mapping.select_next_item(),
         ["<C-d>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete({}),
@@ -210,10 +194,6 @@ for _, lsp in ipairs(servers) do
     end
 end
 
-local lsp_flags = {
-    -- This is the default in Nvim 0.7+
-    debounce_text_changes = 150,
-}
 
 require("lspkind").init(
     {

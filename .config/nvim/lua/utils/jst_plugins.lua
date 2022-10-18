@@ -27,7 +27,10 @@ require("packer").startup(
             config = function() require('cinnamon').setup() end
         }
         -- use 'sunjon/shade.nvim'
-
+        use {
+            'glacambre/firenvim',
+            run = function() vim.fn['firenvim#install'](0) end
+        }
         use "saadparwaiz1/cmp_luasnip"
         use "hrsh7th/nvim-cmp"
         use "hrsh7th/cmp-nvim-lsp"
@@ -110,9 +113,6 @@ require("packer").startup(
                 }
             end
         }
-
-        use 'plytophogy/vim-virtualenv'
-        use 'PieterjanMontens/vim-pipenv'
 
     end
 )
