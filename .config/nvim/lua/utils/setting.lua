@@ -1,5 +1,5 @@
 local function trim_trailing_whitespaces()
-	if vim.bo.modifiable == true then
+	if vim.bo.modifiable == true and vim.bo.filetype ~= 'TelescopePrompt'  then
 		local view = vim.fn.winsaveview()
 		vim.cmd [[keepp %s/\s\+$//e]]
 		vim.cmd "update"

@@ -6,20 +6,17 @@ require("packer").startup(
         use "h3ndry/ReplaceWithRegister"
         use "tpope/vim-repeat"
         use "cohama/lexima.vim"
-        -- use "chentau/marks.nvim"
         use "chentoast/marks.nvim"
         use "danilamihailov/beacon.nvim"
         use "h3ndry/tokyonight.nvim"
         use "neovim/nvim-lspconfig"
         use "andymass/vim-matchup"
         use "ggandor/lightspeed.nvim"
-        use "tpope/vim-capslock"
         use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
         use "nvim-lua/plenary.nvim"
         use "nvim-telescope/telescope.nvim"
         use "rafamadriz/friendly-snippets"
         use "tpope/vim-fugitive"
-        use { 'HallerPatrick/py_lsp.nvim' }
         use "L3MON4D3/LuaSnip"
         use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
         use {
@@ -35,16 +32,13 @@ require("packer").startup(
         use "hrsh7th/nvim-cmp"
         use "hrsh7th/cmp-nvim-lsp"
         use "onsails/lspkind-nvim"
-        use "golang/vscode-go"
         use "nvim-lua/lsp_extensions.nvim"
-        use "OrangeT/vim-csharp"
         use {
             'nvim-treesitter/nvim-treesitter',
             run = ':TSUpdate'
         }
         use "nvim-treesitter/nvim-treesitter-textobjects"
         use { 'lewis6991/github_dark.nvim' }
-        use "mhartington/formatter.nvim"
         use "norcalli/nvim-colorizer.lua"
         use "lewis6991/gitsigns.nvim"
         use "norcalli/nvim-terminal.lua"
@@ -62,14 +56,6 @@ require("packer").startup(
         use "nkakouros-original/numbers.nvim"
         use "windwp/nvim-ts-autotag"
         use "f-person/git-blame.nvim"
-        -- use "kyazdani42/nvim-web-devicons"
-        -- use "OrangeT/vim-csharp"
-
-        -- -- install without yarn or npm
-        -- use({
-        --     "iamcco/markdown-preview.nvim",
-        --     run = function() vim.fn["mkdp#util#install"]() end,
-        -- })
 
         use {
             'nvim-lualine/lualine.nvim',
@@ -88,29 +74,13 @@ require("packer").startup(
         use({
             "kylechui/nvim-surround",
             config = function()
-                require("nvim-surround").setup({
-                    -- Configuration here, or leave empty to use defaults
-                })
-            end
-        })
-        use({
-            "gbprod/yanky.nvim",
-            config = function()
-                require("yanky").setup({
-                    -- your configuration comes here
-                    -- or leave it empty to use the default settings
-                    -- refer to the configuration section below
-                })
+                require("nvim-surround").setup()
             end
         })
         use {
             'olivercederborg/poimandres.nvim',
             config = function()
-                require('poimandres').setup {
-                    -- leave this setup function empty for default config
-                    -- or refer to the configuration section
-                    -- for configuration options
-                }
+                require('poimandres').setup()
             end
         }
 
