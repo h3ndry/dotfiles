@@ -74,16 +74,15 @@ vim.keymap.set("n", "<leader>s", ":%s/<C-R><C-W>/<C-R>0/g<CR>", opts)
 
 -- NEXT n PREV buffer
 
-function open_terminal()
-    local buffers = vim.keymap.nvim_list_bufs()
-
-    for k, v in pairs(buffers) do
-        print(k)
-    end
-end
 
 vim.keymap.set("n", "<leader>t", ":bel 15sp term://zsh<CR>", opts)
-vim.keymap.set("n", "<leader>T", ':lua open_terminal()<CR>', opts)
+vim.keymap.set("n", "<leader>T", function()
+    -- local buffers = vim.vi
+    -- for k, v in pairs(buffers) do
+        print("I suppose to do magic here")
+    -- end
+
+end, opts)
 -- vim.keymap.set("n", "<leader>t", ":tabnew | term <CR>", opts)
 -- vim.keymap.set("n", "<leader>T", ":bel 10sp<CR>", opts)
 
