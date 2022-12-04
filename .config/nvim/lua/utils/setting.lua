@@ -90,8 +90,6 @@ vim.api.nvim_exec(
     highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
     highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
 
-
-
     imap <silent><script><expr> <C-y> copilot#Accept("\<CR>")
     let g:copilot_no_tab_map = v:true
 

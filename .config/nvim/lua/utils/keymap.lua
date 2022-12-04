@@ -60,7 +60,7 @@ vim.keymap.set('n', '<space>i', vim.lsp.buf.implementation, opts)
 -- vim.keymap.set("n", "<leader>F", ":FormatWrite<CR>", opts)
 
 -- Supper Mapping to substitue// Degeration mapping
-vim.keymap.set("n", "<leader>s", ":%s/<C-R><C-W>/<C-R>0/g<CR>", opts)
+vim.keymap.set("n", "<leader>s", ":%s/\\<<C-R><C-W>\\>/<C-R>0/g<CR>", opts)
 
 
 -- vim.keymap.set("n", "J", "mzJ`z`", opts)
@@ -129,6 +129,7 @@ vim.keymap.set("n", "<leader>rr", require('telescope.builtin').grep_string, opts
 vim.keymap.set("n", "<leader>re", require('telescope.builtin').registers, opts)
 vim.keymap.set("n", "<leader>gb", require('telescope.builtin').git_branches, opts)
 vim.keymap.set("n", "<leader>gs", require('telescope.builtin').git_status, opts)
+vim.keymap.set("n", "<leader>m", require('telescope.builtin').marks, opts)
 vim.keymap.set("n", "<leader>gc", ":Git commit -v <CR>", opts)
 vim.keymap.set("n", "<leader>gC", ":Git commit --amend --no-edit <CR>", opts)
 vim.keymap.set("n", "<leader>gS", ":Git stash", opts)
