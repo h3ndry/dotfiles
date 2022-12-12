@@ -49,9 +49,22 @@ require("packer").startup(
             end
         }
 
+
+        use { "rainbowhxch/beacon.nvim",
+            config = function()
+
+                require("beacon").setup()
+
+            end
+        }
+
         use "h3ndry/ReplaceWithRegister"
         use "tpope/vim-repeat"
         use "cohama/lexima.vim"
+
+        use { "karb94/neoscroll.nvim",
+            config = function() require('neoscroll').setup() end
+        }
 
         use { "chentoast/marks.nvim",
             config = function()
@@ -82,24 +95,30 @@ require("packer").startup(
                             override_generic_sorter = false,
                             override_file_sorter = true
                         },
-                        bookmarks = { selected_browser = "brave" }
                     }
                 }
 
                 require("telescope").load_extension("fzf")
-                require("telescope").load_extension("bookmarks")
             end
         }
 
         use "rafamadriz/friendly-snippets"
         use "tpope/vim-fugitive"
 
-        use "L3MON4D3/LuaSnip"
-        use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
-        use {
-            'declancm/cinnamon.nvim',
-            config = function() require('cinnamon').setup() end
+        use { "L3MON4D3/LuaSnip",
+            config = function()
+                require("luasnip.loaders.from_vscode").lazy_load({
+                    paths = { "./snippets/" },
+                })
+            end
         }
+
+        use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
+
+        -- use {
+        --     'declancm/cinnamon.nvim',
+        --     config = function() require('cinnamon').setup() end
+        -- }
 
         use "saadparwaiz1/cmp_luasnip"
 
@@ -313,8 +332,12 @@ require("packer").startup(
         use "OrangeT/vim-csharp"
         use {
             'nvim-treesitter/nvim-treesitter',
-            run = ':TSUpdate'
+            run = ':TSUpdate',
+            config = function()
+                require 'nvim-treesitter.configs'.setup({})
+            end
         }
+
         use "nvim-treesitter/nvim-treesitter-textobjects"
         use { 'lewis6991/github_dark.nvim' }
         use "mhartington/formatter.nvim"
@@ -411,7 +434,6 @@ require("packer").startup(
         }
         use "norcalli/nvim-terminal.lua"
         use "amadeus/vim-convert-color-to"
-        use "dhruvmanila/telescope-bookmarks.nvim"
         use {
             "prettier/vim-prettier",
             ft = {
@@ -433,36 +455,6 @@ require("packer").startup(
         }
 
         use { "ray-x/cmp-treesitter",
-            config = function()
-                require("nvim-treesitter.configs").setup({
-                    textobjects = {
-                        select = {
-                            enable = true,
-                            -- Automatically jump forward to textobj, similar to targets.vim
-                            lookahead = true,
-                            keymaps = {
-                                -- You can use the capture groups defined in textobjects.scm
-                                ["af"] = "@function.outer",
-                                ["if"] = "@function.inner",
-                                ["ac"] = "@class.outer",
-                                ["ic"] = "@class.inner",
-                            },
-                            -- You can choose the select mode (default is charwise 'v')
-                            selection_modes = {
-                                ['@parameter.outer'] = 'v', -- charwise
-                                ['@function.outer'] = 'V', -- linewise
-                                ['@class.outer'] = '<c-v>', -- blockwise
-                            },
-                            -- If you set this to `true` (default is `false`) then any textobject is
-                            -- extended to include preceding xor succeeding whitespace. Succeeding
-                            -- whitespace has priority in order to act similarly to eg the built-in
-                            -- `ap`.
-                            include_surrounding_whitespace = true,
-                        },
-                    },
-
-                })
-            end
         }
 
         use "hrsh7th/cmp-cmdline"
@@ -494,14 +486,14 @@ require("packer").startup(
         use "Hoffs/omnisharp-extended-lsp.nvim"
         use "github/copilot.vim"
 
-        use({
+        use {
             "kylechui/nvim-surround",
             config = function()
                 require("nvim-surround").setup({
                     -- Configuration here, or leave empty to use defaults
                 })
             end
-        })
+        }
 
         use({
             "gbprod/yanky.nvim",
@@ -542,7 +534,6 @@ require("packer").startup(
                 })
             end
         }
-        use { 'rainbowhxch/beacon.nvim' }
     end
 
 )
