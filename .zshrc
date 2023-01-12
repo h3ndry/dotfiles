@@ -157,3 +157,4 @@ source ~/.zsh/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-256color.plugin.zsh
 source ~/.zsh/cmdtime.plugin.zsh
 source ~/.zsh/zsh-syntax-highlighting.zsh
+source /usr/share/nvm/init-nvm.sh

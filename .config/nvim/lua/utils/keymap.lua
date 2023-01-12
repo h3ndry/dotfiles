@@ -139,6 +139,7 @@ vim.keymap.set("n", "<leader>ga", ":Git add --update <CR> ", opts)
 vim.keymap.set("n", "<leader>gp", ":Git pull <CR>", opts)
 vim.keymap.set("n", "<leader>gP", ":Git push <CR>", opts)
 vim.keymap.set("n", "<leader>gm", ":Git merge ", opts)
+vim.keymap.set("n", "<leader>u", ":UndotreeToggle <CR>", opts)
 
 
 -- Managing buffers and Windows

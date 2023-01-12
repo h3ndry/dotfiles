@@ -75,7 +75,11 @@ require("packer").startup(
         use "h3ndry/tokyonight.nvim"
         use "neovim/nvim-lspconfig"
         use "andymass/vim-matchup"
+
         use "ggandor/lightspeed.nvim"
+
+        use "Hoffs/omnisharp-extended-lsp.nvim "
+
         use "tpope/vim-capslock"
         -- use "nathom/filetype.nvim"
         use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
@@ -329,6 +333,8 @@ require("packer").startup(
 
         use "golang/vscode-go"
         use "nvim-lua/lsp_extensions.nvim"
+        use "mbbill/undotree"
+        use "tpope/vim-eunuch"
         use "OrangeT/vim-csharp"
 
         use {
@@ -553,6 +559,9 @@ require("packer").startup(
                     options = {
                         section_separators = { left = '', right = '' },
                         component_separators = { left = '', right = '' }
+                    },
+                    sections = {
+                        lualine_c = { 'filename' }
                     }
                 })
             end
@@ -560,18 +569,6 @@ require("packer").startup(
 
         use {
             "f-person/git-blame.nvim",
-            config = function()
-                vim.g.gitblame_display_virtual_text = 0
-                local git_blame = require('gitblame')
-
-                require('lualine').setup({
-                    sections = {
-                        lualine_c = {
-                            { git_blame.get_current_blame_text, cond = git_blame.is_blame_text_available }
-                        }
-                    }
-                })
-            end
         }
     end
 
