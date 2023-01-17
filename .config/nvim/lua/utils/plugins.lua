@@ -61,6 +61,7 @@ require("packer").startup(
         use "h3ndry/ReplaceWithRegister"
         use "tpope/vim-repeat"
         use "cohama/lexima.vim"
+        use 'eandrju/cellular-automaton.nvim'
 
         use { "karb94/neoscroll.nvim",
             config = function() require('neoscroll').setup() end
@@ -511,6 +512,7 @@ require("packer").startup(
         use "jlcrochet/vim-razor"
         use "nkakouros-original/numbers.nvim"
         use "windwp/nvim-ts-autotag"
+        use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
         use { "folke/trouble.nvim",
             config = function()
                 require("trouble").setup {
@@ -561,7 +563,7 @@ require("packer").startup(
                         component_separators = { left = '', right = '' }
                     },
                     sections = {
-                        lualine_c = { 'filename' }
+                        lualine_c = { {'filename', path = 1} }
                     }
                 })
             end

@@ -8,7 +8,7 @@ systemctl --user start mpd &
 xautolock -time 8 -locker slock &
 xbanish &
 compton &
- lxsession &
+ # lxsession &
 clipmenud &
 ./.local/bin/05-1440x900-res.sh &
 [[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap &
