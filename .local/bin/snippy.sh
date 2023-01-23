@@ -1,11 +1,13 @@
 #!/bin/sh
 
-SNIPS=${HOME}/.config/snippets/snippets.txt
+SNIPS_FILE=${HOME}/.config/snippets/snippets.txt
 
-DATA=`bat ${SNIPS} | dmenu`
+
+DATA=`sed -r 's/::.*$//g' ${SNIPS_FILE} | dmenu`
 
 if [ ${DATA} ]; then
-  printf "$DATA" | xsel -p -i
-  printf "$DATA" | xsel -b -i
-  xdotool key shift+Insert
+    VALUE=`sed -rn "s/(^$DATA::)//p" $SNIPS_FILE`
+    printf "$VALUE" | xsel -p -i
+    printf "$VALUE" | xsel -b -i
+    xdotool key shift+Insert
 fi
