@@ -100,6 +100,7 @@ vim.keymap.set("t", "<C-\\>\\", "<C-\\><C-n>", opts)
 -- alternative shorcuts without fzf
 vim.keymap.set("n", "<leader>.", ":e<space>**/", opts)
 vim.keymap.set("n", "<leader>sT", ":tjump *", opts)
+vim.keymap.set("n", "<leader>M", ":make <CR>", opts)
 
 
 -- Insert timestamp in file

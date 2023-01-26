@@ -62,6 +62,7 @@ require("packer").startup(
         use "tpope/vim-repeat"
         use "cohama/lexima.vim"
         use 'eandrju/cellular-automaton.nvim'
+        use "alefpereira/pyenv-pyright"
 
         use { "karb94/neoscroll.nvim",
             config = function() require('neoscroll').setup() end
