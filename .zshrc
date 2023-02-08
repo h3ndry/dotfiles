@@ -148,6 +148,7 @@ export PATH="$HOME/.poetry/bin:$PATH"
 # bun
 export BUN_INSTALL="/home/hendry/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+export EDITOR=nvim
 
 
 source ~/.zsh/autopair.zsh

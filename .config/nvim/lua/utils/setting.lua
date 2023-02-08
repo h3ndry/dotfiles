@@ -98,10 +98,8 @@ vim.api.nvim_exec(
 )
 
 vim.o.termguicolors = true
-vim.g.onedark_terminal_italics = 2
-vim.cmd [[colorscheme github_dark]]
--- vim.cmd [[colorscheme poimandres]]
--- vim.cmd('colorscheme poimandres')
+vim.cmd [[colorscheme github_dark_default]]
+-- vim.cmd [[colorscheme dichromatic]]
 vim.o.completeopt = "menu,menuone,noinsert"
 vim.g.netrw_banner = 0
 vim.o.inccommand = "nosplit"

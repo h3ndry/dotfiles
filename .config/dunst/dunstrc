@@ -185,7 +185,7 @@
     sticky_history = yes
 
     # Maximum amount of notifications kept in history
-    history_length = 10
+    history_length = 3
 
     ### Misc/Advanced ###
 
@@ -296,7 +296,7 @@
     # Otherwise the "#" and following would be interpreted as a comment.
     background = "#0a0a0f"
     foreground = "#eeeeee"
-    frame_color = "#005577"
+    frame_color = "#d18616"
     timeout = 7
     # Icon for notifications with low urgency, uncomment to enable
     #icon = /path/to/icon
@@ -304,7 +304,7 @@
 [urgency_normal]
     background = "#000000"
     foreground = "#eeeeee"
-    frame_color = "#005577"
+    frame_color = "#d18616"
     timeout = 10
     # Icon for notifications with normal urgency, uncomment to enable
     #icon = /path/to/icon

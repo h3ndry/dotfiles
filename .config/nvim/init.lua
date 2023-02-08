@@ -58,19 +58,19 @@ require "utils.keymap"
 
 -- --       𥉉  ﮏ   ﰸ  
 --                      
-local signs = { Error = "", Warn = "", Hint = "", Info = "" }
+local signs = { Error = "", Warn = "", Hint = "", Info = "i" }
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
 -- changing lightspeed colors
-vim.api.nvim_exec(
-    [[
-    highlight! LightspeedOneCharMatch guibg=#0d1117 guifg=NONE
-    highlight! LightspeedCursor guibg=#FFFF00 guifg=#000000
-]]   ,
-    false
-)
+-- vim.api.nvim_exec(
+--     [[
+--     highlight! LightspeedOneCharMatch guibg=#0d1117 guifg=NONE
+--     highlight! LightspeedCursor guibg=#FFFF00 guifg=#000000
+-- ]]   ,
+--     false
+-- )
 
 

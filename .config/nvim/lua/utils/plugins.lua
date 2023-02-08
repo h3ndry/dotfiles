@@ -3,13 +3,13 @@ local fn = vim.fn
 local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
     PACKER_BOOTSTRAP = fn.system {
-        "git",
-        "clone",
-        "--depth",
-        "1",
-        "https://github.com/wbthomason/packer.nvim",
-        install_path,
-    }
+            "git",
+            "clone",
+            "--depth",
+            "1",
+            "https://github.com/wbthomason/packer.nvim",
+            install_path,
+        }
     print "Installing packer close and reopen Neovim..."
     vim.cmd [[packadd packer.nvim]]
 end
@@ -52,9 +52,7 @@ require("packer").startup(
 
         use { "rainbowhxch/beacon.nvim",
             config = function()
-
                 require("beacon").setup()
-
             end
         }
 
@@ -62,11 +60,11 @@ require("packer").startup(
         use "tpope/vim-repeat"
         use "cohama/lexima.vim"
         use 'eandrju/cellular-automaton.nvim'
-        use "alefpereira/pyenv-pyright"
+        -- use "alefpereira/pyenv-pyright"
 
-        use { "karb94/neoscroll.nvim",
-            config = function() require('neoscroll').setup() end
-        }
+        -- use { "karb94/neoscroll.nvim",
+        --     config = function() require('neoscroll').setup() end
+        -- }
 
         use { "chentoast/marks.nvim",
             config = function()
@@ -77,6 +75,30 @@ require("packer").startup(
         use "h3ndry/tokyonight.nvim"
         use "neovim/nvim-lspconfig"
         use "andymass/vim-matchup"
+        use "romainl/vim-dichromatic"
+
+
+        use({
+            'projekt0n/github-nvim-theme',
+            tag = 'v0.0.7',
+            config = function()
+                require('github-theme').setup({
+                    theme_style = "dark_default",
+                   -- dark_float = true
+                })
+            end
+        })
+
+
+
+        use({
+            'brenoprata10/nvim-highlight-colors',
+            config = function()
+                require('nvim-highlight-colors').setup {}
+            end
+        })
+
+        use 'nvim-tree/nvim-web-devicons'
 
         use "ggandor/lightspeed.nvim"
 
@@ -171,7 +193,7 @@ require("packer").startup(
                         end
                     },
                     mapping = {
-                        ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+                        ["<C-d>"] = cmp.mapping.scroll_docs( -4),
                         ["<C-f>"] = cmp.mapping.scroll_docs(4),
                         ["<C-Space>"] = cmp.mapping.complete({}),
                         ["<C-e>"] = cmp.mapping.close(),
@@ -197,8 +219,8 @@ require("packer").startup(
                             function(fallback)
                                 if cmp.visible() then
                                     cmp.select_prev_item()
-                                elseif luasnip.jumpable(-1) then
-                                    luasnip.jump(-1)
+                                elseif luasnip.jumpable( -1) then
+                                    luasnip.jump( -1)
                                 else
                                     fallback()
                                 end
@@ -295,6 +317,15 @@ require("packer").startup(
 
         use "hrsh7th/cmp-nvim-lsp"
 
+        use { 'anuvyklack/fold-preview.nvim',
+            requires = 'anuvyklack/keymap-amend.nvim',
+            config = function()
+                require('fold-preview').setup({
+                    -- Your configuration goes here.
+                })
+            end
+        }
+
         use { "onsails/lspkind-nvim",
             config = function()
                 require("lspkind").init(
@@ -329,7 +360,6 @@ require("packer").startup(
                         }
                     }
                 )
-
             end
         }
 
@@ -381,17 +411,14 @@ require("packer").startup(
                             include_surrounding_whitespace = true,
                         },
                     },
-
                 })
-
             end
         }
         use { 'lewis6991/github_dark.nvim' }
-        use "mhartington/formatter.nvim"
+        -- use "mhartington/formatter.nvim"
         use "norcalli/nvim-colorizer.lua"
         use { "lewis6991/gitsigns.nvim",
             config = function()
-
                 require('gitsigns').setup {
                     signs                        = {
                         add          = { hl = 'GitSignsAdd', text = '│', numhl = 'GitSignsAddNr',
@@ -438,7 +465,7 @@ require("packer").startup(
                         enable = false
                     },
 
-                    on_attach = function(bufnr)
+                    on_attach                    = function(bufnr)
                         local gs = package.loaded.gitsigns
 
                         local function map(mode, l, r, opts)
@@ -564,7 +591,7 @@ require("packer").startup(
                         component_separators = { left = '', right = '' }
                     },
                     sections = {
-                        lualine_c = { {'filename', path = 1} }
+                        lualine_c = { { 'filename', path = 1 } }
                     }
                 })
             end
