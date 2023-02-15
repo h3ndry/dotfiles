@@ -17,12 +17,15 @@ super + N
 	~/.local/bin/notesreader.sh
 
 super + Print
-	maim | tee ~/Pictures/Screenshots/$(date +%s).png | xclip -selection clipboard -t image/png && notify-send "Screenshot has been captured" "Location: ~/pictures/screenshot"
+	maim | tee ~/Pictures/Screenshots/"$(date)".png | xclip -selection clipboard -t image/png && notify-send "Screenshot has been captured" "Location: ~/pictures/screenshot"
 
 Print
-	maim --select | tee ~/Pictures/Screenshots/$(date +%s).png | xclip -selection clipboard -t image/png && notify-send "Screenshot has been captured" "Location: ~/pictures/screenshot"
+	maim --select | tee ~/Pictures/Screenshots/"$(date)".png | xclip -selection clipboard -t image/png && notify-send "Screenshot has been captured" "Location: ~/pictures/screenshot"
 
-# make sxhkd reload its configuration files:
+
+shift + Print
+  ~/.local/bin/img2text.sh
+
 super + o
   ~/.local/bin/quickmove.sh
 
@@ -30,7 +33,7 @@ super + o
 super + I
 	clipmenu
 
-# make sxhkd reload its configuration files:
+
 super + i
 	~/.local/bin/snippy.sh
 

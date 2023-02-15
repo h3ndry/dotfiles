@@ -66,16 +66,85 @@ require("packer").startup(
         --     config = function() require('neoscroll').setup() end
         -- }
 
+
+        use 'andymass/vim-matchup'
+
+        -- use { "mrjones2014/nvim-ts-rainbow",
+        --     config = function()
+        --         require("nvim-treesitter.configs").setup {
+        --             highlight = {
+        --                 -- ...
+        --             },
+        --             -- ...
+        --             rainbow = {
+        --                 enable = true,
+        --                 -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+        --                 extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+        --                 max_file_lines = nil, -- Do not enable for files with more than n lines, int
+        --                 -- colors = {}, -- table of hex strings
+        --                 -- termcolors = {} -- table of colour name strings
+        --             }
+        --         }
+        --     end
+        -- }
+
+
         use { "chentoast/marks.nvim",
             config = function()
                 require "marks".setup {}
             end
         }
 
+
+        use { 'edluffy/hologram.nvim',
+            config = function()
+                require('hologram').setup {
+                    auto_display = true -- WIP automatic markdown image display, may be prone to breaking
+                }
+            end
+        }
+
+
+        use {
+            'abecodes/tabout.nvim',
+            config = function()
+                require('tabout').setup {
+                    tabkey = '<Tab>', -- key to trigger tabout, set to an empty string to disable
+                    backwards_tabkey = '<S-Tab>', -- key to trigger backwards tabout, set to an empty string to disable
+                    act_as_tab = true, -- shift content if tab out is not possible
+                    act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
+                    default_tab = '<C-t>', -- shift default action (only at the beginning of a line, otherwise <TAB> is used)
+                    default_shift_tab = '<C-d>', -- reverse shift default action,
+                    enable_backwards = true, -- well ...
+                    completion = true, -- if the tabkey is used in a completion pum
+                    tabouts = {
+                        { open = "'", close = "'" },
+                        { open = '"', close = '"' },
+                        { open = '`', close = '`' },
+                        { open = '(', close = ')' },
+                        { open = '[', close = ']' },
+                        { open = '{', close = '}' }
+                    },
+                    ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
+                    exclude = {} -- tabout will ignore these filetypes
+                }
+            end,
+            wants = { 'nvim-treesitter' }, -- or require if not used so far
+            after = { 'nvim-cmp' } -- if a completion plugin is using tabs load it before
+        }
+
+
+
         use "h3ndry/tokyonight.nvim"
         use "neovim/nvim-lspconfig"
-        use "andymass/vim-matchup"
         use "romainl/vim-dichromatic"
+        use 'nvim-tree/nvim-web-devicons'
+        use "ggandor/lightspeed.nvim"
+        use "Hoffs/omnisharp-extended-lsp.nvim "
+        use "tpope/vim-capslock"
+        use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
+        use "nvim-lua/plenary.nvim"
+        use "saadparwaiz1/cmp_luasnip"
 
 
         use({
@@ -84,7 +153,7 @@ require("packer").startup(
             config = function()
                 require('github-theme').setup({
                     theme_style = "dark_default",
-                   -- dark_float = true
+                    -- dark_float = true
                 })
             end
         })
@@ -97,17 +166,6 @@ require("packer").startup(
                 require('nvim-highlight-colors').setup {}
             end
         })
-
-        use 'nvim-tree/nvim-web-devicons'
-
-        use "ggandor/lightspeed.nvim"
-
-        use "Hoffs/omnisharp-extended-lsp.nvim "
-
-        use "tpope/vim-capslock"
-        -- use "nathom/filetype.nvim"
-        use { "nvim-telescope/telescope-fzf-native.nvim", run = "make" }
-        use "nvim-lua/plenary.nvim"
 
         use { "nvim-telescope/telescope.nvim",
             config = function()
@@ -143,12 +201,6 @@ require("packer").startup(
 
         use { 'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async' }
 
-        -- use {
-        --     'declancm/cinnamon.nvim',
-        --     config = function() require('cinnamon').setup() end
-        -- }
-
-        use "saadparwaiz1/cmp_luasnip"
 
         use { "hrsh7th/nvim-cmp",
             config = function()
@@ -585,6 +637,7 @@ require("packer").startup(
             'nvim-lualine/lualine.nvim',
             requires = { 'kyazdani42/nvim-web-devicons', opt = true },
             config = function()
+                vim.o.laststatus = 3
                 require('lualine').setup({
                     options = {
                         section_separators = { left = '', right = '' },

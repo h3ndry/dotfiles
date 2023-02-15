@@ -46,6 +46,23 @@ vim.keymap.set('n', '<space>F', function()
     end
 end, opts)
 
+
+
+-- format code based on a specific file type, use the LSP formnater if none
+-- is mathch | asumem jq, black, prettier is installed on ypur machine
+vim.keymap.set('n', '<C-l>', function()
+    vim.o.laststatus = 3
+    require('lualine').setup({
+        options = {
+            section_separators = { left = '', right = '' },
+            component_separators = { left = '', right = '' }
+        },
+        sections = {
+            lualine_c = { { 'filename', path = 1 } }
+        }
+    })
+end, opts)
+
 -- vim.keymap.set('n', '<space>s', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
 vim.keymap.set('n', '<space>K', vim.lsp.buf.signature_help, opts)
@@ -79,9 +96,8 @@ vim.keymap.set("n", "<leader>t", ":bel 15sp term://zsh<CR>", opts)
 vim.keymap.set("n", "<leader>T", function()
     -- local buffers = vim.vi
     -- for k, v in pairs(buffers) do
-        print("I suppose to do magic here")
-    -- end
-
+    -- print("I suppose to do magic here")
+    -- -- end
 end, opts)
 -- vim.keymap.set("n", "<leader>t", ":tabnew | term <CR>", opts)
 -- vim.keymap.set("n", "<leader>T", ":bel 10sp<CR>", opts)

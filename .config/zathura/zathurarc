@@ -50,10 +50,12 @@ set adjust-open "best-fit"
 set pages-per-row 1
 
 #stop at page boundries
-set scroll-page-aware "true"
-set smooth-scroll "true"
+set scroll-page-aware true
 set scroll-full-overlap 0.01
-set scroll-step 240
+set scroll-step 50
+set toggle_inputbar false
+set toggle_statusbar "false"
+
 
 #zoom settings
 set zoom-min 10
