@@ -3,13 +3,13 @@ local fn = vim.fn
 local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
     PACKER_BOOTSTRAP = fn.system {
-            "git",
-            "clone",
-            "--depth",
-            "1",
-            "https://github.com/wbthomason/packer.nvim",
-            install_path,
-        }
+        "git",
+        "clone",
+        "--depth",
+        "1",
+        "https://github.com/wbthomason/packer.nvim",
+        install_path,
+    }
     print "Installing packer close and reopen Neovim..."
     vim.cmd [[packadd packer.nvim]]
 end
@@ -39,10 +39,8 @@ packer.init {
 
 
 require("packer").startup(
-
     function(use)
         use "wbthomason/packer.nvim"
-
         use { "numToStr/Comment.nvim",
             config = function()
                 require("Comment").setup()
@@ -55,45 +53,46 @@ require("packer").startup(
                 require("beacon").setup()
             end
         }
-
+        use 'kovetskiy/sxhkd-vim'
         use "h3ndry/ReplaceWithRegister"
         use "tpope/vim-repeat"
         use "cohama/lexima.vim"
         use 'eandrju/cellular-automaton.nvim'
-        -- use "alefpereira/pyenv-pyright"
 
         -- use { "karb94/neoscroll.nvim",
         --     config = function() require('neoscroll').setup() end
         -- }
 
-
         use 'andymass/vim-matchup'
-
-        -- use { "mrjones2014/nvim-ts-rainbow",
-        --     config = function()
-        --         require("nvim-treesitter.configs").setup {
-        --             highlight = {
-        --                 -- ...
-        --             },
-        --             -- ...
-        --             rainbow = {
-        --                 enable = true,
-        --                 -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
-        --                 extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
-        --                 max_file_lines = nil, -- Do not enable for files with more than n lines, int
-        --                 -- colors = {}, -- table of hex strings
-        --                 -- termcolors = {} -- table of colour name strings
-        --             }
-        --         }
-        --     end
-        -- }
-
 
         use { "chentoast/marks.nvim",
             config = function()
                 require "marks".setup {}
             end
         }
+
+
+        use { "xiyaowong/nvim-transparent",
+            config = function()
+                require("transparent").setup({
+                    enable = true, -- boolean: enable transparent
+                    extra_groups = { -- table/string: additional groups that should be cleared
+                        -- In particular, when you set it to 'all', that means all available groups
+
+                        -- example of akinsho/nvim-bufferline.lua
+                        "BufferLineTabClose",
+                        "BufferlineBufferSelected",
+                        "BufferLineFill",
+                        "BufferLineBackground",
+                        "BufferLineSeparator",
+                        "BufferLineIndicatorSelected",
+                    },
+                    exclude = {}, -- table: groups you don't want to clear
+                })
+            end
+        }
+
+
 
 
         use { 'edluffy/hologram.nvim',
@@ -157,7 +156,6 @@ require("packer").startup(
                 })
             end
         })
-
 
 
         use({
@@ -229,7 +227,7 @@ require("packer").startup(
                     "html",
                     "cssls",
                     "emmet_ls",
-                    "sumneko_lua",
+                    "lua_ls",
                     "texlab",
                     "svelte",
                     "bashls",

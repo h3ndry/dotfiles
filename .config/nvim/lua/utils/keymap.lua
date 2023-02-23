@@ -80,14 +80,14 @@ vim.keymap.set('n', '<space>i', vim.lsp.buf.implementation, opts)
 vim.keymap.set("n", "<leader>s", ":%s/\\<<C-R><C-W>\\>/<C-R>0/g<CR>", opts)
 
 
--- vim.keymap.set("n", "J", "mzJ`z`", opts)
--- vim.keymap.set("n", "n", "nzzzv", opts)
--- vim.keymap.set("n", "N", "Nzzzv", opts)
+vim.keymap.set("n", "J", "mzJ`z`", opts)
+vim.keymap.set("n", "n", "nzzzv", opts)
+vim.keymap.set("n", "N", "Nzzzv", opts)
 
--- vim.keymap.set("n", "d", '"xd', opts)
--- vim.keymap.set("n", "D", '"xD', opts)
--- vim.keymap.set("n", "c", '"xc', opts)
--- vim.keymap.set("n", "C", '"xC', opts)
+vim.keymap.set("n", "d", '"xd', opts)
+vim.keymap.set("n", "D", '"xD', opts)
+vim.keymap.set("n", "c", '"xc', opts)
+vim.keymap.set("n", "C", '"xC', opts)
 
 -- NEXT n PREV buffer
 
@@ -170,7 +170,7 @@ vim.keymap.set("n", "<leader>o", ":only<CR>", opts)
 vim.keymap.set("n", "<leader>O", ":unhide<CR>", opts)
 vim.keymap.set("n", "<leader>_", ":res<CR>", opts)
 vim.keymap.set("n", "<leader>|", ":vert res<CR>", opts)
-vim.keymap.set("n", "<leader>w", "<C-w>", opts)
+-- vim.keymap.set("n", "<leader>w", "<C-w>", opts)
 vim.keymap.set("n", "<leader>scb", ":set scb!<CR>", opts)
 
 

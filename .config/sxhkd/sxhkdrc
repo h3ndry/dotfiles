@@ -2,7 +2,10 @@ super + r; {w,s,t,f,p}
 	{whatsapp-nativefier & notify-send "Opening WhatsApp" "WhatsApp would be open in a moment at tag 8", slack & notify-send "Opening Slack" "Slack would be open in a moment at tag 8", thunderbird & notify-send "Opening Thunderbird" "Thunderbird would be open in a moment at tag 7", firefox & notify-send "Opening FireFox" "FireFox would open in a moment at tag 9", export _JAVA_AWT_WM_NONREPARENTING=1 && pycharm  & notify-send "Opening Pycharm" "Pycharm would open in a moment at tag 2"}
 
 super + r; {n,c,i,d}
-	{ nautilus & notify-send "Opening Nautilus" "Nautilus would open in a moment at tag 3", speedcrunch, insomnia & notify-send "Opening Insomia" "Insomia would open in a moment at tag 2", discord & notify-send "Opening Discord" "Discord would open in a moment at tag 8"  }
+	{ nemo & notify-send "Nemo - File Mananger" " The Nemo file Mananger will be open at tag 3", speedcrunch, insomnia & notify-send "Opening Insomia" "Insomia would open in a moment at tag 2", discord & notify-send "Opening Discord" "Discord would open in a moment at tag 8"  }
+
+super + r; {m}
+	{spotify & notify-send "Music: Spotify" "The Spotify Application will be Opened on Tag two In a moment"}
 
 super + P
 	passmenu
@@ -33,10 +36,14 @@ super + o
 super + I
 	clipmenu
 
-
 super + i
 	~/.local/bin/snippy.sh
 
+super + W
+	~/.local/bin/change-wallpaper.sh
+
+super + D
+	~/.local/bin/05-1440x900-res.sh
 
 super + Pause
 	pkill -USR1 -x sxhkd
@@ -44,6 +51,9 @@ super + Pause
 
 super + Home
 	~/.local/bin/toggle-monitores.sh
+
+super + c; {t, p, r}
+	{ xclip -selection clipboard -o  | quicktype --just-types -l ts | xclip -selection clipboard, xclip -selection clipboard -o | datamodel-codegen --input-file-type json | xclip -selection clipboard, zathura /home/hendry/Documents/Magnus\ Lie\ Hetland\ -\ Python\ Algorithms_\ Mastering\ Basic\ Algorithms\ in\ the\ Python\ Language-Apress\ \(2010\).pdf  }
 
 
 # super + alt + control + {h,j,k,l} ; {0-9}

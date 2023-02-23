@@ -1,7 +1,5 @@
 #!/bin/bash
 
-while true;
-do
 set -e
 
 output=pscircle.png
@@ -27,6 +25,3 @@ if command -v feh >/dev/null; then
 	rm $output
 fi
 
-sleep 130;
-
-done;

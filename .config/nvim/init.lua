@@ -65,12 +65,14 @@ for type, icon in pairs(signs) do
 end
 
 -- changing lightspeed colors
--- vim.api.nvim_exec(
---     [[
---     highlight! LightspeedOneCharMatch guibg=#0d1117 guifg=NONE
---     highlight! LightspeedCursor guibg=#FFFF00 guifg=#000000
--- ]]   ,
---     false
--- )
+vim.api.nvim_exec(
+    [[
+    highlight! LightspeedOneCharMatch guibg=#0d1117 guifg=NONE
+    highlight! LightspeedCursor guibg=#FFFF00 guifg=#000000
+    :hi Normal guibg=NONE ctermbg=NONE
+    highlight! Normal guibg=NONE ctermbg=NONE
+]]   ,
+    false
+)
 
 

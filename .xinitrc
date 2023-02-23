@@ -7,13 +7,12 @@ slstatus &
 systemctl --user start mpd &
 xautolock -time 8 -locker slock &
 xbanish &
-compton &
+picom &
  # lxsession &
 clipmenud &
 ./.local/bin/05-1440x900-res.sh &
 [[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap &
-xcompmgr &
-# feh --no-fehbg --bg-fill '/home/hendry/Pictures/wallhaven-l33vdl.jpg'
+# feh --no-fehbg --bg-fill '/home/hendry/bd_vid_1.gif'
 # feh --no-fehbg --bg-fill '/home/hendry/Pictures/wallpaper.jpg' &
 export _JAVA_AWT_WM_NONREPARENTING=1
 

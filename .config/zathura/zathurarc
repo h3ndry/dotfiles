@@ -6,36 +6,36 @@ map <C-o> zoom out
 
 
 # {{{ COLORS
-set default-bg                  "#0d1117"
+set default-bg                  "#191919"
 set default-fg                  "#7e7e7e"
 
 set statusbar-fg                "#cccccc"
-set statusbar-bg                "#0d1117"
+set statusbar-bg                "#191919"
 set statusbar-basename          "true"
 
-set inputbar-bg                 "#0d1117"
+set inputbar-bg                 "#191919"
 set inputbar-fg                 "#cccccc"
 
-set notification-bg             "#0d1117"
+set notification-bg             "#191919"
 set notification-fg             "#f9f5f7"
 
-set notification-error-bg       "#0d1117"
+set notification-error-bg       "#191919"
 set notification-error-fg       "#cc241d"
 
-set notification-warning-bg     "#0d1117"
+set notification-warning-bg     "#191919"
 set notification-warning-fg     "#cc241d"
 
 set highlight-color             "#fabd2f"
 set highlight-active-color      "#458588"
 
-set completion-bg               "#0d1117"
+set completion-bg               "#191919"
 set completion-fg               "#458588"
 
 set completion-highlight-fg     "#a89984"
-set completion-highlight-bg     "#0d1117"
+set completion-highlight-bg     "#191919"
 
-set recolor-lightcolor          "#0d1117"
-set recolor-darkcolor           "#c0caf5"
+set recolor-lightcolor          "#191919"
+set recolor-darkcolor           "#f9f5f7"
 
 set recolor                     "true"
 set recolor-keephue             "true"
@@ -56,6 +56,7 @@ set scroll-step 50
 set toggle_inputbar false
 set toggle_statusbar "false"
 
+set guioptions ""
 
 #zoom settings
 set zoom-min 10
