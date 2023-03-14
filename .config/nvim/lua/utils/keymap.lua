@@ -50,18 +50,7 @@ end, opts)
 
 -- format code based on a specific file type, use the LSP formnater if none
 -- is mathch | asumem jq, black, prettier is installed on ypur machine
-vim.keymap.set('n', '<C-l>', function()
-    vim.o.laststatus = 3
-    require('lualine').setup({
-        options = {
-            section_separators = { left = '', right = '' },
-            component_separators = { left = '', right = '' }
-        },
-        sections = {
-            lualine_c = { { 'filename', path = 1 } }
-        }
-    })
-end, opts)
+vim.keymap.set('n', '<C-l>',':set colorcolumn=80 <CR>' , opts)
 
 -- vim.keymap.set('n', '<space>s', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
@@ -80,14 +69,14 @@ vim.keymap.set('n', '<space>i', vim.lsp.buf.implementation, opts)
 vim.keymap.set("n", "<leader>s", ":%s/\\<<C-R><C-W>\\>/<C-R>0/g<CR>", opts)
 
 
-vim.keymap.set("n", "J", "mzJ`z`", opts)
-vim.keymap.set("n", "n", "nzzzv", opts)
-vim.keymap.set("n", "N", "Nzzzv", opts)
+-- vim.keymap.set("n", "J", "mzJ`z`", opts)
+-- vim.keymap.set("n", "n", "nzzzv", opts)
+-- vim.keymap.set("n", "N", "Nzzzv", opts)
 
-vim.keymap.set("n", "d", '"xd', opts)
-vim.keymap.set("n", "D", '"xD', opts)
-vim.keymap.set("n", "c", '"xc', opts)
-vim.keymap.set("n", "C", '"xC', opts)
+-- vim.keymap.set("n", "d", '"xd', opts)
+-- vim.keymap.set("n", "D", '"xD', opts)
+-- vim.keymap.set("n", "c", '"xc', opts)
+-- vim.keymap.set("n", "C", '"xC', opts)
 
 -- NEXT n PREV buffer
 
