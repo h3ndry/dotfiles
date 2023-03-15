@@ -1,6 +1,7 @@
 return {
     {
         "hrsh7th/nvim-cmp",
+        dependencies = { "L3MON4D3/LuaSnip" },
         config = function()
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -162,6 +163,9 @@ return {
                     nvim_lsp[lsp].setup { capabilities = capabilities }
                 end
             end
+            require("luasnip.loaders.from_vscode").lazy_load({
+                paths = { "./snippets/" },
+            })
         end
     },
     {

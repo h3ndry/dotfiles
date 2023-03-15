@@ -1,4 +1,5 @@
 local function trim_trailing_whitespaces()
+
 	if vim.bo.modifiable == true and vim.bo.filetype ~= 'TelescopePrompt'  then
 		local view = vim.fn.winsaveview()
 		vim.cmd [[keepp %s/\s\+$//e]]
@@ -76,7 +77,7 @@ vim.api.nvim_exec(
     set wildignore+=**/node_modules/**
     set shortmess+=c
     let g:netrw_liststyle=3
-    set noshowmode
+    " set noshowmode
 
     highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
     highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6
@@ -91,10 +92,12 @@ vim.api.nvim_exec(
     highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
 
     highlight! Normal guibg=NONE ctermbg=NONE
+    se stl=_ fcs=stl:_,stlnc:_
 
+    hi statusline guifg=#D4D4d4  guibg=NONE
 
-    imap <silent><script><expr> <C-y> copilot#Accept("\<CR>")
-    let g:copilot_no_tab_map = v:true
+    hi statuslinenc guibg=NONE
+    hi vertsplit    guibg=NONE
 
 ]],
 	false
@@ -128,7 +131,7 @@ vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 vim.opt.incsearch = true
-vim.o.laststatus = 3
+vim.o.laststatus = 0
 vim.opt.termguicolors = true
 vim.opt.scrolloff = 1
 vim.opt.signcolumn = "yes"

@@ -66,14 +66,13 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 
+
 local opts = { noremap = true, silent = true }
 vim.keymap.set("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 require("lazy").setup("plugins")
-
-
 
 require "utils.setting"
 require "utils.keymap"
@@ -87,15 +86,6 @@ for type, icon in pairs(signs) do
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
--- changing lightspeed colors
-vim.api.nvim_exec(
-    [[
-    highlight! LightspeedOneCharMatch guibg=#0d1117 guifg=NONE
-    highlight! LightspeedCursor guibg=#FFFF00 guifg=#000000
-    :hi Normal guibg=NONE ctermbg=NONE
-    highlight! Normal guibg=NONE ctermbg=NONE
-]]   ,
-    false
-)
-
+cmd([[hi statusline guifg=#b3b1ad  guibg=NONE]])
+cmd([[hi StatusLineNC guibg=NONE]])
 

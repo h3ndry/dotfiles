@@ -36,7 +36,6 @@ return {
         "tpope/vim-fugitive",
         "kyazdani42/nvim-tree.lua",
         "Hoffs/omnisharp-extended-lsp.nvim",
-        "github/copilot.vim",
 
         {
             "numToStr/Comment.nvim",
@@ -53,12 +52,6 @@ return {
             end
         },
 
-        {
-            "chentoast/marks.nvim",
-            config = function()
-                require "marks".setup {}
-            end
-        },
 
         {
             'edluffy/hologram.nvim',
@@ -71,12 +64,11 @@ return {
 
         {
             'projekt0n/github-nvim-theme',
-            lazy = false,
             tag = 'v0.0.7',
             config = function()
                 require('github-theme').setup({
                     theme_style = "dark_default",
-                    -- dark_float = true
+                    dark_float = true
                 })
             end
         },
@@ -162,32 +154,22 @@ return {
             end
         },
 
-        {
-            "gbprod/yanky.nvim",
-            config = function()
-                require("yanky").setup({
-                    -- your configuration comes here
-                    -- or leave it empty to use the default settings
-                    -- refer to the configuration section below
-                })
-            end
-        },
 
-        {
-            'nvim-lualine/lualine.nvim',
-            config = function()
-                vim.o.laststatus = 3
-                require('lualine').setup({
-                    options = {
-                        section_separators = { left = '', right = '' },
-                        component_separators = { left = '', right = '' }
-                    },
-                    sections = {
-                        lualine_c = { { 'filename', path = 1 } }
-                    }
-                })
-            end
-        }
+        -- {
+        --     'nvim-lualine/lualine.nvim',
+        --     config = function()
+        --         vim.o.laststatus = 3
+        --         require('lualine').setup({
+        --             options = {
+        --                 section_separators = { left = '', right = '' },
+        --                 component_separators = { left = '', right = '' }
+        --             },
+        --             sections = {
+        --                 lualine_c = { { 'filename', path = 1 } }
+        --             }
+        --         })
+        --     end
+        -- }
 
     }
 
