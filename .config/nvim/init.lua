@@ -23,6 +23,7 @@ local disable_distribution_plugins = function()
     -- -- newtrw liststyle: https://medium.com/usevim/the-netrw-style-options-3ebe91d42456
     -- -- cmd([[let g:netrw_liststyle = 3]])
 
+
     -- Do not load tohtml.vim
     cmd([[let g:loaded_2html_plugin = 1]])
 
@@ -67,12 +68,26 @@ vim.opt.rtp:prepend(lazypath)
 
 
 
+
 local opts = { noremap = true, silent = true }
 vim.keymap.set("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-require("lazy").setup("plugins")
+local border = {
+    { "╭", "FoldColumn" },
+    { "─", "FoldColumn" },
+    { "╮", "FoldColumn" },
+    { "│", "FoldColumn" },
+    { "╯", "FoldColumn" },
+    { "─", "FoldColumn" },
+    { "╰", "FoldColumn" },
+    { "│", "FoldColumn" },
+}
+
+require("lazy").setup("plugins", {
+    border = border
+})
 
 require "utils.setting"
 require "utils.keymap"
@@ -86,6 +101,33 @@ for type, icon in pairs(signs) do
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
-cmd([[hi statusline guifg=#b3b1ad  guibg=NONE]])
-cmd([[hi StatusLineNC guibg=NONE]])
 
+
+
+vim.cmd([[
+    hi Normal guibg=NONE
+    hi NormalFloat guibg=NONE
+    hi SignColumn guibg=NONE
+    hi FloatBorder guibg=NONE guifg=#b3b1ad
+    hi PMenuSel guibg=NONE guifg=#f96f4c
+    hi PMenu guibg=NONE
+    hi PMenuSBar guibg=NONE guifg=#b3b1ad
+    hi PMenuThumb guibg=NONE
+    hi WildMenu guibg=NONE guifg=#b3b1ad
+    hi Folded guibg=NONE
+    hi FoldColumn guibg=NONE
+    " hi Cursorline guibg=#0f0f0f
+    " hi VertSplit guifg=#0f0f0f guibg=NONE
+    " hi StatusLine guifg=#000000 guibg=#0f0f0f
+    " hi StatusLineNC guifg=#000000 guibg=#0f0f0f
+    " hi LineNr guifg=#4e4136
+    " hi LineNrAbove guifg=#4e4136
+
+    " hi LineNrBelow guifg=#4e4136
+
+    hi statusline guifg=#b3b1ad  guibg=NONE
+    hi EndOfBuffer guifg=#b3b1ad  guibg=NONE
+    hi StatusLineNC guibg=NONE
+    hi VertSplit guibg=NONE
+
+]])

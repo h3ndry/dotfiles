@@ -1,7 +1,7 @@
 return {
     {
         "hrsh7th/nvim-cmp",
-        dependencies = { "L3MON4D3/LuaSnip" },
+        dependencies = { "L3MON4D3/LuaSnip", "onsails/lspkind-nvim" },
         config = function()
             local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -20,6 +20,17 @@ return {
             table.insert(buildtime_path, "lua/?.lua")
             table.insert(buildtime_path, "lua/?/init.lua")
 
+            local border = {
+                { "╭", "FoldColumn" },
+                { "─", "FoldColumn" },
+                { "╮", "FoldColumn" },
+                { "│", "FoldColumn" },
+                { "╯", "FoldColumn" },
+                { "─", "FoldColumn" },
+                { "╰", "FoldColumn" },
+                { "│", "FoldColumn" },
+            }
+
             local servers = {
                 "clangd",
                 "rust_analyzer",
@@ -37,7 +48,46 @@ return {
                 "omnisharp"
             }
 
+            local kind_icons = {
+                Text = "",
+                Method = "  ",
+                Function = "",
+                Constructor = "",
+                Field = "",
+                Variable = "  ",
+                Class = "",
+                Interface = "",
+                Module = "",
+                Property = "",
+                Unit = "  ",
+                Value = "",
+                Enum = "",
+                Keyword = "",
+                Snippet = "",
+                Color = "",
+                File = "",
+                Reference = "",
+                Folder = "",
+                EnumMember = "",
+                Constant = "",
+                Struct = "",
+                Event = "",
+                Operator = "",
+                TypeParameter = "",
+            }
+
             cmp.setup {
+                window = {
+                    completion = {
+                        border = border,
+                        scrollbar = "-",
+                    },
+                    documentation = {
+                        border = border,
+                        scrollbar = "-",
+                    },
+                },
+
                 snippet = {
                     expand = function(args)
                         require "luasnip".lsp_expand(args.body)
@@ -85,30 +135,47 @@ return {
                     { name = "nvim_lsp" },
                     { name = "nvim_lua" },
                     { name = "cmp-cmdline" },
-                    { name = "cmp-treesitter" },
-                    { name = "calc" },
-                    { name = "cmp-spell" },
+                    -- { name = "cmp-treesitter" },
+                    -- { name = "calc" },
+                    -- { name = "cmp-spell" },
                     { name = "path" },
-                    { name = "rg" },
-                    { name = "buffer" }
+                    -- { name = "rg" },
+                    -- { name = "buffer" }
                 },
                 experimental = { ghost_text = true },
+
+                -- formatting = {
+                --     fields = { "kind", "abbr", "menu" },
+                --     format = function(entry, vim_item)
+                --         vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+                --         -- kind menu
+                --         vim_item.menu = ({
+                --             luasnip = "[SNIP]",
+                --             nvim_lsp = "[LSP]",
+                --             path = "/",
+                --         })[entry.source.name]
+                --         return vim_item
+                --     end,
+                -- },
+
                 formatting = {
                     format = lspkind.cmp_format {
-                        with_text = true,
+                        -- with_text = true,
                         menu = {
                             luasnip = "[SNIP]",
                             nvim_lsp = "[LSP]",
                             nvim_lua = "[API]",
                             calc = "[CALC]",
                             cmdline = "[CMD]",
-                            spell = "[SPELL]",
+                            -- spell = "[SPELL]",
                             path = "[PATH]",
-                            rg = "[RG]",
-                            buffer = "[BUFF]"
+                            -- rg = "[RG]",
+                            -- buffer = "[BUFF]"
                         }
                     }
                 }
+
+
             }
             -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
             cmp.setup.cmdline('/', {

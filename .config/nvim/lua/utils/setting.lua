@@ -21,6 +21,8 @@ local function term_config()
 	end
 end
 
+
+
 -- Super cool, works perfect.... I am proud of myself
 local group_1 = vim.api.nvim_create_augroup("hide-numbers", { clear = true })
 vim.api.nvim_create_autocmd("BufEnter", { callback = function ()
@@ -70,6 +72,7 @@ vim.api.nvim_exec(
 )
 
 
+
 vim.api.nvim_exec(
 	[[
 	set shada='1000,f1
@@ -94,18 +97,14 @@ vim.api.nvim_exec(
     highlight! Normal guibg=NONE ctermbg=NONE
     se stl=_ fcs=stl:_,stlnc:_
 
-    hi statusline guifg=#D4D4d4  guibg=NONE
-
-    hi statuslinenc guibg=NONE
-    hi vertsplit    guibg=NONE
-
 ]],
 	false
 )
 
 vim.o.termguicolors = true
 vim.cmd [[colorscheme github_dark_default]]
--- vim.cmd [[colorscheme dichromatic]]
+-- vim.cmd [[colorscheme gruvbox]]
+-- vim.cmd [[set background=light]]
 vim.o.completeopt = "menu,menuone,noinsert"
 vim.g.netrw_banner = 0
 vim.o.inccommand = "nosplit"
