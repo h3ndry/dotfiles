@@ -94,7 +94,6 @@ vim.api.nvim_exec(
     highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
     highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
 
-    highlight! Normal guibg=NONE ctermbg=NONE
     se stl=_ fcs=stl:_,stlnc:_
 
 ]],
@@ -102,8 +101,8 @@ vim.api.nvim_exec(
 )
 
 vim.o.termguicolors = true
-vim.cmd [[colorscheme github_dark_default]]
--- vim.cmd [[colorscheme gruvbox]]
+vim.cmd [[colorscheme gruvbox]]
+-- vim.cmd [[colorscheme github_dark_default]]
 -- vim.cmd [[set background=light]]
 vim.o.completeopt = "menu,menuone,noinsert"
 vim.g.netrw_banner = 0

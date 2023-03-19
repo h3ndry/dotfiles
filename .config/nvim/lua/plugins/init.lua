@@ -10,7 +10,6 @@ return {
     "romainl/vim-dichromatic",
     'nvim-tree/nvim-web-devicons',
     "hrsh7th/cmp-nvim-lsp",
-    "ellisonleao/gruvbox.nvim",
     "Hoffs/omnisharp-extended-lsp.nvim",
     "tpope/vim-capslock",
     "nvim-lua/plenary.nvim",
@@ -23,8 +22,8 @@ return {
     "hrsh7th/cmp-cmdline",
     "hrsh7th/cmp-calc",
     "f3fora/cmp-spell",
-    { 'sindrets/diffview.nvim',                   dependencies = 'nvim-lua/plenary.nvim' },
-    { 'kevinhwang91/nvim-ufo',                    dependencies = 'kevinhwang91/promise-async' },
+    { 'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim' },
+    { 'kevinhwang91/nvim-ufo', dependencies = 'kevinhwang91/promise-async' },
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     "lukas-reineke/cmp-rg",
     "hrsh7th/cmp-buffer",
@@ -58,7 +57,7 @@ return {
         'edluffy/hologram.nvim',
         config = function()
             require('hologram').setup {
-                auto_display = true     -- WIP automatic markdown image display, may be prone to breaking
+                auto_display = true -- WIP automatic markdown image display, may be prone to breaking
             }
         end
     },
@@ -96,9 +95,9 @@ return {
         build = ':TSUpdate',
         config = function()
             require("nvim-treesitter.configs").setup {
-                ensure_installed = "all",     -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+                ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
                 highlight = {
-                    enable = true,            -- false will disable the whole extension
+                    enable = true,        -- false will disable the whole extension
                     additional_vim_regex_highlighting = false
                 }
             }
@@ -156,20 +155,5 @@ return {
     },
 
 
-    -- {
-    --     'nvim-lualine/lualine.nvim',
-    --     config = function()
-    --         vim.o.laststatus = 3
-    --         require('lualine').setup({
-    --             options = {
-    --                 section_separators = { left = '', right = '' },
-    --                 component_separators = { left = '', right = '' }
-    --             },
-    --             sections = {
-    --                 lualine_c = { { 'filename', path = 1 } }
-    --             }
-    --         })
-    --     end
-    -- }
-
+    { "ellisonleao/gruvbox.nvim", lazy = false },
 }

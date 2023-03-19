@@ -53,6 +53,7 @@ disable_distribution_plugins()
 
 
 
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -105,29 +106,35 @@ end
 
 
 vim.cmd([[
-    hi Normal guibg=NONE
-    hi NormalFloat guibg=NONE
-    hi SignColumn guibg=NONE
-    hi FloatBorder guibg=NONE guifg=#b3b1ad
-    hi PMenuSel guibg=NONE guifg=#f96f4c
-    hi PMenu guibg=NONE
-    hi PMenuSBar guibg=NONE guifg=#b3b1ad
-    hi PMenuThumb guibg=NONE
-    hi WildMenu guibg=NONE guifg=#b3b1ad
-    hi Folded guibg=NONE
-    hi FoldColumn guibg=NONE
-    " hi Cursorline guibg=#0f0f0f
-    " hi VertSplit guifg=#0f0f0f guibg=NONE
-    " hi StatusLine guifg=#000000 guibg=#0f0f0f
-    " hi StatusLineNC guifg=#000000 guibg=#0f0f0f
+
     " hi LineNr guifg=#4e4136
     " hi LineNrAbove guifg=#4e4136
 
     " hi LineNrBelow guifg=#4e4136
 
-    hi statusline guifg=#b3b1ad  guibg=NONE
-    hi EndOfBuffer guifg=#b3b1ad  guibg=NONE
-    hi StatusLineNC guibg=NONE
-    hi VertSplit guibg=NONE
+    " hi EndOfBuffer guifg=#b3b1ad  guibg=NONE
+
+
+    hi Cursorline guibg=#3c3836
+    hi FoldColumn guibg=NONE ctermbg=NONE
+    hi SignColumn guibg=NONE ctermbg=NONE
+    hi Folded guibg=NONE ctermbg=NONE
+    hi NormalFloat guibg=NONE ctermbg=NONE
+    hi FloatBorder guibg=NONE ctermbg=NONE
+
+    hi WinSeparator guibg=NONE ctermbg=NONE
+    hi WinBar guibg=NONE ctermbg=NONE
+    hi WinBarNC guibg=NONE ctermbg=NONE
+
+    hi Normal guibg=NONE ctermbg=NONE
+    hi PMenuSel guibg=NONE ctermbg=NONE guifg=#fd8019
+    hi PMenu guibg=NONE ctermbg=NONE
+    hi PMenuSBar guibg=NONE  ctermbg=NONE
+    hi PMenuThumb guibg=NONE ctermbg=NONE
+    hi WildMenu guibg=NONE ctermbg=NONE
+    hi VertSplit ctermbg=NONE guibg=NONE
+
+    hi StatusLineNC guibg=NONE guifg=#3c3836
+    hi StatusLine guibg=NONE guifg=#3c3836
 
 ]])
