@@ -5,7 +5,6 @@ return {
     "cohama/lexima.vim",
     'eandrju/cellular-automaton.nvim',
     'andymass/vim-matchup',
-    "h3ndry/tokyonight.nvim",
     "neovim/nvim-lspconfig",
     "romainl/vim-dichromatic",
     'nvim-tree/nvim-web-devicons',
@@ -29,9 +28,7 @@ return {
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-path",
     "jlcrochet/vim-razor",
-    "nkakouros-original/numbers.nvim",
     "windwp/nvim-ts-autotag",
-    "f-person/git-blame.nvim",
     "rafamadriz/friendly-snippets",
     "tpope/vim-fugitive",
     "kyazdani42/nvim-tree.lua",
@@ -41,14 +38,6 @@ return {
         "numToStr/Comment.nvim",
         config = function()
             require("Comment").setup()
-        end
-    },
-
-
-    {
-        "rainbowhxch/beacon.nvim",
-        config = function()
-            require("beacon").setup()
         end
     },
 
@@ -127,22 +116,6 @@ return {
             "html"
         },
         build = "yarn install"
-    },
-
-    {
-        "folke/trouble.nvim",
-        config = function()
-            require("trouble").setup {
-                signs = {
-                    -- icons / text used for a diagnostic
-                    error = "",
-                    warning = "",
-                    hint = "",
-                    information = "",
-                    other = " "
-                },
-            }
-        end
     },
 
     {

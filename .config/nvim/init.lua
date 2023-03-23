@@ -115,8 +115,14 @@ vim.cmd([[
     " hi EndOfBuffer guifg=#b3b1ad  guibg=NONE
 
 
-    hi Cursorline guibg=#3c3836
-    hi FoldColumn guibg=NONE ctermbg=NONE
+    hi Cursorline guibg=#504945
+
+    hi FoldColumn guibg=NONE
+    " hi GitSignsAdd guibg=NONE
+    " hi GitSignsChange guibg=NONE
+    " hi GitSignsDelete guibg=NONE
+
+
     hi SignColumn guibg=NONE ctermbg=NONE
     hi Folded guibg=NONE ctermbg=NONE
     hi NormalFloat guibg=NONE ctermbg=NONE
@@ -127,14 +133,16 @@ vim.cmd([[
     hi WinBarNC guibg=NONE ctermbg=NONE
 
     hi Normal guibg=NONE ctermbg=NONE
-    hi PMenuSel guibg=NONE ctermbg=NONE guifg=#fd8019
+    hi PMenuSel guibg=#504945 ctermbg=NONE guifg=#fd8019
     hi PMenu guibg=NONE ctermbg=NONE
     hi PMenuSBar guibg=NONE  ctermbg=NONE
     hi PMenuThumb guibg=NONE ctermbg=NONE
     hi WildMenu guibg=NONE ctermbg=NONE
     hi VertSplit ctermbg=NONE guibg=NONE
 
-    hi StatusLineNC guibg=NONE guifg=#3c3836
-    hi StatusLine guibg=NONE guifg=#3c3836
+    hi StatusLine cterm=NONE gui=NONE guifg=#504945 guibg=NONE
+    hi StatusLineNC cterm=NONE gui=NONE guifg=#504945 guibg=NONE
+
+    se stl=_ fcs=stl:_,stlnc:_
 
 ]])
