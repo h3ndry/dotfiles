@@ -1,41 +1,43 @@
 local function trim_trailing_whitespaces()
-
-	if vim.bo.modifiable == true and vim.bo.filetype ~= 'TelescopePrompt'  then
-		local view = vim.fn.winsaveview()
-		vim.cmd [[keepp %s/\s\+$//e]]
-		vim.cmd "update"
-		vim.fn.winrestview(view)
-	end
+    if vim.bo.modifiable == true and vim.bo.filetype ~= 'TelescopePrompt' then
+        local view = vim.fn.winsaveview()
+        vim.cmd [[keepp %s/\s\+$//e]]
+        vim.cmd "update"
+        vim.fn.winrestview(view)
+    end
 end
 
 
 local function term_config()
-	if vim.bo.buftype == 'terminal' then
-		vim.wo.number = false
-		vim.wo.relativenumber = false
-		vim.cmd [[ startinsert ]]
-	else
-		vim.wo.number = true
-		vim.wo.relativenumber = true
-		trim_trailing_whitespaces()
-	end
+    if vim.bo.buftype == 'terminal' then
+        vim.wo.number = false
+        vim.wo.relativenumber = false
+        vim.cmd [[ startinsert ]]
+    else
+        vim.wo.number = true
+        vim.wo.relativenumber = true
+        trim_trailing_whitespaces()
+    end
 end
 
 
 
 -- Super cool, works perfect.... I am proud of myself
 local group_1 = vim.api.nvim_create_augroup("hide-numbers", { clear = true })
-vim.api.nvim_create_autocmd("BufEnter", { callback = function ()
-	if vim.bo.buftype == 'terminal' then
-		vim.wo.number = false
-		vim.wo.relativenumber = false
-		-- vim.cmd [[ startinsert ]]
-	else
-		vim.wo.number = true
-		vim.wo.relativenumber = true
-		trim_trailing_whitespaces()
-	end
-end, group = group_1 })
+vim.api.nvim_create_autocmd("BufEnter", {
+    callback = function()
+        if vim.bo.buftype == 'terminal' then
+            vim.wo.number = false
+            vim.wo.relativenumber = false
+            -- vim.cmd [[ startinsert ]]
+        else
+            vim.wo.number = true
+            vim.wo.relativenumber = true
+            trim_trailing_whitespaces()
+        end
+    end,
+    group = group_1
+})
 
 vim.api.nvim_create_autocmd("TermOpen", { callback = term_config, group = group_1 })
 
@@ -57,7 +59,7 @@ vim.api.nvim_exec([[
 
 
 vim.api.nvim_exec(
-	[[
+    [[
     set spelllang=en
     set complete+=kspell
     augroup markdownSpell
@@ -68,18 +70,19 @@ vim.api.nvim_exec(
         autocmd FileType gitcommit setlocal complete+=kspell
     augroup END
 ]],
-	false
+    false
 )
 
 
 
 vim.api.nvim_exec(
-	[[
+    [[
 	set shada='1000,f1
     set path+=**
     set wildignore+=**/node_modules/**
     set shortmess+=c
     let g:netrw_liststyle=3
+    set splitright
     " set noshowmode
 
     highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
@@ -94,10 +97,10 @@ vim.api.nvim_exec(
     highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
     highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
 
-    se stl=_ fcs=stl:_,stlnc:_
+    " se stl=_ fcs=stl:_,stlnc:_
 
 ]],
-	false
+    false
 )
 
 vim.o.termguicolors = true
@@ -147,8 +150,17 @@ vim.opt.shortmess:append("c")
 -- vim.opt.colorcolumn = "80"
 vim.g.mapleader = " "
 
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+  vim.lsp.handlers.hover,
+  {border = 'rounded'}
+)
 
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
+  vim.lsp.handlers.signature_help,
+  {border = 'rounded'}
+)
 
--- vim.api.nvim_exec([[
---     highlight! ColorColumn guibg=#242931
--- ]], false)
+vim.diagnostic.config {
+    float = { border = "rounded" },
+}
+

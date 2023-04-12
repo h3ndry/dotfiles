@@ -87,7 +87,9 @@ local border = {
 }
 
 require("lazy").setup("plugins", {
-    border = border
+    ui = {
+        border = border
+    }
 })
 
 require "utils.setting"
@@ -106,14 +108,17 @@ end
 
 
 vim.cmd([[
+    se stl=─ fcs=stl:─,stlnc:-
+    " se stl=- fcs=stl:-,stlnc:-
 
-    " hi LineNr guifg=#4e4136
-    " hi LineNrAbove guifg=#4e4136
 
-    " hi LineNrBelow guifg=#4e4136
 
     " hi EndOfBuffer guifg=#b3b1ad  guibg=NONE
 
+
+    " hi LineNrAbove guifg=#504945
+    " hi LineNr guifg=#fd8019
+    " hi LineNrBelow guifg=#504945
 
     hi Cursorline guibg=#504945
 
@@ -143,6 +148,5 @@ vim.cmd([[
     hi StatusLine cterm=NONE gui=NONE guifg=#504945 guibg=NONE
     hi StatusLineNC cterm=NONE gui=NONE guifg=#504945 guibg=NONE
 
-    se stl=_ fcs=stl:_,stlnc:_
 
 ]])

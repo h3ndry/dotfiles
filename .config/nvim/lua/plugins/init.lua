@@ -1,4 +1,6 @@
 return {
+    'tamago324/cmp-zsh',
+    'Shougo/deol.nvim',
     'kovetskiy/sxhkd-vim',
     "h3ndry/ReplaceWithRegister",
     "tpope/vim-repeat",
@@ -21,8 +23,9 @@ return {
     "hrsh7th/cmp-cmdline",
     "hrsh7th/cmp-calc",
     "f3fora/cmp-spell",
-    { 'sindrets/diffview.nvim', dependencies = 'nvim-lua/plenary.nvim' },
-    { 'kevinhwang91/nvim-ufo', dependencies = 'kevinhwang91/promise-async' },
+    "nvim-treesitter/nvim-treesitter-context",
+    { 'sindrets/diffview.nvim',                   dependencies = 'nvim-lua/plenary.nvim' },
+    { 'kevinhwang91/nvim-ufo',                    dependencies = 'kevinhwang91/promise-async' },
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     "lukas-reineke/cmp-rg",
     "hrsh7th/cmp-buffer",
@@ -40,8 +43,6 @@ return {
             require("Comment").setup()
         end
     },
-
-
     {
         'edluffy/hologram.nvim',
         config = function()
@@ -128,5 +129,5 @@ return {
     },
 
 
-    { "ellisonleao/gruvbox.nvim", lazy = false },
+    { "ellisonleao/gruvbox.nvim",  lazy = false },
 }

@@ -202,7 +202,7 @@
         "path": "./frameworks/vue/vue.json"
       },
       {
-        "language": "python",
+        "language": "gython",
         "path": "./python/base.json"
       },
       {
