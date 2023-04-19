@@ -53,7 +53,7 @@ super + Home
 	~/.local/bin/toggle-monitores.sh
 
 super + c; {t, p, r}
-	{ xclip -selection clipboard -o  | quicktype --just-types -l ts | xclip -selection clipboard, xclip -selection clipboard -o | datamodel-codegen --input-file-type json | xclip -selection clipboard, zathura /home/hendry/Documents/Magnus\ Lie\ Hetland\ -\ Python\ Algorithms_\ Mastering\ Basic\ Algorithms\ in\ the\ Python\ Language-Apress\ \(2010\).pdf  }
+	{ xclip -selection clipboard -o  | quicktype --just-types -l ts | xclip -selection clipboard, xclip -selection clipboard -o | datamodel-codegen --input-file-type json | xclip -selection clipboard, zathura /home/hendry/Documents/NNFS.pdf  }
 
 
 # super + alt + control + {h,j,k,l} ; {0-9}

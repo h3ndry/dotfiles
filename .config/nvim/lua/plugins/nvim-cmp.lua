@@ -97,7 +97,7 @@ return {
                 { name = "cmp-cmdline" },
                 { name = 'zsh' },
                 -- { name = "cmp-treesitter" },
-                -- { name = "calc" },
+                { name = "calc" },
                 -- { name = "cmp-spell" },
                 { name = "path" },
                 -- { name = "rg" },
@@ -123,8 +123,15 @@ return {
             }
 
         }
-        -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+
         cmp.setup.cmdline('/', {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = {
+                { name = 'buffer' }
+            }
+        })
+
+        cmp.setup.cmdline('=', {
             mapping = cmp.mapping.preset.cmdline(),
             sources = {
                 { name = 'buffer' }

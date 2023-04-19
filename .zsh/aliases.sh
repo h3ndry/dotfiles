@@ -8,6 +8,7 @@ alias .5='cd ../../../../..'
 alias mpv='dwmswallow $WINDOWID & mpv'
 alias zathura='dwmswallow $WINDOWID & zathura'
 alias feh='dwmswallow $WINDOWID & feh'
+alias scrcpy='dwmswallow $WINDOWID & scrcpy'
 
 
 alias vi='nvim'

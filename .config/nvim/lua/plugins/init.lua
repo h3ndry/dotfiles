@@ -24,7 +24,7 @@ return {
     "hrsh7th/cmp-calc",
     "f3fora/cmp-spell",
     "nvim-treesitter/nvim-treesitter-context",
-    { 'sindrets/diffview.nvim',                   dependencies = 'nvim-lua/plenary.nvim' },
+    -- { 'sindrets/diffview.nvim',                   dependencies = 'nvim-lua/plenary.nvim' },
     { 'kevinhwang91/nvim-ufo',                    dependencies = 'kevinhwang91/promise-async' },
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     "lukas-reineke/cmp-rg",
@@ -126,6 +126,12 @@ return {
                 -- Configuration here, or leave empty to use defaults
             })
         end
+    },
+
+
+    {
+        "nvim-telescope/telescope-file-browser.nvim",
+        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
     },
 
 

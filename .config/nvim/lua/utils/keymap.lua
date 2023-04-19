@@ -106,6 +106,8 @@ vim.keymap.set("t", "<C-\\>\\", "<C-\\><C-n>", opts)
 vim.keymap.set("n", "<leader>.", ":e<space>**/", opts)
 vim.keymap.set("n", "<leader>sT", ":tjump *", opts)
 vim.keymap.set("n", "<leader>M", ":make <CR>", opts)
+vim.keymap.set("n", "<leader>cr", ":!cargo run <CR>", opts)
+vim.keymap.set("n", "<leader>ct", ":!cargo test <CR>", opts)
 
 
 -- Insert timestamp in file

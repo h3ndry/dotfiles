@@ -97,7 +97,12 @@ vim.api.nvim_exec(
     highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
     highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
 
-    " se stl=_ fcs=stl:_,stlnc:_
+    nnoremap <leader>xx <cmd>TroubleToggle<cr>
+    nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
+    nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
+    nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
+    nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
+    nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
 ]],
     false
@@ -151,16 +156,15 @@ vim.opt.shortmess:append("c")
 vim.g.mapleader = " "
 
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-  vim.lsp.handlers.hover,
-  {border = 'rounded'}
+    vim.lsp.handlers.hover,
+    { border = 'rounded' }
 )
 
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-  vim.lsp.handlers.signature_help,
-  {border = 'rounded'}
+    vim.lsp.handlers.signature_help,
+    { border = 'rounded' }
 )
 
 vim.diagnostic.config {
     float = { border = "rounded" },
 }
-
