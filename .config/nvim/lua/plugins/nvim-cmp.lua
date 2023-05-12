@@ -18,7 +18,6 @@ return {
         local buildtime_path = vim.split(package.path, ";")
         table.insert(buildtime_path, "lua/?.lua")
         table.insert(buildtime_path, "lua/?/init.lua")
-
         local servers = {
             "clangd",
             "rust_analyzer",
@@ -33,7 +32,8 @@ return {
             "bashls",
             "volar",
             "ltex",
-            "omnisharp"
+            "omnisharp",
+            "tailwindcss"
         }
 
         cmp.setup {
@@ -103,7 +103,7 @@ return {
                 -- { name = "rg" },
                 -- { name = "buffer" }
             },
-            experimental = { ghost_text = true },
+            experimental = {},
 
             formatting = {
                 format = lspkind.cmp_format {

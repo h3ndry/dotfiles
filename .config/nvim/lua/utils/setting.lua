@@ -39,10 +39,15 @@ vim.api.nvim_create_autocmd("BufEnter", {
     group = group_1
 })
 
-vim.api.nvim_create_autocmd("TermOpen", { callback = term_config, group = group_1 })
+vim.api.nvim_create_autocmd(
+    "TermOpen", { callback = term_config, group = group_1 }
+)
 
 local group_2 = vim.api.nvim_create_augroup("auto-save", { clear = true })
-vim.api.nvim_create_autocmd("FocusLost", { callback = trim_trailing_whitespaces, group = group_2 })
+
+vim.api.nvim_create_autocmd(
+    "FocusLost", { callback = trim_trailing_whitespaces, group = group_2 }
+)
 
 -- Highlight on yank
 vim.cmd [[

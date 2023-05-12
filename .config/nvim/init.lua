@@ -7,7 +7,7 @@ local disable_distribution_plugins = function()
     cmd([[let g:did_install_syntax_menu = 1]])
 
     -- Uncomment this if you define your own filetypes in `after/ftplugin`
-    -- cmd([[let g:did_load_filetypes = 1]])
+    cmd([[let g:did_load_filetypes = 1]])
 
     -- Do not load native syntax completion
     cmd([[let g:loaded_syntax_completion = 1]])
@@ -15,13 +15,13 @@ local disable_distribution_plugins = function()
     -- Do not load spell files
     cmd([[let g:loaded_spellfile_plugin = 1]])
 
-    -- -- Whether to load netrw by default
-    -- cmd([[let g:loaded_netrw = 1]])
-    -- cmd([[let g:loaded_netrwFileHandlers = 1]])
-    -- cmd([[let g:loaded_netrwPlugin = 1]])
-    -- cmd([[let g:loaded_netrwSettings = 1]])
-    -- -- newtrw liststyle: https://medium.com/usevim/the-netrw-style-options-3ebe91d42456
-    -- -- cmd([[let g:netrw_liststyle = 3]])
+    -- Whether to load netrw by default
+    cmd([[let g:loaded_netrw = 1]])
+    cmd([[let g:loaded_netrwFileHandlers = 1]])
+    cmd([[let g:loaded_netrwPlugin = 1]])
+    cmd([[let g:loaded_netrwSettings = 1]])
+    -- newtrw liststyle: https://medium.com/usevim/the-netrw-style-options-3ebe91d42456
+    -- cmd([[let g:netrw_liststyle = 3]])
 
 
     -- Do not load tohtml.vim
@@ -75,22 +75,18 @@ vim.keymap.set("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-local border = {
-    { "╭", "FoldColumn" },
-    { "─", "FoldColumn" },
-    { "╮", "FoldColumn" },
-    { "│", "FoldColumn" },
-    { "╯", "FoldColumn" },
-    { "─", "FoldColumn" },
-    { "╰", "FoldColumn" },
-    { "│", "FoldColumn" },
-}
+-- local border = {
+--     { "╭", "FoldColumn" },
+--     { "─", "FoldColumn" },
+--     { "╮", "FoldColumn" },
+--     { "│", "FoldColumn" },
+--     { "╯", "FoldColumn" },
+--     { "─", "FoldColumn" },
+--     { "╰", "FoldColumn" },
+--     { "│", "FoldColumn" },
+-- }
 
-require("lazy").setup("plugins", {
-    ui = {
-        border = border
-    }
-})
+require("lazy").setup("plugins", {})
 
 require "utils.setting"
 require "utils.keymap"

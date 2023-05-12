@@ -82,6 +82,7 @@ vim.keymap.set("n", "<leader>s", ":%s/\\<<C-R><C-W>\\>/<C-R>0/g<CR>", opts)
 
 
 -- vim.keymap.set("n", "<leader>t", ":bel 15sp term://zsh<CR>", opts)
+--
 -- vim.keymap.set("n", "<leader>T", function()
 --     -- local buffers = vim.vi
 --     -- for k, v in pairs(buffers) do
@@ -92,7 +93,7 @@ vim.keymap.set("n", "<leader>s", ":%s/\\<<C-R><C-W>\\>/<C-R>0/g<CR>", opts)
 -- vim.keymap.set("n", "<leader>T", ":bel 10sp<CR>", opts)
 
 -- This work better for me
-vim.keymap.set("n", "<leader>e", ":Ex <CR>", opts)
+vim.keymap.set("n", "<leader>e", ":Neotree <CR>", opts)
 
 -- --Remap for dealing with word wrap
 -- vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", opts)

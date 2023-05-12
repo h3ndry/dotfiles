@@ -24,7 +24,6 @@ return {
     "hrsh7th/cmp-calc",
     "f3fora/cmp-spell",
     "nvim-treesitter/nvim-treesitter-context",
-    -- { 'sindrets/diffview.nvim',                   dependencies = 'nvim-lua/plenary.nvim' },
     { 'kevinhwang91/nvim-ufo',                    dependencies = 'kevinhwang91/promise-async' },
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     "lukas-reineke/cmp-rg",
@@ -34,7 +33,7 @@ return {
     "windwp/nvim-ts-autotag",
     "rafamadriz/friendly-snippets",
     "tpope/vim-fugitive",
-    "kyazdani42/nvim-tree.lua",
+    "nathom/filetype.nvim",
     "Hoffs/omnisharp-extended-lsp.nvim",
 
     {

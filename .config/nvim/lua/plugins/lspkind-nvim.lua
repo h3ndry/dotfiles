@@ -56,7 +56,7 @@ return {
                     EnumMember = "  ",
                     Constant = "  ",
                     Struct = "",
-                    Event = "  ",
+                    Event = "",
                     Operator = "  ",
                     TypeParameter = "  "
                 }
