@@ -22,7 +22,8 @@ FOLDER=`echo "$items" | dmenu`
 if [ -d "$FOLDER" ]; then
 	n="$(echo ${FOLDER} | sed 's/\/$//')"
 	n="$(echo ${n} | sed 's/\//->/g')"
-    st -t "neovim - $n" -c "NIDE"  -e nvim ${BASE}${FOLDER} --cmd "cd ${BASE}${FOLDER}"
+    alacritty -T "neovim - $n" --class "NIDE"  -e nvim ${BASE}${FOLDER} --cmd "cd ${BASE}${FOLDER}"
+    # alacritty -T "PDE"  -e nvim ${BASE}${FOLDER} --cmd "cd ${BASE}${FOLDER}"
 fi
 
 # echo "$items" | fzf | xargs -I {} nvim {} --cmd 'cd {}'

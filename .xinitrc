@@ -1,5 +1,4 @@
 #!/bin/sh
-#
 
 dunst &
 sxhkd &
@@ -10,9 +9,10 @@ xbanish &
 picom &
  # lxsession &
 clipmenud &
-./.local/bin/05-1440x900-res.sh &
+# ./.local/bin/05-1440x900-res.sh &
+~/.local/bin/toggle-monitores.sh &
 [[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap &
-# feh --no-fehbg --bg-fill '/home/hendry/bd_vid_1.gif'
+feh --no-fehbg --bg-fill '/home/hendry/Pictures/Wallpapers/11.png'
 # feh --no-fehbg --bg-fill '/home/hendry/Pictures/wallpaper.jpg' &
 export _JAVA_AWT_WM_NONREPARENTING=1
 
@@ -24,3 +24,4 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 
 # fi
  exec dwm
+ # exec leftwm

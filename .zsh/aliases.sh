@@ -30,10 +30,10 @@ alias md='mkdir -p'
 # alias egrep='egrep --color=auto'
 # alias fgrep='fgrep --color=auto'
 
-# # confirm before overwriting something
-# alias cp="cp -i"
-# alias mv='mv -i'
-# alias rm='rm -i'
+# confirm before overwriting something
+alias cp="cp -i"
+alias mv='mv -i'
+alias rm='rm -i'
 
 # yt-dlp
 alias yta-aac="yt-dlp --extract-audio --audio-format aac "
@@ -51,24 +51,24 @@ alias ytv-best="yt-dlp -f bestvideo+bestaudio "
 
 
 
-if (( $+commands[yay] )); then
-  alias yaconf='yay -Pg'
-  alias yaupg='yay -Syu'
-  alias yasu='yay -Syu --noconfirm'
-  alias yain='yay -S'
-  alias yains='yay -U'
-  alias yare='yay -R'
-  alias yarem='yay -Rns'
-  alias yarep='yay -Si'
-  alias yareps='yay -Ss'
-  alias yaloc='yay -Qi'
-  alias yalocs='yay -Qs'
-  alias yalst='yay -Qe'
-  alias yaorph='yay -Qtd'
-  alias yainsd='yay -S --asdeps'
-  alias yamir='yay -Syy'
-  alias yaupd="yay -Sy"
-  alias upgrade='yay -Syu'
+if (( $+commands[paru] )); then
+  alias yaconf='paru -Pg'
+  alias yaupg='paru -Syu'
+  alias yasu='paru -Syu --noconfirm'
+  alias yain='paru -S'
+  alias yains='paru -U'
+  alias yare='paru -R'
+  alias yarem='paru -Rns'
+  alias yarep='paru -Si'
+  alias yareps='paru -Ss'
+  alias yaloc='paru -Qi'
+  alias yalocs='paru -Qs'
+  alias yalst='paru -Qe'
+  alias yaorph='paru -Qtd'
+  alias yainsd='paru -S --asdeps'
+  alias yamir='paru -Syy'
+  alias yaupd="paru -Sy"
+  alias upgrade='paru -Syu'
 fi
 
 #######################################

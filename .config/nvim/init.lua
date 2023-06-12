@@ -75,18 +75,18 @@ vim.keymap.set("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- local border = {
---     { "╭", "FoldColumn" },
---     { "─", "FoldColumn" },
---     { "╮", "FoldColumn" },
---     { "│", "FoldColumn" },
---     { "╯", "FoldColumn" },
---     { "─", "FoldColumn" },
---     { "╰", "FoldColumn" },
---     { "│", "FoldColumn" },
--- }
+local border = {
+    { "╭", "FoldColumn" },
+    { "─", "FoldColumn" },
+    { "╮", "FoldColumn" },
+    { "│", "FoldColumn" },
+    { "╯", "FoldColumn" },
+    { "─", "FoldColumn" },
+    { "╰", "FoldColumn" },
+    { "│", "FoldColumn" },
+}
 
-require("lazy").setup("plugins", {})
+require("lazy").setup("plugins", { ui = { border = border}})
 
 require "utils.setting"
 require "utils.keymap"
@@ -107,10 +107,7 @@ vim.cmd([[
     se stl=─ fcs=stl:─,stlnc:-
     " se stl=- fcs=stl:-,stlnc:-
 
-
-
     " hi EndOfBuffer guifg=#b3b1ad  guibg=NONE
-
 
     " hi LineNrAbove guifg=#504945
     " hi LineNr guifg=#fd8019
@@ -122,7 +119,6 @@ vim.cmd([[
     " hi GitSignsAdd guibg=NONE
     " hi GitSignsChange guibg=NONE
     " hi GitSignsDelete guibg=NONE
-
 
     hi SignColumn guibg=NONE ctermbg=NONE
     hi Folded guibg=NONE ctermbg=NONE
@@ -144,6 +140,8 @@ vim.cmd([[
     hi StatusLine cterm=NONE gui=NONE guifg=#504945 guibg=NONE
     hi StatusLineNC cterm=NONE gui=NONE guifg=#504945 guibg=NONE
 
+    " autocmd InsertEnter * set cul
+    " autocmd InsertLeave * set nocul
 
 ]])
 

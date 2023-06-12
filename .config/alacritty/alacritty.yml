@@ -47,8 +47,8 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-   x: 8
-   y: 5
+   x: 4
+   y: 4
 
   # Spread additional padding evenly around the terminal content.
   #dynamic_padding: false
@@ -124,34 +124,35 @@ window:
 # Font configuration
 font:
   normal:
-    family: CascadiaMono
+    family: JetBrainsMono
     style: Regular
   bold:
-    family: CascadiaMono
+    family: JetBrainsMono
     style: Bold
   italic:
-    family: CascadiaMono
+    family: JetBrainsMono
     style: Italic
   # bold_italic:
   #   family: FiraCode
-  size: 8.5
+  size: 11.5
+  # size: 7.5
   # offset:
   #   x: 0
   #   y: 0
   #glyph_offset:
   #  x: 0
-  #  y: 0
+  #  y: 0 hhh
   #builtin_box_drawing: true
 
 # If `true`, bold text is drawn using the bright color variants.
 #draw_bold_text_with_bright_colors: false
 
 # Colors (Tomorrow Night)
-#colors:
+colors:
   # Default colors
-  #primary:
-  #  background: '#1d1f21'
-  #  foreground: '#c5c8c6'
+  primary:
+   background: '#0d1117'
+   foreground: '#c0caf5'
 
     # Bright and dim foreground colors
     #
@@ -168,11 +169,12 @@ font:
   #
   # Allowed values are CellForeground/CellBackground, which reference the
   # affected cell, or hexadecimal colors like #ff00ff.
-  #cursor:
+  # cursor:
   #  text: CellBackground
   #  cursor: CellForeground
 
   # Vi mode cursor colors
+   # vi_mode_style: Block
   #
   # Colors for the cursor when the vi mode is active.
   #
@@ -344,7 +346,7 @@ font:
   # When set to `true`, selected text will be copied to the primary clipboard.
   #save_to_clipboard: false
 
-#cursor:
+cursor:
   # Cursor style
   #style:
     # Cursor shape
@@ -370,7 +372,7 @@ font:
   # the style of the active value of the normal cursor.
   #
   # See `cursor.style` for available options.
-  #vi_mode_style: None
+  vi_mode_style: Block
 
   # Cursor blinking interval in milliseconds.
   #blink_interval: 750
@@ -718,7 +720,7 @@ font:
 #
 # If the same trigger is assigned to multiple actions, all of them are executed
 # in the order they were defined in.
-#key_bindings:
+key_bindings:
   #- { key: Paste,                                       action: Paste          }
   #- { key: Copy,                                        action: Copy           }
   #- { key: L,         mods: Control,                    action: ClearLogNotice }
@@ -729,10 +731,11 @@ font:
   #- { key: End,       mods: Shift,   mode: ~Alt,        action: ScrollToBottom }
 
   # Vi Mode
-  #- { key: Space,  mods: Shift|Control, mode: ~Search,    action: ToggleViMode            }
+  # - { key: Space,  mods: Control, mode: ~Search,    action: ToggleViMode            }
   #- { key: Space,  mods: Shift|Control, mode: Vi|~Search, action: ScrollToBottom          }
-  #- { key: Escape,                      mode: Vi|~Search, action: ClearSelection          }
+  - { key: Escape,                      mode: Vi|~Search, action: ToggleViMode          }
   #- { key: I,                           mode: Vi|~Search, action: ToggleViMode            }
+  - { key: A,                           mode: Vi|~Search, action: ToggleViMode            }
   #- { key: I,                           mode: Vi|~Search, action: ScrollToBottom          }
   #- { key: C,      mods: Control,       mode: Vi|~Search, action: ToggleViMode            }
   #- { key: Y,      mods: Control,       mode: Vi|~Search, action: ScrollLineUp            }
@@ -793,7 +796,7 @@ font:
 
   # (Windows, Linux, and BSD only)
   #- { key: V,              mods: Control|Shift, mode: ~Vi,        action: Paste            }
-  #- { key: C,              mods: Control|Shift,                   action: Copy             }
+  # - { key: C,              mods: Control|Shift,                   action: Copy             }
   #- { key: F,              mods: Control|Shift, mode: ~Search,    action: SearchForward    }
   #- { key: B,              mods: Control|Shift, mode: ~Search,    action: SearchBackward   }
   #- { key: C,              mods: Control|Shift, mode: Vi|~Search, action: ClearSelection   }

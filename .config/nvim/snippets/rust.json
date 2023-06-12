@@ -273,6 +273,15 @@
     ],
     "description": "fn …(…) { … }"
   },
+  "pfn": {
+    "prefix": "pfn",
+    "body": [
+      "pub fn ${1:name}(${2:arg}: ${3:Type}) -> ${4:RetType} {",
+      "    ${5:unimplemented!();}",
+      "}"
+    ],
+    "description": "pub fn …(…) { … }"
+  },
   "for": {
     "prefix": "for",
     "body": ["for ${1:pat} in ${2:expr} {", "    ${3:unimplemented!();}", "}"],

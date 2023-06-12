@@ -1,38 +1,21 @@
 return {
-    'tamago324/cmp-zsh',
-    'Shougo/deol.nvim',
     'kovetskiy/sxhkd-vim',
     "h3ndry/ReplaceWithRegister",
-    "tpope/vim-repeat",
     "cohama/lexima.vim",
-    'eandrju/cellular-automaton.nvim',
     'andymass/vim-matchup',
     "neovim/nvim-lspconfig",
     "romainl/vim-dichromatic",
     'nvim-tree/nvim-web-devicons',
-    "hrsh7th/cmp-nvim-lsp",
     "Hoffs/omnisharp-extended-lsp.nvim",
-    "tpope/vim-capslock",
-    "nvim-lua/plenary.nvim",
-    "saadparwaiz1/cmp_luasnip",
     "nvim-lua/lsp_extensions.nvim",
     "mbbill/undotree",
-    "tpope/vim-eunuch",
     "OrangeT/vim-csharp",
-    "ray-x/cmp-treesitter",
-    "hrsh7th/cmp-cmdline",
-    "hrsh7th/cmp-calc",
-    "f3fora/cmp-spell",
     "nvim-treesitter/nvim-treesitter-context",
     { 'kevinhwang91/nvim-ufo',                    dependencies = 'kevinhwang91/promise-async' },
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-    "lukas-reineke/cmp-rg",
-    "hrsh7th/cmp-buffer",
-    "hrsh7th/cmp-path",
     "jlcrochet/vim-razor",
     "windwp/nvim-ts-autotag",
     "rafamadriz/friendly-snippets",
-    "tpope/vim-fugitive",
     "nathom/filetype.nvim",
     "Hoffs/omnisharp-extended-lsp.nvim",
 
@@ -130,7 +113,18 @@ return {
 
     {
         "nvim-telescope/telescope-file-browser.nvim",
-        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+        dependencies = {
+            "tpope/vim-repeat",
+            "tpope/vim-capslock",
+            "tpope/vim-eunuch",
+            "tpope/vim-fugitive",
+            "tpope/vim-sensible",
+            "tpope/vim-endwise",
+            "monaqa/dial.nvim",
+            -- "tpope/vim-speeddating",
+            "nvim-telescope/telescope.nvim",
+            "nvim-lua/plenary.nvim"
+        }
     },
 
 

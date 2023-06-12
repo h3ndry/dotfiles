@@ -6,6 +6,16 @@ vim.keymap.set("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+-- dial.nvim
+vim.keymap.set("n", "<C-a>", require("dial.map").inc_normal(), {noremap = true})
+vim.keymap.set("n", "<C-x>", require("dial.map").dec_normal(), {noremap = true})
+vim.keymap.set("n", "g<C-a>", require("dial.map").inc_gnormal(), {noremap = true})
+vim.keymap.set("n", "g<C-x>", require("dial.map").dec_gnormal(), {noremap = true})
+vim.keymap.set("v", "<C-a>", require("dial.map").inc_visual(), {noremap = true})
+vim.keymap.set("v", "<C-x>", require("dial.map").dec_visual(), {noremap = true})
+vim.keymap.set("v", "g<C-a>",require("dial.map").inc_gvisual(), {noremap = true})
+vim.keymap.set("v", "g<C-x>",require("dial.map").dec_gvisual(), {noremap = true})
+
 -- Window navigation movement
 vim.keymap.set("n", "<leader>h", ":wincmd h<CR>", opts)
 vim.keymap.set("n", "<leader>k", ":wincmd k<CR>", opts)

@@ -8,10 +8,7 @@ if [ ! -f $noteFilename ]; then
   echo "" >> $noteFilename
 fi
 
-st -t "Notes" -c "Notes" -e nvim -c "norm Go" \
-  -c "norm Go[$(date +%H:%M)] '<note title>'" \
-  -c "norm Go----------------------" \
-  -c "norm Go" \
+alacritty -T "Notes" --class "Notes" -e nvim -c "norm Go" \
   -c "norm zz" \
   -c "startinsert" $noteFilename
 

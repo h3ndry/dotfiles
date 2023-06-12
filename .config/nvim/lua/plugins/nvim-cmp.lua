@@ -1,6 +1,19 @@
 return {
     "hrsh7th/nvim-cmp",
-    dependencies = { "L3MON4D3/LuaSnip", "onsails/lspkind-nvim" },
+    dependencies = {
+        "L3MON4D3/LuaSnip",
+        "onsails/lspkind-nvim",
+        'tamago324/cmp-zsh',
+        "hrsh7th/cmp-nvim-lsp",
+        "ray-x/cmp-treesitter",
+        "hrsh7th/cmp-cmdline",
+        "hrsh7th/cmp-calc",
+        "lukas-reineke/cmp-rg",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "f3fora/cmp-spell",
+        "saadparwaiz1/cmp_luasnip",
+    },
     config = function()
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -151,7 +164,7 @@ return {
             mapping = cmp.mapping.preset.cmdline(),
             sources = cmp.config.sources({
                 { name = 'path' },
-                { name = 'cmdline'}
+                { name = 'cmdline' }
             })
         })
 

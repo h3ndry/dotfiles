@@ -14,8 +14,8 @@ local function term_config()
         vim.wo.relativenumber = false
         vim.cmd [[ startinsert ]]
     else
-        vim.wo.number = true
-        vim.wo.relativenumber = true
+        -- vim.wo.number = true
+        -- vim.wo.relativenumber = true
         trim_trailing_whitespaces()
     end
 end
@@ -31,8 +31,8 @@ vim.api.nvim_create_autocmd("BufEnter", {
             vim.wo.relativenumber = false
             -- vim.cmd [[ startinsert ]]
         else
-            vim.wo.number = true
-            vim.wo.relativenumber = true
+            -- vim.wo.number = true
+            -- vim.wo.relativenumber = true
             trim_trailing_whitespaces()
         end
     end,

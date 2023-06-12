@@ -56,11 +56,14 @@ super + c; {t, p, r}
 	{ xclip -selection clipboard -o  | quicktype --just-types -l ts | xclip -selection clipboard, xclip -selection clipboard -o | datamodel-codegen --input-file-type json | xclip -selection clipboard, zathura /home/hendry/Documents/NNFS.pdf  }
 
 
+
+
 # super + alt + control + {h,j,k,l} ; {0-9}
 	# bspc node @{west,south,north,east} -r 0.{0-9}
 
 # super + alt + p
 	# bspc config focus_follows_pointer {true,false}
+
 
 # # Smart resize, will grow or shrink depending on location.
 # # Will always grow for floating nodes.
