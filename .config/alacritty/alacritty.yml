@@ -134,8 +134,8 @@ font:
     style: Italic
   # bold_italic:
   #   family: FiraCode
-  size: 11.5
   # size: 7.5
+  size: 7.5
   # offset:
   #   x: 0
   #   y: 0
@@ -169,9 +169,10 @@ colors:
   #
   # Allowed values are CellForeground/CellBackground, which reference the
   # affected cell, or hexadecimal colors like #ff00ff.
-  # cursor:
-  #  text: CellBackground
-  #  cursor: CellForeground
+  cursor:
+   text: CellBackground
+   cursor: CellForeground
+   style: Block
 
   # Vi mode cursor colors
    # vi_mode_style: Block
@@ -180,9 +181,9 @@ colors:
   #
   # Allowed values are CellForeground/CellBackground, which reference the
   # affected cell, or hexadecimal colors like #ff00ff.
-  #vi_mode_cursor:
-  #  text: CellBackground
-  #  cursor: CellForeground
+  vi_mode_cursor:
+   text: CellBackground
+   cursor: CellForeground
 
   # Search colors
   #

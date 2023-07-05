@@ -38,6 +38,8 @@ vim.keymap.set('n', '<space>F', function()
     elseif vim.bo.filetype == 'css'
         and vim.bo.filetype == 'scss' then
         vim.cmd('silent !prettier -w %')
+    elseif vim.bo.filetype == 'typescriptreact' then
+        vim.cmd('silent !prettier -w %')
     else
         vim.lsp.buf.format()
     end

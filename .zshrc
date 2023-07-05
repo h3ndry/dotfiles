@@ -92,26 +92,26 @@ bindkey -M main ' ' expand-alias
 # bindkey '^\' accept-line-swallow
 # bindkey -a '^\' accept-line-swallow
 
-# Change cursor shape for different vi modes.
-function zle-keymap-select {
-  if [[ ${KEYMAP} == vicmd ]] ||
-     [[ $1 = 'block' ]]; then
-    echo -ne '\e[1 q'
-  elif [[ ${KEYMAP} == main ]] ||
-       [[ ${KEYMAP} == viins ]] ||
-       [[ ${KEYMAP} = '' ]] ||
-       [[ $1 = 'beam' ]]; then
-    echo -ne '\e[5 q'
-  fi
-}
-zle -N zle-keymap-select
-zle-line-init() {
-    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
-    echo -ne "\e[5 q"
-}
-zle -N zle-line-init
-echo -ne '\e[5 q' # Use beam shape cursor on startup.
-preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+# # Change cursor shape for different vi modes.
+# function zle-keymap-select {
+#   if [[ ${KEYMAP} == vicmd ]] ||
+#      [[ $1 = 'block' ]]; then
+#     echo -ne '\e[1 q'
+#   elif [[ ${KEYMAP} == main ]] ||
+#        [[ ${KEYMAP} == viins ]] ||
+#        [[ ${KEYMAP} = '' ]] ||
+#        [[ $1 = 'beam' ]]; then
+#     echo -ne '\e[5 q'
+#   fi
+# }
+# zle -N zle-keymap-select
+# zle-line-init() {
+#     zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+#     echo -ne "\e[5 q"
+# }
+# zle -N zle-line-init
+# echo -ne '\e[5 q' # Use beam shape cursor on startup.
+# preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 
 # zsh parameter completion for the dotnet CLI
@@ -150,7 +150,6 @@ export BUN_INSTALL="/home/hendry/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export EDITOR=nvim
 
-
 # source ~/.zsh/zsh-vi-mode.zsh
 source ~/.zsh/autopair.zsh
 source ~/.zsh/aliases.sh
@@ -160,3 +159,5 @@ source ~/.zsh/zsh-syntax-highlighting.zsh
 source /usr/share/nvm/init-nvm.sh
 source /usr/share/skim/key-bindings.zsh
 source /usr/share/skim/completion.zsh
+
+~/.local/bin/fm6000

@@ -2,11 +2,10 @@ local cmd = vim.api.nvim_command
 
 -- Disable few unused builtin plugins
 local disable_distribution_plugins = function()
-    -- Disable menu loading
+    -- Disable loading loading
     cmd([[let g:did_install_default_menus = 1]])
     cmd([[let g:did_install_syntax_menu = 1]])
-
-    -- Uncomment this if you define your own filetypes in `after/ftplugin`
+    -- Uncomment this if yogu define your own filetypes in `after/ftpluggin`
     cmd([[let g:did_load_filetypes = 1]])
 
     -- Do not load native syntax completion
@@ -22,7 +21,6 @@ local disable_distribution_plugins = function()
     cmd([[let g:loaded_netrwSettings = 1]])
     -- newtrw liststyle: https://medium.com/usevim/the-netrw-style-options-3ebe91d42456
     -- cmd([[let g:netrw_liststyle = 3]])
-
 
     -- Do not load tohtml.vim
     cmd([[let g:loaded_2html_plugin = 1]])
@@ -41,7 +39,6 @@ local disable_distribution_plugins = function()
 
     -- Disable sql omni completion.
     cmd([[let g:loaded_sql_completion = 1]])
-
     -- Disable remote plugins
     -- NOTE: Disabling rplugin.vim will show error for `wilder.nvim` in :checkhealth,
     -- NOTE:  but since it's config doesn't require python rtp, it's fine to ignore.
@@ -86,7 +83,14 @@ local border = {
     { "│", "FoldColumn" },
 }
 
-require("lazy").setup("plugins", { ui = { border = border}})
+require("lazy").setup("plugins", {
+    ui = { border = border },
+    change_detection = {
+        enabled = true,
+        notify = false, -- get a notification when changes are found
+    }
+}
+)
 
 require "utils.setting"
 require "utils.keymap"
@@ -99,8 +103,6 @@ for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
-
-
 
 
 vim.cmd([[
@@ -144,4 +146,3 @@ vim.cmd([[
     " autocmd InsertLeave * set nocul
 
 ]])
-

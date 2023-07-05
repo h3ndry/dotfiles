@@ -31,7 +31,7 @@ alias md='mkdir -p'
 # alias fgrep='fgrep --color=auto'
 
 # confirm before overwriting something
-alias cp="cp -i"
+alias cp="rsync -i"
 alias mv='mv -i'
 alias rm='rm -i'
 
