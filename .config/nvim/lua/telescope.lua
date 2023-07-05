@@ -1,5 +1,6 @@
 return {
     "nvim-telescope/telescope.nvim",
+    dependencies = 'kevinhwang91/promise-async',
     config = function()
         require("telescope").setup {
             defaults = {

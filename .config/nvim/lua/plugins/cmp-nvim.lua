@@ -15,6 +15,7 @@ return {
         "saadparwaiz1/cmp_luasnip",
     },
     config = function()
+        local opts = { noremap = true, silent = true }
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         capabilities.textDocument.completion.completionItem.snippetSupport = true
         local nvim_lsp = require("lspconfig")
@@ -195,9 +196,27 @@ return {
                 nvim_lsp[lsp].setup { capabilities = capabilities }
             end
         end
+
         require("luasnip.loaders.from_vscode").lazy_load({
             paths = { "./snippets/" },
         })
+
+
+        vim.keymap.set("n", "<leader>xx", vim.diagnostic.setqflist, opts)
+        vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+        vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+        vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+        vim.keymap.set('n', 'gR', vim.lsp.buf.references, opts)
+        vim.keymap.set('n', 'gI', vim.lsp.buf.implementation, opts)
+        vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+        vim.keymap.set('n', '<space>K', vim.lsp.buf.signature_help, opts)
+        vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+        vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, opts)
+        vim.keymap.set('n', '<space>d', vim.diagnostic.open_float, opts)
+        vim.keymap.set('n', '<space>i', vim.lsp.buf.implementation, opts)
     end
     ,
 }

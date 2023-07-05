@@ -1,7 +1,17 @@
 return {
     'nvim-telescope/telescope.nvim',
-    tag = '0.1.1',
-    dependencies = { 'nvim-lua/plenary.nvim' }
+    dependencies = { 'nvim-lua/plenary.nvim' },
+    config = function()
+        local opts = { noremap = true, silent = true }
+        vim.keymap.set("n", "<leader>f", require('telescope.builtin').find_files, opts)
+        vim.keymap.set("n", "<leader>b", require('telescope.builtin').buffers, opts)
+        vim.keymap.set("n", "<leader>rg", require('telescope.builtin').live_grep, opts)
+        vim.keymap.set("n", "<leader>rr", require('telescope.builtin').grep_string, opts)
+        vim.keymap.set("n", "<leader>re", require('telescope.builtin').registers, opts)
+        vim.keymap.set("n", "<leader>gb", require('telescope.builtin').git_branches, opts)
+        vim.keymap.set("n", "<leader>gs", require('telescope.builtin').git_status, opts)
+        vim.keymap.set("n", "<leader>m", require('telescope.builtin').marks, opts)
+    end
 }
 
 --
