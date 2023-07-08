@@ -5,17 +5,22 @@ return {
     opts = {
         highlight = {
             backdrop = false,
+        },
+        modes = {
+            char = {
+                highlight = { backdrop = false }
+            }
         }
     },
     keys = {
-        {
-            "s",
-            mode = { "n", "x", "o" },
-            function()
-                require("flash").jump()
-            end,
-            desc = "Flash",
-        },
+        -- {
+        --     "s",
+        --     mode = { "n", "x", "o" },
+        --     function()
+        --         require("flash").jump()
+        --     end,
+        --     desc = "Flash",
+        -- },
         -- {
         --     "S",
         --     mode = { "n", "o", "x" },

@@ -144,5 +144,7 @@ vim.cmd([[
 
     " autocmd InsertEnter * set cul
     " autocmd InsertLeave * set nocul
+    set exrc
+    set secure
 
 ]])

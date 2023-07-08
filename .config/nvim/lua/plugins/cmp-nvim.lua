@@ -181,17 +181,6 @@ return {
                         }
                     }
                 }
-            elseif lsp == "omnisharp" then
-                local pid = vim.fn.getpid()
-                local omnisharp_bin = "/usr/bin/omnisharp"
-
-                require 'lspconfig'.omnisharp.setup({
-                    handlers = {
-                        ["textDocument/definition"] = require('omnisharp_extended').handler,
-                    },
-                    cmd = { omnisharp_bin, '--languageserver', '--hostPID', tostring(pid) },
-                    capabilities = capabilities,
-                })
             else
                 nvim_lsp[lsp].setup { capabilities = capabilities }
             end

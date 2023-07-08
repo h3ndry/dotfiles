@@ -1,5 +1,7 @@
 local function trim_trailing_whitespaces()
-    if vim.bo.modifiable == true and vim.bo.filetype ~= 'TelescopePrompt' then
+    if vim.bo.modifiable == true
+        and vim.bo.filetype ~= 'TelescopePrompt'
+        and vim.bo.filetype ~= 'neo-tree-popup' then
         local view = vim.fn.winsaveview()
         vim.cmd [[keepp %s/\s\+$//e]]
         vim.cmd "update"
@@ -29,7 +31,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
         if vim.bo.buftype == 'terminal' then
             vim.wo.number = false
             vim.wo.relativenumber = false
-            -- vim.cmd [[ startinsert ]]
+            vim.cmd [[ startinsert ]]
         else
             -- vim.wo.number = true
             -- vim.wo.relativenumber = true
