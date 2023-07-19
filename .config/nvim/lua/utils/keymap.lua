@@ -47,7 +47,7 @@ end, opts)
 
 
 
--- format code based on a specific file type, use the LSP formnater if none
+-- format code based on a specific file type, use the LSP formnater if nonekey
 -- is mathch | asumem jq, black, prettier is installed on ypur machine
 vim.keymap.set('n', '<C-l>', ':set colorcolumn=80 <CR>', opts)
 

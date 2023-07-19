@@ -7,5 +7,9 @@
 	editor = nvim
 [push]
 	default = current
+	autoSetupRemote = true
 [pull]
-	rebase = false
+	default = matching
+	rebase = true
+[branch]
+	autoSetupMerge = always

@@ -1,5 +1,9 @@
 return {
     "tpope/vim-fugitive",
+    dependencies = {
+        "shumphrey/fugitive-gitlab.vim",
+        "tpope/vim-rhubarb"
+    },
     config = function()
         local opts = { noremap = true, silent = true }
         vim.keymap.set("n", "<leader>gc", ":Git commit -v <CR>", opts)
@@ -9,7 +13,8 @@ return {
         vim.keymap.set("n", "<leader>G", ":Git ", opts)
         vim.keymap.set("n", "<leader>ga", ":Git add --update <CR> ", opts)
         vim.keymap.set("n", "<leader>gp", ":Git pull <CR>", opts)
-        vim.keymap.set("n", "<leader>gP", ":Git push <CR>", opts)
-        vim.keymap.set("n", "<leader>gm", ":Git merge ", opts)
+        vim.keymap.set("n", "<leader>gP", ":Git push -u <CR>", opts)
+        vim.keymap.set("n", "<leader>gdv", ":Gvdiffsplit <CR>", opts)
+        vim.keymap.set("n", "<leader>gdh", ":Ghdiffsplit <CR>", opts)
     end
 }

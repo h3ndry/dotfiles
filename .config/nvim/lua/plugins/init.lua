@@ -7,6 +7,8 @@ return {
     "tpope/vim-eunuch",
     "tpope/vim-sensible",
     "tpope/vim-endwise",
+    "tpope/vim-dadbod",
+    "kristijanhusak/vim-dadbod-ui",
     "nvim-lua/plenary.nvim",
     "amadeus/vim-convert-color-to",
     "neovim/nvim-lspconfig",

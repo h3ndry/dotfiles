@@ -1,7 +1,24 @@
 return {
     'nvim-telescope/telescope.nvim',
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    dependencies = { 'nvim-lua/plenary.nvim', 'kevinhwang91/promise-async' },
     config = function()
+        require("telescope").setup {
+            defaults = {
+                mappings = {
+                    i = { ["<C-h>"] = "which_key" }
+                }
+            },
+            pickers = {},
+            extensions = {
+                fzf = {
+                    override_generic_sorter = false,
+                    override_file_sorter = true
+                },
+            }
+        }
+
+        require("telescope").load_extension("fzf")
+
         local opts = { noremap = true, silent = true }
         vim.keymap.set("n", "<leader>f", require('telescope.builtin').find_files, opts)
         vim.keymap.set("n", "<leader>b", require('telescope.builtin').buffers, opts)
@@ -11,6 +28,7 @@ return {
         vim.keymap.set("n", "<leader>gb", require('telescope.builtin').git_branches, opts)
         vim.keymap.set("n", "<leader>gs", require('telescope.builtin').git_status, opts)
         vim.keymap.set("n", "<leader>m", require('telescope.builtin').marks, opts)
+        vim.keymap.set("n", "<leader>gm", require('telescope.builtin').git_commits, opts)
     end
 }
 
