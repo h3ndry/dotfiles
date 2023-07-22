@@ -30,10 +30,10 @@ alias md='mkdir -p'
 # alias egrep='egrep --color=auto'
 # alias fgrep='fgrep --color=auto'
 
-# confirm before overwriting something
-alias cp="rsync -i"
-alias mv='mv -i'
-alias rm='rm -i'
+# # confirm before overwriting something
+# alias cp="rsync -i"
+# alias mv='mv -i'
+# alias rm='rm -i'
 
 # yt-dlp
 alias yta-aac="yt-dlp --extract-audio --audio-format aac "

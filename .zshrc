@@ -159,5 +159,3 @@ source ~/.zsh/zsh-syntax-highlighting.zsh
 source /usr/share/nvm/init-nvm.sh
 source /usr/share/skim/key-bindings.zsh
 source /usr/share/skim/completion.zsh
-
-~/.local/bin/fm6000

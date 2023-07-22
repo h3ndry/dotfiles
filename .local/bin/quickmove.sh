@@ -9,6 +9,7 @@ COMPANY='/home/hendry/'
 items=`fd --max-depth=1 --type=d --base-directory='/run/media/hendry/2CFA-18FF/' . 'Code'`
 items+=$'\n'
 items+=`fd --max-depth=1 --type=d  --base-directory=${BASE} . '.config'`
+items+=`fd --max-depth=1 --type=d  --base-directory=${BASE} . 'workspace'`
 
 items+=$'\n'
 

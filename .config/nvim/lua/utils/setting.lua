@@ -142,6 +142,7 @@ vim.opt.termguicolors = true
 vim.opt.scrolloff = 1
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
+vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- Give more space for displaying messages.
 vim.opt.cmdheight = 1

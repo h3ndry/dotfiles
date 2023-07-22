@@ -16,7 +16,7 @@ local disable_distribution_plugins = function()
 
     -- Whether to load netrw by default
     -- cmd([[let g:loaded_netrw = 1]])
-    -- cmd([[let g:loaded_netrwFileHandlers = 1]])
+    cmd([[let g:loaded_netrwFileHandlers = 1]])
     cmd([[let g:loaded_netrwPlugin = 1]])
     -- cmd([[let g:loaded_netrwSettings = 1]])
     -- newtrw liststyle: https://medium.com/usevim/the-netrw-style-options-3ebe91d42456
