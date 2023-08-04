@@ -68,7 +68,7 @@ vim.opt.rtp:prepend(lazypath)
 
 
 local opts = { noremap = true, silent = true }
-vim.keymap.set("", "<Space>", "<Nop>", opts)
+vim.keymap.set("", "<Space>", "<Nop>")
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 

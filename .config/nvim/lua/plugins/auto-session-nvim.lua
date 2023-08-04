@@ -5,13 +5,9 @@ return {
             log_level = "error",
             auto_session_suppress_dirs = { "~/.config/*", "~/workspace/*", "~/Code/*", "/" },
         }
-
-        local opts = { noremap = true, silent = true }
-
-        vim.keymap.set("n", "<leader>qs", ":SessionRestore <CR>", opts)
+        vim.keymap.set("n", "<leader><Space>", ":SessionRestore <CR>")
         vim.cmd [[
-            au FocusLost,TabLeave * stopinsert
-            au FocusLost,TabLeave * SessionSave
+            au VimLeave,VimLeavePre  * SessionSave
             ]]
     end
 }

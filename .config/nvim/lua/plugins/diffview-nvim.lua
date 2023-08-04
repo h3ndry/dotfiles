@@ -1,7 +1,6 @@
 return {
     "sindrets/diffview.nvim",
     config = function()
-        local opts = { noremap = true, silent = true }
-        vim.keymap.set("n", "<leader>gh", ":DiffviewFileHistory <CR>", opts)
+        vim.keymap.set("n", "<leader>gh", ":DiffviewFileHistory <CR>")
     end
 }
