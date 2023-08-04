@@ -35,18 +35,13 @@ return {
             "clangd",
             "rust_analyzer",
             "pyright",
-            "tsserver",
             "html",
             "cssls",
-            "emmet_ls",
             "lua_ls",
             "texlab",
             "svelte",
             "bashls",
-            "volar",
-            "ltex",
-            "omnisharp",
-            "tailwindcss"
+            -- "ltex",
         }
 
         cmp.setup {
@@ -152,6 +147,34 @@ return {
                 lspconfig[lsp].setup { capabilities = capabilities }
             end
         end
+
+        lspconfig.emmet_language_server.setup {}
+        lspconfig.tailwindcss.setup {}
+        lspconfig.emmet_ls.setup {}
+        lspconfig.lua_ls.setup {
+            capabilities = capabilities,
+            settings = {
+                Lua = {
+                    runtime = {
+                        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                        version = 'LuaJIT',
+                    },
+                    diagnostics = {
+                        -- Get the language server to recognize the `vim` global
+                        globals = { 'vim' },
+                    },
+                    workspace = {
+                        -- Make the server aware of Neovim runtime files
+                        library = vim.api.nvim_get_runtime_file("", true),
+                    },
+                    -- Do not send telemetry data containing a randomized but unique identifier
+                    telemetry = {
+                        enable = false,
+                    },
+                },
+            },
+        }
+
 
         require("luasnip.loaders.from_vscode").lazy_load({
             paths = { "./snippets/" },
