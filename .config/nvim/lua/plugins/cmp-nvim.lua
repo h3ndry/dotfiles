@@ -17,7 +17,7 @@ return {
     config = function()
         local capabilities = vim.lsp.protocol.make_client_capabilities()
         capabilities.textDocument.completion.completionItem.snippetSupport = true
-        local nvim_lsp = require("lspconfig")
+        local lspconfig = require("lspconfig")
         local has_words_before = function()
             local line, col = unpack(vim.api.nvim_win_get_cursor(0))
             return col ~= 0 and
@@ -103,63 +103,31 @@ return {
                 )
             },
             sources = {
-                -- {name = "gh_issues"},
                 { name = "luasnip" },
                 { name = "nvim_lsp" },
                 { name = "nvim_lua" },
                 { name = "cmp-cmdline" },
                 { name = 'zsh' },
-                -- { name = "cmp-treesitter" },
                 { name = "calc" },
-                -- { name = "cmp-spell" },
                 { name = "path" },
-                -- { name = "rg" },
-                -- { name = "buffer" }
             },
             experimental = {},
 
             formatting = {
                 format = lspkind.cmp_format {
-                    -- with_text = true,
                     menu = {
                         luasnip = "[SNIP]",
                         nvim_lsp = "[LSP]",
                         nvim_lua = "[API]",
                         calc = "[CALC]",
                         cmdline = "[CMD]",
-                        -- spell = "[SPELL]",
                         path = "[PATH]",
-                        -- rg = "[RG]",
-                        -- buffer = "[BUFF]"
                     }
                 }
             }
 
         }
 
-        cmp.setup.cmdline('/', {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = {
-                { name = 'buffer' }
-            }
-        })
-
-        cmp.setup.cmdline('=', {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = {
-                { name = 'buffer' }
-            }
-        })
-
-        -- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
-        cmp.setup.cmdline('?', {
-            mapping = cmp.mapping.preset.cmdline(),
-            sources = {
-                { name = 'buffer' }
-            }
-        })
-
-        -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
         cmp.setup.cmdline(':', {
             mapping = cmp.mapping.preset.cmdline(),
             sources = cmp.config.sources({
@@ -181,7 +149,7 @@ return {
                     }
                 }
             else
-                nvim_lsp[lsp].setup { capabilities = capabilities }
+                lspconfig[lsp].setup { capabilities = capabilities }
             end
         end
 
