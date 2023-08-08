@@ -1,5 +1,6 @@
 return {
     'kovetskiy/sxhkd-vim',
+    "b0o/schemastore.nvim",
     "cohama/lexima.vim",
     'andymass/vim-matchup',
     "tpope/vim-repeat",
@@ -18,7 +19,6 @@ return {
     "nvim-lua/lsp_extensions.nvim",
     "mbbill/undotree",
     "OrangeT/vim-csharp",
-    -- "nvim-treesitter/nvim-treesitter-context",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     "jlcrochet/vim-razor",
     "windwp/nvim-ts-autotag",

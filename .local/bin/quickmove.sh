@@ -19,7 +19,7 @@ items+=`fd --hidden --type=directory --base-directory=/home/hendry/workspace/kri
 
 
 
-FOLDER=`echo "$items" | dmenu`
+FOLDER=`echo "$items" | rofi -dmenu`
 
 if [ -d "$FOLDER" ]; then
 	n="$(echo ${FOLDER} | sed 's/\/$//')"

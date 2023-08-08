@@ -24,7 +24,6 @@ configuration {
 /*	ignored-prefixes: "";*/
 /*	sort: false;*/
 /*	sorting-method: "normal";*/
-/*	case-sensitive: false;*/
 /*	cycle: true;*/
 /*	sidebar-mode: false;*/
 /*	hover-select: false;*/
@@ -144,20 +143,11 @@ configuration {
 
 
     font: "JetBrainsMono 12";
-
     sort: true;
-    sorting-method: "normal";
+    sorting-method: "fzf";
     auto-select: true;
     matching: "fuzzy";
-    timeout {
-      action: "kb-cancel";
-      delay:  0;
-  }
 
-  filebrowser {
-      directories-first: true;
-      sorting-method:    "name";
-  }
 }
 
 * {

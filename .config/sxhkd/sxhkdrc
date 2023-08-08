@@ -34,7 +34,7 @@ super + o
 
 # open calculatpr
 super + I
-	clipmenu
+	clipmenu -i
 
 super + i
 	~/.local/bin/snippy.sh
