@@ -1,10 +1,10 @@
 #!/bin/sh
 
-noteFilename="$HOME/Documents/notes/note-$(date +%Y-%m-%d).md"
+noteFilename="$HOME/Code/my-notes/note-$(date +%Y-%m-%d).md"
 
 if [ ! -f $noteFilename ]; then
-  echo "Notes For $(date +%Y-%m-%d)" > $noteFilename
-  echo "====================" >> $noteFilename
+  echo "# On my mind | Interesting | To-dos - $(date +%Y-%m-%d)" > $noteFilename
+  echo "---" >> $noteFilename
   echo "" >> $noteFilename
 fi
 

@@ -4,17 +4,17 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
 
--- Window navigation movement
-vim.keymap.set("n", "<leader>h", ":wincmd h<CR>")
-vim.keymap.set("n", "<leader>k", ":wincmd k<CR>")
-vim.keymap.set("n", "<leader>j", ":wincmd j<CR>")
-vim.keymap.set("n", "<leader>l", ":wincmd l<CR>")
+-- -- Window navigation movement
+-- vim.keymap.set("n", "<leader>h", ":wincmd h<CR>")
+-- vim.keymap.set("n", "<leader>k", ":wincmd k<CR>")
+-- vim.keymap.set("n", "<leader>j", ":wincmd j<CR>")
+-- vim.keymap.set("n", "<leader>l", ":wincmd l<CR>")
 
--- Line  Movement
-vim.keymap.set("n", "<C-j>", ":t.<CR>")
-vim.keymap.set("n", "<C-k>", ":t-1<CR>")
-vim.keymap.set("v", "<C-j>", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "<C-k>", ":m '<-2<CR>gv=gv")
+-- Line  Movementnnoremap <C-S-k> :YourCommandHere<CR>
+vim.keymap.set("n", "<C-S-j>", ":t.<CR>")
+vim.keymap.set("n", "<C-S-k>", ":t-1<CR>")
+vim.keymap.set("v", "<C-S-j>", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "<C-S-k>", ":m '<-2<CR>gv=gv")
 
 -- My greates remap yet
 -- vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>")
