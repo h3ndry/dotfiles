@@ -91,6 +91,7 @@ vim.api.nvim_exec(
     let g:netrw_liststyle=3
     set splitright
     " set noshowmode
+    set clipboard+=unnamedplus
 
     highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
     highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6

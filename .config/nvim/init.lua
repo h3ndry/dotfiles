@@ -111,9 +111,9 @@ vim.cmd([[
 
     " hi EndOfBuffer guifg=#b3b1ad  guibg=NONE
 
-    " hi LineNrAbove guifg=#504945
-    " hi LineNr guifg=#fd8019
-    " hi LineNrBelow guifg=#504945
+    hi LineNrAbove guifg=#504945
+    hi LineNr guifg=#fd8019
+    hi LineNrBelow guifg=#504945
 
     hi Cursorline guibg=#504945
 
@@ -139,8 +139,12 @@ vim.cmd([[
     hi WildMenu guibg=NONE ctermbg=NONE
     hi VertSplit ctermbg=NONE guibg=NONE
 
+
     hi StatusLine cterm=NONE gui=NONE guifg=#504945 guibg=NONE
     hi StatusLineNC cterm=NONE gui=NONE guifg=#504945 guibg=NONE
+    hi Search cterm=NONE gui=NONE guifg=#b8bb26 guibg=#504945
+    hi IncSearch cterm=NONE gui=NONE guifg=#fd8019 guibg=#504945
+    hi CurSearch cterm=NONE gui=NONE guifg=#b8bb26 guibg=#504945
 
     " autocmd InsertEnter * set cul
     " autocmd InsertLeave * set nocul

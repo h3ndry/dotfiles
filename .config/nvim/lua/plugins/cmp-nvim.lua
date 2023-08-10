@@ -35,7 +35,7 @@ return {
       "clangd",
       "rust_analyzer",
       "lua_ls",
-      "texlab",
+      -- "texlab",
       "svelte",
       "bashls",
       -- "ltex",

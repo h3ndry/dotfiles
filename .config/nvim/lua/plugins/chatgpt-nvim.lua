@@ -15,7 +15,6 @@ return {
                 model = "gpt-4",
             },
         })
-
         wk.register({
             p = {
                 name = "ChatGPT",
@@ -26,9 +25,13 @@ return {
                     "Edit with instructions",
                 },
             },
+
         }, {
             prefix = "<leader>",
             mode = "v",
         })
+
+    vim.keymap.set("n", "<leader>ch", ":ChatGPT <CR>")
+
     end,
 }
