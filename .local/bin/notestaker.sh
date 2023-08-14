@@ -1,6 +1,6 @@
 #!/bin/sh
 
-noteFilename="$HOME/Code/my-notes/note-$(date +%Y-%m-%d).md"
+noteFilename="$HOME/workspace/my-notes/$(date +%Y-%m-%d).md"
 
 if [ ! -f $noteFilename ]; then
   echo "[$(date +%Y-%m-%d)]" > $noteFilename
@@ -8,17 +8,9 @@ if [ ! -f $noteFilename ]; then
   echo "---" >> $noteFilename
 fi
 
-alacritty -T "Notes" --class "Notes" -e nvim -c "norm Go" \
+alacritty -T "Notes" --class "Notes" -e nvim --cmd "cd ${HOME}/Code/my-notes" -c "norm Go" \
   -c "norm Go[$(date +%H:%M)]" \
   -c "norm Go---" \
   -c "norm Go" \
   -c "norm zz" $noteFilename
-
-
-# st -t "Notes" -c "Notes" -e nvim -c "norm Go" \
-#   -c "norm Go[$(date +%H:%M)] '<note title>'" \
-#   -c "norm Go----------------------" \
-#   -c "norm Go" \
-#   -c "norm zz" \
-#   -c "startinsert" $noteFilename
 

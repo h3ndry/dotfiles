@@ -12,7 +12,7 @@ clipmenud &
 # ./.local/bin/05-1440x900-res.sh &
 ~/.local/bin/toggle-monitores.sh &
 [[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap &
-feh --no-fehbg --bg-fill '/home/hendry/Pictures/Wallpapers/11.png'
+feh --no-fehbg --bg-fill '/home/hendry/Pictures/Wallpapers/wallpaperflare.com_wallpape_1.jpg'
 # feh --no-fehbg --bg-fill '/home/hendry/Pictures/wallpaper.jpg' &
 export _JAVA_AWT_WM_NONREPARENTING=1
 

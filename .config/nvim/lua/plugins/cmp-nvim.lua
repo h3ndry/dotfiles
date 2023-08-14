@@ -31,15 +31,6 @@ return {
     local buildtime_path = vim.split(package.path, ";")
     table.insert(buildtime_path, "lua/?.lua")
     table.insert(buildtime_path, "lua/?/init.lua")
-    local servers = {
-      "clangd",
-      "rust_analyzer",
-      "lua_ls",
-      -- "texlab",
-      "svelte",
-      "bashls",
-      -- "ltex",
-    }
 
     cmp.setup {
       window = {
@@ -144,30 +135,17 @@ return {
       })
     })
 
-    for _, lsp in ipairs(servers) do
-      if lsp == "sumneko_lua" then
-        require "lspconfig".sumneko_lua.setup {
-          settings = {
-            Lua = {
-              buildtime = { version = "LuaJIT", path = runtime_path },
-              diagnostics = { globals = { "vim" } },
-              workspace = { library = vim.api.nvim_get_buildtime_file("", true) },
-              telemetry = { enable = false }
-            }
-          }
-        }
-      else
-        lspconfig[lsp].setup { capabilities = capabilities }
-      end
-    end
-
     lspconfig.emmet_language_server.setup {}
     lspconfig.tailwindcss.setup {}
-    lspconfig.emmet_ls.setup {}
-
+    lspconfig.clangd.setup {}
+    lspconfig.rust_analyzer.setup {}
+    lspconfig.svelte.setup {}
+    lspconfig.sqlls.setup {}
+    lspconfig.bashls.setup {}
     lspconfig.pyright.setup {}
     lspconfig.html.setup {}
     lspconfig.cssls.setup {}
+    lspconfig.ltex.setup {}
     lspconfig.jsonls.setup {
       settings = {
         json = {

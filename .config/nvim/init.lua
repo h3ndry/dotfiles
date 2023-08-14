@@ -1,6 +1,5 @@
 local cmd = vim.api.nvim_command
 
--- Disable few unused builtin plugins
 local disable_distribution_plugins = function()
     -- Disable loading loading
     cmd([[let g:did_install_default_menus = 1]])
@@ -96,6 +95,7 @@ require "utils.setting"
 require "utils.keymap"
 
 
+
 -- --       𥉉  ﮏ   ﰸ  
 --                      
 local signs = { Error = "", Warn = "", Hint = "", Info = "i" }
@@ -144,7 +144,7 @@ vim.cmd([[
     hi StatusLineNC cterm=NONE gui=NONE guifg=#504945 guibg=NONE
     hi Search cterm=NONE gui=NONE guifg=#b8bb26 guibg=#504945
     hi IncSearch cterm=NONE gui=NONE guifg=#fd8019 guibg=#504945
-    hi CurSearch cterm=NONE gui=NONE guifg=#b8bb26 guibg=#504945
+    hi CurSearch cterm=NONE gui=NONE guifg=#504945 guibg=#fd8019
 
     " autocmd InsertEnter * set cul
     " autocmd InsertLeave * set nocul

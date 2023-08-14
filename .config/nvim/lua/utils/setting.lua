@@ -140,7 +140,7 @@ vim.opt.undofile = true
 vim.opt.incsearch = true
 vim.o.laststatus = 0
 vim.opt.termguicolors = true
-vim.opt.scrolloff = 1
+vim.opt.scrolloff = 3
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
 vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

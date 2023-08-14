@@ -1,8 +1,9 @@
 return {
-    "LeonHeidelbach/trailblazer.nvim",
-    config = function()
-        require("trailblazer").setup({
-            -- your custom config goes here
-        })
-    end,
+  "LeonHeidelbach/trailblazer.nvim",
+  event  = "VeryLazy",
+  config = function()
+    require("trailblazer").setup({
+      -- your custom config goes here
+    })
+  end,
 }
