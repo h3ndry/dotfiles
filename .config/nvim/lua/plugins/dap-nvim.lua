@@ -6,7 +6,7 @@ return {
     'theHamsta/nvim-dap-virtual-text',
   },
   'mfussenegger/nvim-dap',
-  event        = "VeryLazy",
+  event  = "VeryLazy",
   config = function()
     require("nvim-dap-virtual-text").setup()
 
@@ -24,7 +24,7 @@ return {
     vim.keymap.set("n", "<F10>", dap.step_over)
     vim.keymap.set("n", "<F11>", dap.step_into)
     vim.keymap.set("n", "<F12>", dap.step_out)
-    vim.keymap.set("n", "<Leader>b", dap.toggle_breakpoint)
+    vim.keymap.set("n", "<Leader>bp", dap.toggle_breakpoint)
     vim.keymap.set("n", "<Leader>B", dap.set_breakpoint)
     -- vim.keymap.set("n", "<Leader>lp", dap.set_breakpoint)
     vim.keymap.set("n", "<Leader>dr", dap.repl.open)

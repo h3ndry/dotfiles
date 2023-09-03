@@ -111,11 +111,11 @@ vim.cmd([[
 
     " hi EndOfBuffer guifg=#b3b1ad  guibg=NONE
 
-    hi LineNrAbove guifg=#504945
+    hi LineNrAbove guifg=#665c54
     hi LineNr guifg=#fd8019
-    hi LineNrBelow guifg=#504945
+    hi LineNrBelow guifg=#665c54
 
-    hi Cursorline guibg=#504945
+    hi Cursorline guibg=#665c54
 
     hi FoldColumn guibg=NONE
     " hi GitSignsAdd guibg=NONE
@@ -132,7 +132,7 @@ vim.cmd([[
     hi WinBarNC guibg=NONE ctermbg=NONE
 
     hi Normal guibg=NONE ctermbg=NONE
-    hi PMenuSel guibg=#504945 ctermbg=NONE guifg=#fd8019
+    hi PMenuSel guibg=#665c54 ctermbg=NONE guifg=#fd8019
     hi PMenu guibg=NONE ctermbg=NONE
     hi PMenuSBar guibg=NONE  ctermbg=NONE
     hi PMenuThumb guibg=NONE ctermbg=NONE
@@ -140,11 +140,14 @@ vim.cmd([[
     hi VertSplit ctermbg=NONE guibg=NONE
 
 
-    hi StatusLine cterm=NONE gui=NONE guifg=#504945 guibg=NONE
-    hi StatusLineNC cterm=NONE gui=NONE guifg=#504945 guibg=NONE
-    hi Search cterm=NONE gui=NONE guifg=#b8bb26 guibg=#504945
-    hi IncSearch cterm=NONE gui=NONE guifg=#fd8019 guibg=#504945
-    hi CurSearch cterm=NONE gui=NONE guifg=#504945 guibg=#fd8019
+    hi StatusLine gui=NONE guifg=#665c54 guibg=NONE
+    hi StatusLineNC gui=NONE guifg=#665c54 guibg=NONE
+
+    " hi Search guifg=#665c54 guibg=white
+
+
+    " hi IncSearch gui=NONE guifg=#82a597 guibg=#504945
+    " hi CurSearch gui=NONE guifg=#504945 guibg=#82a597
 
     " autocmd InsertEnter * set cul
     " autocmd InsertLeave * set nocul

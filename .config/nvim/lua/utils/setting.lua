@@ -1,25 +1,26 @@
 local function trim_trailing_whitespaces()
-    if vim.bo.modifiable == true
-        and vim.bo.filetype ~= 'TelescopePrompt'
-        and vim.bo.filetype ~= 'neo-tree-popup' then
-        local view = vim.fn.winsaveview()
-        vim.cmd [[keepp %s/\s\+$//e]]
-        vim.cmd "update"
-        vim.fn.winrestview(view)
-    end
+  if vim.bo.modifiable == true
+      and vim.bo.filetype ~= 'TelescopePrompt'
+      and vim.bo.filetype ~= 'neo-tree-popup' then
+    local view = vim.fn.winsaveview()
+    vim.cmd [[keep %s/\s\+$//e]]
+    -- vim.cmd [[%s#\($\n\s*\)\+\%$##]]
+    vim.cmd "update"
+    vim.fn.winrestview(view)
+  end
 end
 
 
 local function term_config()
-    if vim.bo.buftype == 'terminal' then
-        vim.wo.number = false
-        vim.wo.relativenumber = false
-        vim.cmd [[ startinsert ]]
-    else
-        -- vim.wo.number = true
-        -- vim.wo.relativenumber = true
-        trim_trailing_whitespaces()
-    end
+  if vim.bo.buftype == 'terminal' then
+    vim.wo.number = false
+    vim.wo.relativenumber = false
+    vim.cmd [[ startinsert ]]
+  else
+    -- vim.wo.number = true
+    -- vim.wo.relativenumber = true
+    trim_trailing_whitespaces()
+  end
 end
 
 
@@ -27,28 +28,28 @@ end
 -- Super cool, works perfect.... I am proud of myself
 local group_1 = vim.api.nvim_create_augroup("hide-numbers", { clear = true })
 vim.api.nvim_create_autocmd("BufEnter", {
-    callback = function()
-        if vim.bo.buftype == 'terminal' then
-            vim.wo.number = false
-            vim.wo.relativenumber = false
-            vim.cmd [[ startinsert ]]
-        else
-            -- vim.wo.number = true
-            -- vim.wo.relativenumber = true
-            trim_trailing_whitespaces()
-        end
-    end,
-    group = group_1
+  callback = function()
+    if vim.bo.buftype == 'terminal' then
+      vim.wo.number = false
+      vim.wo.relativenumber = false
+      vim.cmd [[ startinsert ]]
+    else
+      -- vim.wo.number = true
+      -- vim.wo.relativenumber = true
+      trim_trailing_whitespaces()
+    end
+  end,
+  group = group_1
 })
 
 vim.api.nvim_create_autocmd(
-    "TermOpen", { callback = term_config, group = group_1 }
+  "TermOpen", { callback = term_config, group = group_1 }
 )
 
 local group_2 = vim.api.nvim_create_augroup("auto-save", { clear = true })
 
 vim.api.nvim_create_autocmd(
-    "FocusLost", { callback = trim_trailing_whitespaces, group = group_2 }
+  "FocusLost", { callback = trim_trailing_whitespaces, group = group_2 }
 )
 
 -- Highlight on yank
@@ -60,13 +61,13 @@ vim.cmd [[
 ]]
 
 -- Save as sudo...
-vim.api.nvim_exec([[
+vim.cmd([[
     cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
-]], false)
+]])
 
 
-vim.api.nvim_exec(
-    [[
+vim.cmd(
+  [[
     set spelllang=en
     set complete+=kspell
     augroup markdownSpell
@@ -76,14 +77,12 @@ vim.api.nvim_exec(
         autocmd FileType gitcommit setlocal spell
         autocmd FileType gitcommit setlocal complete+=kspell
     augroup END
-]],
-    false
-)
+]])
 
 
 
-vim.api.nvim_exec(
-    [[
+vim.cmd(
+  [[
 	set shada='1000,f1
     set path+=**
     set wildignore+=**/node_modules/**
@@ -105,8 +104,7 @@ vim.api.nvim_exec(
     highlight! CmpItemKindProperty guibg=NONE guifg=#D4D4D4
     highlight! CmpItemKindUnit guibg=NONE guifg=#D4D4D4
 
-]],
-    false
+]]
 )
 
 vim.o.termguicolors = true
@@ -140,10 +138,11 @@ vim.opt.undofile = true
 vim.opt.incsearch = true
 vim.o.laststatus = 0
 vim.opt.termguicolors = true
+vim.o.pumheight = 5
 vim.opt.scrolloff = 3
 vim.opt.signcolumn = "yes"
 vim.opt.isfname:append("@-@")
-vim.o.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- Give more space for displaying messages.
 vim.opt.cmdheight = 1
@@ -151,22 +150,21 @@ vim.opt.cmdheight = 1
 -- Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 -- delays and poor user experience.
 vim.opt.updatetime = 50
-
 -- Don't pass messages to |ins-completion-menu|.
 vim.opt.shortmess:append("c")
 -- vim.opt.colorcolumn = "80"
 vim.g.mapleader = " "
 
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-    vim.lsp.handlers.hover,
-    { border = 'rounded' }
+  vim.lsp.handlers.hover,
+  { border = 'rounded' }
 )
 
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-    vim.lsp.handlers.signature_help,
-    { border = 'rounded' }
+  vim.lsp.handlers.signature_help,
+  { border = 'rounded' }
 )
 
 vim.diagnostic.config {
-    float = { border = "rounded" },
+  float = { border = "rounded" },
 }

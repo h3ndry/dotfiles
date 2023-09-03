@@ -46,7 +46,7 @@ vim.keymap.set("i", "<C-L>", "<C-X><C-L>")
 
 -- format code based on a specific file type, use the LSP formnater if nonekey
 -- is mathch | asumem jq, black, prettier is installed on ypur machine
-vim.keymap.set('n', '<C-l>', ':set colorcolumn=80 <CR>')
+-- vim.keymap.set('n', '<C-l>', ':set colorcolumn=80 <CR>')
 
 -- vim.keymap.set('n', '<space>s', '<cmd>lua vim.diagnostic.setloclist()<CR>')
 
@@ -87,7 +87,7 @@ vim.keymap.set("n", "<leader>>", ":bn<CR>")
 vim.keymap.set("n", "<leader><", ":bp<CR>")
 vim.keymap.set("n", "<leader>.", ":cnext<CR>")
 vim.keymap.set("n", "<leader>,", ":cprevious<CR>")
--- vim.keymap.set("n", "<leader>q", ":close<CR>")
+vim.keymap.set("n", "<leader>q", ":close<CR>")
 vim.keymap.set("n", "<leader>o", ":only<CR>")
 -- vim.keymap.set("n", "<leader>O", ":unhide<CR>")
 vim.keymap.set("n", "<leader>_", ":res<CR>")

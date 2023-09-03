@@ -1,6 +1,5 @@
 return {
   "Hoffs/omnisharp-extended-lsp.nvim",
-  event  = "VeryLazy",
   config = function()
     local pid = vim.fn.getpid()
     -- On linux/darwin if using a release build, otherwise under scripts/OmniSharp(.Core)(.cmd)

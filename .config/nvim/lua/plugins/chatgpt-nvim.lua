@@ -8,13 +8,13 @@ return {
   },
   event        = "VeryLazy",
   lazy         = true,
-  commit       = "24bcca7",
+  -- commit       = "24bcca7",
   config       = function()
     local wk = require("which-key")
     local chatgpt = require("chatgpt")
-    local home = vim.fn.expand("$HOME")
+    -- local home = vim.fn.expand("$HOME")
     chatgpt.setup({
-      api_key_cmd = "gpg -dq " .. home .. "/.password-store/openai/api-key.gpg",
+      -- api_key_cmd = "cat ~/.jshi",
       openai_params = {
         max_tokens = 500,
         model = "gpt-4",

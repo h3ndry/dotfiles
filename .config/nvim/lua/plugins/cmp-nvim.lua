@@ -143,7 +143,9 @@ return {
     lspconfig.sqlls.setup {}
     lspconfig.bashls.setup {}
     lspconfig.pyright.setup {}
-    lspconfig.html.setup {}
+    lspconfig.html.setup {
+      filetypes = { "html", "eml" }
+    }
     lspconfig.cssls.setup {}
     lspconfig.ltex.setup {}
     lspconfig.jsonls.setup {
@@ -163,7 +165,7 @@ return {
     vim.keymap.set('n', '<space>d', vim.diagnostic.open_float)
     vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
     vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-    vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+    -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
     vim.keymap.set("n", "<leader>xx", vim.diagnostic.setqflist)
     vim.api.nvim_create_autocmd('LspAttach', {
       group = vim.api.nvim_create_augroup('UserLspConfig', {}),

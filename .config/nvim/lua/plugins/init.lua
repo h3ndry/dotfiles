@@ -21,9 +21,6 @@ return {
     "OrangeT/vim-csharp",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     "jlcrochet/vim-razor",
-    "windwp/nvim-ts-autotag",
-    "rafamadriz/friendly-snippets",
     "nathom/filetype.nvim",
-    "Hoffs/omnisharp-extended-lsp.nvim",
     { "ellisonleao/gruvbox.nvim",                 lazy = false },
 }
