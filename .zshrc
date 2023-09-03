@@ -1,7 +1,6 @@
 # Tue Jun  8 13:36:08 2021
 #
 
-
 case $TERM in
     xterm*)
         precmd () {print -Pn "\e]0;string\a"}
@@ -134,6 +133,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+eval "$(direnv hook zsh)"
 export PATH="$HOME/.poetry/bin:$PATH"
 # Load pyenv automatically by appending
 # the following to
@@ -143,20 +143,16 @@ export PATH="$HOME/.poetry/bin:$PATH"
 # Restart your shell for the changes to take effect.
 
 # bun completions
-[ -s "/home/hendry/.bun/_bun" ] && source "/home/hendry/.bun/_bun"
 
 # bun
-export BUN_INSTALL="/home/hendry/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 export EDITOR=nvim
 
-# source ~/.zsh/zsh-vi-mode.zsh
+source ~/.zsh/zsh-vi-mode.zsh
 source ~/.zsh/autopair.zsh
 source ~/.zsh/aliases.sh
 source ~/.zsh/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-256color.plugin.zsh
-source ~/.zsh/zsh-syntax-highlighting.zsh
-# source /usr/share/nvm/init-nvm.sh
+source ~/.zsh/fast-syntax-highlighting.plugin.zsh
 source /usr/share/skim/key-bindings.zsh
 source /usr/share/skim/completion.zsh
-eval "$(direnv hook zsh)"

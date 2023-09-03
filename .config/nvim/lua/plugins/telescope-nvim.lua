@@ -1,11 +1,24 @@
 return {
   'nvim-telescope/telescope.nvim',
-  -- event        = "VeryLazy",
-  dependencies = { 'nvim-lua/plenary.nvim' },
+  event        = "VeryLazy",
+  dependencies = { 'nvim-lua/plenary.nvim'},
   config       = function()
-    require("telescope").setup ( {} )
+    require("telescope").setup {
+      defaults = {
+        mappings = {
+          i = { ["<C-h>"] = "which_key" }
+        }
+      },
+      pickers = {},
+      extensions = {
+        fzf = {
+          override_generic_sorter = true,
+          override_file_sorter = true
+        },
+      }
+    }
 
-    -- require("telescope").load_extension("fzf")
+    require("telescope").load_extension("fzf")
 
 
     local builtin = require('telescope.builtin')

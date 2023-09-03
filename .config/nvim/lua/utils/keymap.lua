@@ -43,6 +43,37 @@ vim.keymap.set("i", "<C-L>", "<C-X><C-L>")
 -- end)
 
 
+vim.cmd(
+  [[
+    :set splitright
+    function! Exec_on_term(cmd)
+
+      if a:cmd=="normal"
+        exec "normal mk\"vyip"
+      else
+        exec "normal gv\"vy"
+      endif
+
+      if !exists("g:last_terminal_chan_id")
+        vs
+        terminal
+        let g:last_terminal_chan_id = b:terminal_job_id
+        wincmd p
+      endif
+
+      if getreg('"v') =~ "^\n"
+        call chansend(g:last_terminal_chan_id, expand("%:p")."\n")
+      else
+        call chansend(g:last_terminal_chan_id, @v)
+      endif
+      exec "normal `k"
+    endfunction
+
+    nnoremap <space>R :call Exec_on_term("normal")<CR>
+    vnoremap <space>R :<c-u>call Exec_on_term("visual")<CR>
+]]
+)
+
 
 -- format code based on a specific file type, use the LSP formnater if nonekey
 -- is mathch | asumem jq, black, prettier is installed on ypur machine
