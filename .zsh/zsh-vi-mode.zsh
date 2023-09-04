@@ -3279,7 +3279,7 @@ function zvm_init() {
   zvm_bindkey viins '^K' zvm_forward_kill_line
   zvm_bindkey viins '^W' backward-kill-word
   zvm_bindkey viins '^U' zvm_viins_undo
-  zvm_bindkey viins '^Y' yank
+  zvm_bindkey viins '^Q' yank
   zvm_bindkey viins '^_' undo
 
   # History search

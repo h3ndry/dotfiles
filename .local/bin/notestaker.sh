@@ -9,8 +9,6 @@ if [ ! -f $noteFilename ]; then
 fi
 
 alacritty -T "Notes" --class "Notes" -e nvim --cmd "cd ${HOME}/workspace/my-notes" -c "norm Go" \
-  -c "norm Go[$(date +%H:%M)]" \
-  -c "norm Go---" \
   -c "norm Go" \
   -c "norm zz" $noteFilename
 

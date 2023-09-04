@@ -145,6 +145,9 @@ vim.cmd([[
 
     " hi Search guifg=#665c54 guibg=white
 
+    hi TabLineFill guifg=NONE guibg=NONE
+    hi TabLine guifg=#665c54  guibg=NONE
+    hi TabLineSel guifg=#fd8019 guibg=NONE
 
     " hi IncSearch gui=NONE guifg=#82a597 guibg=#504945
     " hi CurSearch gui=NONE guifg=#504945 guibg=#82a597
