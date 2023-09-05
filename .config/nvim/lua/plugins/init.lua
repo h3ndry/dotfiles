@@ -3,6 +3,7 @@ return {
     "tpope/vim-repeat",
     "tpope/vim-dadbod",
     "tpope/vim-endwise",
+    "tpope/vim-eunuch",
     "tpope/vim-capslock",
     "cohama/lexima.vim",
     'kovetskiy/sxhkd-vim',

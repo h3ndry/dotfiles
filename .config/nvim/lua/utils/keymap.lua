@@ -69,8 +69,8 @@ vim.cmd(
       exec "normal `k"
     endfunction
 
-    nnoremap <space>R :call Exec_on_term("normal")<CR>
-    vnoremap <space>R :<c-u>call Exec_on_term("visual")<CR>
+    " nnoremap <space>r :call Exec_on_term("normal")<CR>
+    " vnoremap <space>r :<c-u>call Exec_on_term("visual")<CR>
 ]]
 )
 
