@@ -13,7 +13,7 @@ return {
     vim.keymap.set("n", "<leader>gSa", ":Git stash apply")
     vim.keymap.set("n", "<leader>G", ":Git ")
     vim.keymap.set("n", "<leader>ga", ":Git add --update <CR> ")
-    vim.keymap.set("n", "<leader>gp", ":Git pull <CR>")
+    vim.keymap.set("n", "<leader>gp", ":Git pull --rebase <CR>")
     vim.keymap.set("n", "<leader>gP", ":Git push -u <CR>")
     vim.keymap.set("n", "<leader>gdv", ":Gvdiffsplit <CR>")
     vim.keymap.set("n", "<leader>gdh", ":Ghdiffsplit <CR>")

@@ -5,7 +5,7 @@ local disable_distribution_plugins = function()
     cmd([[let g:did_install_default_menus = 1]])
     cmd([[let g:did_install_syntax_menu = 1]])
     -- Uncomment this if yogu define your own filetypes in `after/ftpluggin`
-    cmd([[let g:did_load_filetypes = 1]])
+    -- cmd([[let g:did_load_filetypes = 1]])
 
     -- Do not load native syntax completion
     cmd([[let g:loaded_syntax_completion = 1]])
@@ -96,13 +96,13 @@ require "utils.keymap"
 
 
 
--- --       𥉉  ﮏ   ﰸ  
---                      
-local signs = { Error = "", Warn = "", Hint = "", Info = "i" }
-for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
+-- -- --       𥉉  ﮏ   ﰸ  
+-- --                      
+-- local signs = { Error = "", Warn = "", Hint = "", Info = "i" }
+-- for type, icon in pairs(signs) do
+--     local hl = "DiagnosticSign" .. type
+--     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+-- end
 
 
 vim.cmd([[
@@ -148,6 +148,11 @@ vim.cmd([[
     hi TabLineFill guifg=NONE guibg=NONE
     hi TabLine guifg=#665c54  guibg=NONE
     hi TabLineSel guifg=#fd8019 guibg=NONE
+
+    hi GitSignsAdd guifg=#b8bb26 guibg=NONE
+    hi GitSignsDelete guifg=#fb4934 guibg=NONE
+    hi GitSignsChange guifg=#8ec07c guibg=NONE
+    hi DiagnosticSign guibg=NONE
 
     " hi IncSearch gui=NONE guifg=#82a597 guibg=#504945
     " hi CurSearch gui=NONE guifg=#504945 guibg=#82a597

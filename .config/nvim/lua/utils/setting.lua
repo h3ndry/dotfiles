@@ -29,13 +29,17 @@ end
 local group_1 = vim.api.nvim_create_augroup("hide-numbers", { clear = true })
 vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
-    if vim.bo.buftype == 'terminal' then
+    if vim.bo.buftype == 'terminal' or vim.bo.filetype == 'markdown' then
       vim.wo.number = false
       vim.wo.relativenumber = false
+      vim.o.wrap = true
+      vim.o.textwidth = 80
       vim.cmd [[ startinsert ]]
+      print("hello world")
     else
-      -- vim.wo.number = true
-      -- vim.wo.relativenumber = true
+      vim.wo.number = true
+      vim.wo.relativenumber = true
+      vim.o.wrap = false
       trim_trailing_whitespaces()
     end
   end,
@@ -166,5 +170,10 @@ vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
 )
 
 vim.diagnostic.config {
-  float = { border = "rounded" },
+  float = { source = "always",  border = "rounded"  },
+  signs = false,
+  severity_sort = true,
 }
+
+
+
