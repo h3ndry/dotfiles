@@ -1,5 +1,3 @@
-# Tue Jun  8 13:36:08 2021
-#
 
 case $TERM in
     xterm*)
@@ -15,7 +13,6 @@ precmd() {
 }
 
 bindkey -v
-bindkey '^R' history-incremental-search-backward
 
 autoload -U colors && colors
 
@@ -123,8 +120,9 @@ _dotnet_zsh_complete()
 compctl -K _dotnet_zsh_complete dotnet
 
 ### "bat" as manpager
-export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-export PATH='/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/local/go/bin:/usr/local/nvim/bin:/usr/local/go/bin:/usr/local/nvim/bin:/usr/local/go/bin:/usr/local/nvim/bin:/home/hendry/.dotnet/tools:/home/hendry/.cargo/bin:/home/hendry/.local/bin:/home/hendry/.local/share/gem/ruby/3.0.0/bin'
+# export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+export PATH='/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/lib/jvm/default/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl:/usr/local/nvim/bin:/usr/local/go/bin:/home/hendry/.dotnet/tools:/home/hendry/.cargo/bin:/home/hendry/.local/bin:/home/hendry/.local/share/gem/ruby/3.0.0/bin'
 
 # bas dir for all cd command
 export CDPATH=/home/hendry
@@ -140,8 +138,6 @@ export PATH="$HOME/.poetry/bin:$PATH"
 # ~/.zprofile (for login shells)
 # and ~/.zshrc (for interactive shells) :
 
-# Restart your shell for the changes to take effect.
-
 # bun completions
 
 # bun
@@ -154,5 +150,49 @@ source ~/.zsh/aliases.sh
 source ~/.zsh/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-256color.plugin.zsh
 source ~/.zsh/fast-syntax-highlighting.plugin.zsh
-source /usr/share/skim/key-bindings.zsh
-source /usr/share/skim/completion.zsh
+# source /usr/share/skim/key-bindings.zsh
+# source /usr/share/skim/completion.zsh
+
+# bun completions
+[ -s "/home/hendry/.bun/_bun" ] && source "/home/hendry/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+bindkey '^R' history-incremental-search-backward
+
+
+# JINA_CLI_BEGIN
+
+## autocomplete
+if [[ ! -o interactive ]]; then
+    return
+fi
+
+compctl -K _jina jina
+
+_jina() {
+  local words completions
+  read -cA words
+
+  if [ "${#words}" -eq 2 ]; then
+    completions="$(jina commands)"
+  else
+    completions="$(jina completions ${words[2,-2]})"
+  fi
+
+  reply=(${(ps:
+:)completions})
+}
+
+# session-wise fix
+ulimit -n 4096
+export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
+
+# JINA_CLI_END
+
+
+
+
+

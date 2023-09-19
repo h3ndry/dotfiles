@@ -29,13 +29,14 @@ end
 local group_1 = vim.api.nvim_create_augroup("hide-numbers", { clear = true })
 vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
-    if vim.bo.buftype == 'terminal' or vim.bo.filetype == 'markdown' then
+    if vim.bo.buftype == 'terminal'
+      or vim.bo.filetype == 'markdown'
+      or vim.bo.filetype == 'neo-tree' then
       vim.wo.number = false
       vim.wo.relativenumber = false
       vim.o.wrap = true
       vim.o.textwidth = 80
-      vim.cmd [[ startinsert ]]
-      print("hello world")
+      -- vim.cmd [[ startinsert ]]
     else
       vim.wo.number = true
       vim.wo.relativenumber = true
@@ -130,9 +131,9 @@ vim.opt.guicursor = ""
 vim.opt.nu = true
 vim.opt.relativenumber = true
 vim.opt.errorbells = false
-vim.opt.tabstop = 2
-vim.opt.softtabstop = 2
-vim.opt.shiftwidth = 2
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 vim.opt.swapfile = false
@@ -142,14 +143,14 @@ vim.opt.undofile = true
 vim.opt.incsearch = true
 vim.o.laststatus = 0
 vim.opt.termguicolors = true
-vim.o.pumheight = 5
-vim.opt.scrolloff = 3
+vim.o.pumheight = 8
+vim.opt.scrolloff = 2
 vim.opt.signcolumn = "yes"
-vim.opt.isfname:append("@-@")
-vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+-- vim.opt.isfname:append("@-@")
+-- vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 -- Give more space for displaying messages.
-vim.opt.cmdheight = 1
+-- vim.opt.cmdheight = 1
 
 -- Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 -- delays and poor user experience.
@@ -174,6 +175,3 @@ vim.diagnostic.config {
   signs = false,
   severity_sort = true,
 }
-
-
-

@@ -1,53 +1,13 @@
 local cmd = vim.api.nvim_command
 
 local disable_distribution_plugins = function()
-    -- Disable loading loading
-    cmd([[let g:did_install_default_menus = 1]])
-    cmd([[let g:did_install_syntax_menu = 1]])
-    -- Uncomment this if yogu define your own filetypes in `after/ftpluggin`
-    -- cmd([[let g:did_load_filetypes = 1]])
-
-    -- Do not load native syntax completion
-    cmd([[let g:loaded_syntax_completion = 1]])
-
-    -- Do not load spell files
-    cmd([[let g:loaded_spellfile_plugin = 1]])
-
-    -- Whether to load netrw by default
-    -- cmd([[let g:loaded_netrw = 1]])
     cmd([[let g:loaded_netrwFileHandlers = 1]])
     cmd([[let g:loaded_netrwPlugin = 1]])
-    -- cmd([[let g:loaded_netrwSettings = 1]])
-    -- newtrw liststyle: https://medium.com/usevim/the-netrw-style-options-3ebe91d42456
-    -- cmd([[let g:netrw_liststyle = 3]])
-
-    -- Do not load tohtml.vim
-    cmd([[let g:loaded_2html_plugin = 1]])
-
-    -- Do not load zipPlugin.vim, gzip.vim and tarPlugin.vim (all these plugins are
-    -- related to checking files inside compressed files)
-    cmd([[let g:loaded_gzip = 1]])
-    cmd([[let g:loaded_tarPlugin = 1]])
-    cmd([[let g:loaded_vimball = 1]])
-    cmd([[let g:loaded_vimballPlugin = 1]])
-    cmd([[let g:loaded_zipPlugin = 1]])
-
-    -- Do not use builtin matchit.vim and matchparen.vim since the use of vim-matchup
-    cmd([[let g:loaded_matchit = 1]])
-    cmd([[let g:loaded_matchparen = 1]])
-
-    -- Disable sql omni completion.
-    cmd([[let g:loaded_sql_completion = 1]])
-    -- Disable remote plugins
-    -- NOTE: Disabling rplugin.vim will show error for `wilder.nvim` in :checkhealth,
-    -- NOTE:  but since it's config doesn't require python rtp, it's fine to ignore.
-    cmd([[let g:loaded_remote_plugins = 1]])
+    cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
 end
 
 
 disable_distribution_plugins()
-
-
 
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -106,10 +66,7 @@ require "utils.keymap"
 
 
 vim.cmd([[
-    se stl=─ fcs=stl:─,stlnc:-
-    " se stl=- fcs=stl:-,stlnc:-
-
-    " hi EndOfBuffer guifg=#b3b1ad  guibg=NONE
+    se stl:— fcs=stl:─,stlnc:—
 
     hi LineNrAbove guifg=#665c54
     hi LineNr guifg=#fd8019
