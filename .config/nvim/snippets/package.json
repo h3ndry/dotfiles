@@ -166,14 +166,16 @@
         "language": [
           "javascript",
           "javascriptreact",
-          "vue"
+          "vue",
+          "svelte"
         ],
         "path": "./javascript/javascript.json"
       },
       {
         "language": [
           "typescript",
-          "typescriptreact"
+          "typescriptreact",
+          "svelte"
         ],
         "path": "./javascript/typescript.json"
       },
@@ -313,6 +315,10 @@
       {
         "language": "gdscript",
         "path": "./gdscript.json"
+      },
+      {
+        "language": "svelte",
+        "path": "./javascript/svelte.json"
       }
     ]
   }

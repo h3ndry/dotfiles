@@ -64,11 +64,9 @@ return {
                 end
             },
 
-
-
             sources = {
-                { name = "luasnip" },
                 { name = "nvim_lsp" },
+                { name = "luasnip" },
                 { name = "nvim_lua" },
                 { name = "cmp-cmdline" },
                 { name = 'zsh' },
@@ -81,8 +79,8 @@ return {
             formatting = {
                 format = lspkind.cmp_format {
                     menu = {
-                        luasnip = "[SNIP]",
                         nvim_lsp = "[LSP]",
+                        luasnip = "[SNIP]",
                         nvim_lua = "[API]",
                         calc = "[CALC]",
                         cmdline = "[CMD]",
