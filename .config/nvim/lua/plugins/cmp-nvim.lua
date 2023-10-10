@@ -32,17 +32,45 @@ return {
         table.insert(buildtime_path, "lua/?.lua")
         table.insert(buildtime_path, "lua/?/init.lua")
 
+
+
         cmp.setup {
             mapping = {
-                ['<C-n>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-                ['<C-p>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+                ["<C-n>"] = cmp.mapping(
+                    function(fallback)
+                        if cmp.visible() then
+                            cmp.select_next_item()
+                        elseif luasnip.expand_or_jumpable() then
+                            luasnip.jump(1)
+                        elseif has_words_before() then
+                            cmp.complete()
+                        else
+                            fallback()
+                        end
+                    end,
+                    { "i", "s" }
+                ),
+
+
+                ["<C-p>"] = cmp.mapping(
+                    function(fallback)
+                        if cmp.visible() then
+                            cmp.select_prev_item()
+                        elseif luasnip.jumpable(-1) then
+                            luasnip.jump(-1)
+                        else
+                            fallback()
+                        end
+                    end,
+                    { "i", "s" }
+                ),
+
                 ['<Down>'] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),
                 ['<Up>'] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),
                 ['<C-d>'] = cmp.mapping.scroll_docs(-4),
                 ['<C-f>'] = cmp.mapping.scroll_docs(4),
                 ['<C-Space>'] = cmp.mapping.complete(),
                 ['<C-e>'] = cmp.mapping.abort(),
-                ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
                 ['<C-y>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 
             },
@@ -124,6 +152,7 @@ return {
         lspconfig.pyright.setup {}
         lspconfig.r_language_server.setup {}
         lspconfig.html.setup {
+            capabilities = capabilities,
             filetypes = { "html", "eml" }
         }
         lspconfig.cssls.setup {}
@@ -141,6 +170,14 @@ return {
         require("luasnip.loaders.from_vscode").lazy_load({
             paths = { "./snippets/" },
         })
+
+        vim.keymap.set({ "i" }, "<C-K>", function() luasnip.expand() end, { silent = true })
+
+        vim.keymap.set({ "i", "s" }, "<C-E>", function()
+            if luasnip.choice_active() then
+                luasnip.change_choice(1)
+            end
+        end, { silent = true })
 
         vim.keymap.set('n', '<space>d', vim.diagnostic.open_float)
         vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)

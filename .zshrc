@@ -1,4 +1,6 @@
 
+zmodload zsh/zprof
+
 case $TERM in
     xterm*)
         precmd () {print -Pn "\e]0;string\a"}
@@ -150,8 +152,8 @@ source ~/.zsh/aliases.sh
 source ~/.zsh/zsh-autosuggestions.zsh
 source ~/.zsh/zsh-256color.plugin.zsh
 source ~/.zsh/fast-syntax-highlighting.plugin.zsh
-# source /usr/share/skim/key-bindings.zsh
-# source /usr/share/skim/completion.zsh
+source /usr/share/fzf/key-bindings.zsh
+source /usr/share/fzf/completion.zsh
 
 # bun completions
 [ -s "/home/hendry/.bun/_bun" ] && source "/home/hendry/.bun/_bun"
@@ -160,7 +162,7 @@ source ~/.zsh/fast-syntax-highlighting.plugin.zsh
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-bindkey '^R' history-incremental-search-backward
+# bindkey '^R' history-incremental-search-backward
 
 
 # JINA_CLI_BEGIN
@@ -192,7 +194,7 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 # JINA_CLI_END
 
-
+zprof > fooo.text
 
 
 

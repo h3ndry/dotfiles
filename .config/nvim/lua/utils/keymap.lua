@@ -19,10 +19,10 @@ vim.keymap.set("v", "<C-S-k>", ":m '<-2<CR>gv=gv")
 -- My greates remap yet
 -- vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>")
 
-vim.keymap.set("i", "<C-]>", "<C-X><C-]>")
-vim.keymap.set("i", "<C-F>", "<C-X><C-F>")
-vim.keymap.set("i", "<C-D>", "<C-X><C-D>")
-vim.keymap.set("i", "<C-L>", "<C-X><C-L>")
+-- vim.keymap.set("i", "<C-]>", "<C-X><C-]>")
+-- vim.keymap.set("i", "<C-F>", "<C-X><C-F>")
+-- vim.keymap.set("i", "<C-D>", "<C-X><C-D>")
+-- vim.keymap.set("i", "<C-L>", "<C-X><C-L>")
 
 
 -- -- format code based on a specific file type, use the LSP formnater if none
