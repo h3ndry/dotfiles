@@ -180,6 +180,15 @@
         "path": "./javascript/typescript.json"
       },
       {
+        "language": [
+          "typescript",
+          "typescriptreact",
+          "svelte"
+        ],
+        "path": "./javascript/jsdoc.json"
+      },
+
+      {
         "language": "javascriptreact",
         "path": "./javascript/react.json"
       },

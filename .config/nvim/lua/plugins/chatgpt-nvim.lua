@@ -8,7 +8,7 @@ return {
   },
   event        = "VeryLazy",
   lazy         = true,
-  -- commit       = "24bcca7",
+  commit       = "aa8a969",
   config       = function()
     local wk = require("which-key")
     local chatgpt = require("chatgpt")

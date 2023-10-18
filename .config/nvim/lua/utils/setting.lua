@@ -1,6 +1,8 @@
 local function trim_trailing_whitespaces()
   if vim.bo.modifiable == true
       and vim.bo.filetype ~= 'TelescopePrompt'
+      and vim.bo.filetype ~= 'octo'
+      and vim.bo.filetype ~= 'dap-repl'
       and vim.bo.filetype ~= 'neo-tree-popup' then
     local view = vim.fn.winsaveview()
     vim.cmd [[keep %s/\s\+$//e]]

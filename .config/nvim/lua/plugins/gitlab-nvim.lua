@@ -1,14 +1,29 @@
 return {
-  "harrisoncramer/gitlab.nvim",
-  dependencies = {
-    "MunifTanjim/nui.nvim",
-    "nvim-lua/plenary.nvim",
-    "stevearc/dressing.nvim", -- Recommended but not required. Better UI for pickers.
-  },
-  event  = "VeryLazy",
-  'mfussenegger/nvim-dap',
-  build = function () require("gitlab").build() end, -- Builds the Go binary
-  config = function()
-    require("gitlab").setup()
-  end,
+    "harrisoncramer/gitlab.nvim",
+    dependencies = {
+        "MunifTanjim/nui.nvim",
+        "nvim-lua/plenary.nvim",
+        "stevearc/dressing.nvim", -- Recommended but not required. Better UI for pickers.
+    },
+    event        = "VeryLazy",
+    build = function() require("gitlab").build() end, -- Builds the Go binary
+    config = function()
+
+        require("gitlab").setup()
+
+        local gitlab = require("gitlab")
+        vim.keymap.set("n", "<leader>glr", gitlab.review)
+        vim.keymap.set("n", "<leader>gls", gitlab.summary)
+        vim.keymap.set("n", "<leader>glA", gitlab.approve)
+        vim.keymap.set("n", "<leader>glR", gitlab.revoke)
+        vim.keymap.set("n", "<leader>glc", gitlab.create_comment)
+        vim.keymap.set("n", "<leader>gln", gitlab.create_note)
+        vim.keymap.set("n", "<leader>gld", gitlab.toggle_discussions)
+        vim.keymap.set("n", "<leader>glaa", gitlab.add_assignee)
+        vim.keymap.set("n", "<leader>glad", gitlab.delete_assignee)
+        vim.keymap.set("n", "<leader>glra", gitlab.add_reviewer)
+        vim.keymap.set("n", "<leader>glrd", gitlab.delete_reviewer)
+        vim.keymap.set("n", "<leader>glp", gitlab.pipeline)
+        vim.keymap.set("n", "<leader>glo", gitlab.open_in_browser)
+    end,
 }

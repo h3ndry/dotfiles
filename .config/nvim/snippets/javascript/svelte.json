@@ -16,7 +16,7 @@
     },
     "svelte-script-tag": {
         "prefix": "s-script",
-        "body": ["<script>", "\t${1:// your script goes here}", "</script>"],
+        "body": ["<script lang=\"${1}\">", "\t${2:// your script goes here}", "</script>"],
         "description": "add a script to your svelte file"
     },
     "svelte-script-context": {

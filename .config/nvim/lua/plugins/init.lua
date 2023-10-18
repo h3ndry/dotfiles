@@ -1,5 +1,5 @@
 return {
-    "mbbill/undotree",
+    -- "mbbill/undotree",
     "tpope/vim-repeat",
     "tpope/vim-dadbod",
     "tpope/vim-endwise",
