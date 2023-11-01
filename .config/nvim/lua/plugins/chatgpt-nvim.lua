@@ -29,7 +29,7 @@ return {
         t = { "<cmd>ChatGPTRun translate<CR>", "Translate" },
         k = { "<cmd>ChatGPTRun keywords<CR>", "Keywords" },
         d = { "<cmd>ChatGPTRun docstring<CR>", "Docstring" },
-        a = { "<cmd>ChatGPTRun add_tests<CR>", "Add Tests" },
+        -- a = { "<cmd>ChatGPTRun add_tests<CR>", "Add Tests" },
         o = { "<cmd>ChatGPTRun optimize_code<CR>", "Optimize Code" },
         s = { "<cmd>ChatGPTRun summarize<CR>", "Summarize" },
         f = { "<cmd>ChatGPTRun fix_bugs<CR>", "Fix Bugs" },

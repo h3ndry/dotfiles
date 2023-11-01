@@ -16,7 +16,7 @@ items+=$'\n'
 
 # for a company specific projects
 items+=`fd --hidden --type=directory --base-directory=/home/hendry/workspace/kriterion "\.git" | sd '\.git/' '' | sd '(^\w)' 'workspace/kriterion/$1'`
-
+items+=$'\n'
 items+=`fd --hidden --type=directory --base-directory=/home/hendry/workspace/hackerthon "\.git" | sd '\.git/' '' | sd '(^\w)' 'workspace/hackerthon/$1'`
 
 

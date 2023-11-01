@@ -55,7 +55,8 @@ super + Home
 super + c; {t, p, r}
 	{ xclip -selection clipboard -o  | quicktype --just-types -l ts | xclip -selection clipboard, xclip -selection clipboard -o | datamodel-codegen --input-file-type json | xclip -selection clipboard, zathura /home/hendry/Documents/NNFS.pdf  }
 
-
+ctrl + space; {h, H}
+    { dunstctl history-pop, dunstctl close }
 
 
 # super + alt + control + {h,j,k,l} ; {0-9}

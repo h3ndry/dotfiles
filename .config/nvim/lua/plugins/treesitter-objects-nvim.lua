@@ -15,11 +15,11 @@ return {
             ["ic"] = "@class.inner",
           },
           -- You can choose the select mode (default is charwise 'v')
-          selection_modes = {
-            ['@parameter.outer'] = 'v',             -- charwise
-            ['@function.outer'] = 'V',              -- linewise
-            ['@class.outer'] = '<c-v>',             -- blockwise
-          },
+          -- selection_modes = {
+          --   ['@parameter.outer'] = 'v',             -- charwise
+          --   ['@function.outer'] = 'V',              -- linewise
+          --   ['@class.outer'] = '<c-v>',             -- blockwise
+          -- },
           -- If you set this to `true` (default is `false`) then any textobject is
           -- extended to include preceding xor succeeding whitespace. Succeeding
           -- whitespace has priority in order to act similarly to eg the built-in

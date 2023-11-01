@@ -180,7 +180,6 @@ return {
             end
         end, { silent = true })
 
-        vim.keymap.set('n', '<space>d', vim.diagnostic.open_float)
         vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
         vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
         -- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
@@ -198,10 +197,11 @@ return {
                 vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
                 vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
                 vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+                vim.keymap.set('n', '<space>D', vim.diagnostic.open_float)
                 vim.keymap.set('n', '<space>wl', function()
                     print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
                 end, opts)
-                vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+                -- vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
                 vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
                 vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
                 vim.keymap.set('n', '<space>F', function()

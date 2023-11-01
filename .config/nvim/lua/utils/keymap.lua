@@ -11,13 +11,7 @@ vim.keymap.set("v", "<C-S-j>", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "<C-S-k>", ":m '<-2<CR>gv=gv")
 
 -- My greates remap yet
--- vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>")
-
--- vim.keymap.set("i", "<C-]>", "<C-X><C-]>")
--- vim.keymap.set("i", "<C-F>", "<C-X><C-F>")
--- vim.keymap.set("i", "<C-D>", "<C-X><C-D>")
--- vim.keymap.set("i", "<C-L>", "<C-X><C-L>")
-
+vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>")
 
 -- -- format code based on a specific file type, use the LSP formnater if none
 -- -- is mathch | asumem jq, black, prettier is installed on ypur machine
@@ -76,11 +70,8 @@ vim.keymap.set("v", "<C-S-k>", ":m '<-2<CR>gv=gv")
 -- vim.keymap.set('n', '<space>s', '<cmd>lua vim.diagnostic.setloclist()<CR>')
 
 
--- Sorce config file
--- vim.keymap.set("n", "<leader>F", ":FormatWrite<CR>")
-
 -- Supper Mapping to substitue// Degeration mapping
-vim.keymap.set("n", "<leader>s", ":%s/\\<<C-R><C-W>\\>/<C-R>0/g<CR>")
+vim.keymap.set("n", "<leader>S", ":%s/\\<<C-R><C-W>\\>/<C-R>0/g<CR>")
 vim.keymap.set("n", "<leader>e", ":Neotree <CR>")
 vim.keymap.set("t", "<C-\\><C-\\>", "<C-\\><C-n>")
 vim.keymap.set("t", "<C-\\>\\", "<C-\\><C-n>")
@@ -89,10 +80,6 @@ vim.keymap.set("n", "<leader>.", ":e<space>**/")
 vim.keymap.set("n", "<leader>M", ":make <CR>")
 vim.keymap.set("n", "<leader>cr", ":!cargo run <CR>")
 vim.keymap.set("n", "<leader>ct", ":!cargo test <CR>")
-
-
--- vim.keymap.set("n", "<leader>u", ":UndotreeToggle <CR>")
--- vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>")
 
 
 -- Managing buffers and Windows

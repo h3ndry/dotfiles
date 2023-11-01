@@ -1,28 +1,28 @@
 local function trim_trailing_whitespaces()
-  if vim.bo.modifiable == true
-      and vim.bo.filetype ~= 'TelescopePrompt'
-      and vim.bo.filetype ~= 'octo'
-      and vim.bo.filetype ~= 'dap-repl'
-      and vim.bo.filetype ~= 'neo-tree-popup' then
-    local view = vim.fn.winsaveview()
-    vim.cmd [[keep %s/\s\+$//e]]
-    -- vim.cmd [[%s#\($\n\s*\)\+\%$##]]
-    vim.cmd "update"
-    vim.fn.winrestview(view)
-  end
+    if vim.bo.modifiable == true
+        and vim.bo.filetype ~= 'TelescopePrompt'
+        and vim.bo.filetype ~= 'octo'
+        and vim.bo.filetype ~= 'dap-repl'
+        and vim.bo.filetype ~= 'neo-tree-popup' then
+        local view = vim.fn.winsaveview()
+        vim.cmd([[keep %s/\s\+$//e]])
+        vim.cmd "update"
+        vim.fn.winrestview(view)
+    end
+    -- vim.cmd([[let @/ = '']])
 end
 
 
 local function term_config()
-  if vim.bo.buftype == 'terminal' then
-    vim.wo.number = false
-    vim.wo.relativenumber = false
-    vim.cmd [[ startinsert ]]
-  else
-    -- vim.wo.number = true
-    -- vim.wo.relativenumber = true
-    trim_trailing_whitespaces()
-  end
+    if vim.bo.buftype == 'terminal' then
+        vim.wo.number = false
+        vim.wo.relativenumber = false
+        vim.cmd [[ startinsert ]]
+    else
+        -- vim.wo.number = true
+        -- vim.wo.relativenumber = true
+        trim_trailing_whitespaces()
+    end
 end
 
 
@@ -30,33 +30,33 @@ end
 -- Super cool, works perfect.... I am proud of myself
 local group_1 = vim.api.nvim_create_augroup("hide-numbers", { clear = true })
 vim.api.nvim_create_autocmd("BufEnter", {
-  callback = function()
-    if vim.bo.buftype == 'terminal'
-      or vim.bo.filetype == 'markdown'
-      or vim.bo.filetype == 'neo-tree' then
-      vim.wo.number = false
-      vim.wo.relativenumber = false
-      vim.o.wrap = true
-      vim.o.textwidth = 80
-      -- vim.cmd [[ startinsert ]]
-    else
-      vim.wo.number = true
-      vim.wo.relativenumber = true
-      vim.o.wrap = false
-      trim_trailing_whitespaces()
-    end
-  end,
-  group = group_1
+    callback = function()
+        if vim.bo.buftype == 'terminal'
+            or vim.bo.filetype == 'markdown'
+            or vim.bo.filetype == 'neo-tree' then
+            vim.wo.number = false
+            vim.wo.relativenumber = false
+            vim.o.wrap = true
+            vim.o.textwidth = 80
+            -- vim.cmd [[ startinsert ]]
+        else
+            vim.wo.number = true
+            vim.wo.relativenumber = true
+            vim.o.wrap = false
+            trim_trailing_whitespaces()
+        end
+    end,
+    group = group_1
 })
 
 vim.api.nvim_create_autocmd(
-  "TermOpen", { callback = term_config, group = group_1 }
+    "TermOpen", { callback = term_config, group = group_1 }
 )
 
 local group_2 = vim.api.nvim_create_augroup("auto-save", { clear = true })
 
 vim.api.nvim_create_autocmd(
-  "FocusLost", { callback = trim_trailing_whitespaces, group = group_2 }
+    "FocusLost", { callback = trim_trailing_whitespaces, group = group_2 }
 )
 
 -- Highlight on yank
@@ -74,7 +74,7 @@ vim.cmd([[
 
 
 vim.cmd(
-  [[
+    [[
     set spelllang=en
     set complete+=kspell
     augroup markdownSpell
@@ -89,7 +89,7 @@ vim.cmd(
 
 
 vim.cmd(
-  [[
+    [[
 	set shada='1000,f1
     set path+=**
     set wildignore+=**/node_modules/**
@@ -144,6 +144,7 @@ vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
 vim.opt.undofile = true
 vim.opt.incsearch = true
 vim.o.laststatus = 0
+vim.o.showcmd = true
 vim.opt.termguicolors = true
 vim.o.pumheight = 8
 vim.opt.scrolloff = 2
@@ -163,17 +164,17 @@ vim.opt.shortmess:append("c")
 vim.g.mapleader = " "
 
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-  vim.lsp.handlers.hover,
-  { border = 'rounded' }
+    vim.lsp.handlers.hover,
+    { border = 'rounded' }
 )
 
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-  vim.lsp.handlers.signature_help,
-  { border = 'rounded' }
+    vim.lsp.handlers.signature_help,
+    { border = 'rounded' }
 )
 
 vim.diagnostic.config {
-  float = { source = "always",  border = "rounded"  },
-  signs = false,
-  severity_sort = true,
+    float = { source = "always", border = "rounded" },
+    signs = false,
+    severity_sort = true,
 }

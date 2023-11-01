@@ -22,4 +22,6 @@ return {
     "Hoffs/omnisharp-extended-lsp.nvim",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     { "ellisonleao/gruvbox.nvim",                 lazy = false },
+    "MunifTanjim/nui.nvim",
+    "stevearc/dressing.nvim",
 }

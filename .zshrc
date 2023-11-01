@@ -1,5 +1,4 @@
-
-zmodload zsh/zprof
+#zmodload zsh/zprof
 
 case $TERM in
     xterm*)
@@ -78,6 +77,10 @@ bindkey '^e' edit-command-line
 bindkey '^y' autosuggest-accept
 bindkey -a '^y' autosuggest-accept
 
+bindkey '^k' autosuggest-accept
+bindkey -a '^k' autosuggest-accept
+
+
 
 function expand-alias() {
 	zle _expand_alias
@@ -154,6 +157,7 @@ source ~/.zsh/zsh-256color.plugin.zsh
 source ~/.zsh/fast-syntax-highlighting.plugin.zsh
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
+source /etc/profile.d/google-cloud-cli.sh
 
 # bun completions
 [ -s "/home/hendry/.bun/_bun" ] && source "/home/hendry/.bun/_bun"
@@ -194,7 +198,8 @@ export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 
 # JINA_CLI_END
 
-zprof > fooo.text
-
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
 

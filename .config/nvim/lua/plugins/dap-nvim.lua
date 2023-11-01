@@ -23,13 +23,15 @@ return {
 
         vim.keymap.set("n", "<Leader>dc", dap.continue)
         vim.keymap.set("n", "<Leader>dso", dap.step_over)
+        vim.keymap.set("n", "<Leader>dn", dap.step_over)
         vim.keymap.set("n", "<Leader>dsi", dap.step_into)
-        vim.keymap.set("n", "<Leader>dsO", dap.step_out)
-        vim.keymap.set("n", "<Leader>dbp", dap.toggle_breakpoint)
+        vim.keymap.set("n", "<Leader>dN", dap.step_into)
+        vim.keymap.set("n", "<Leader>dp", dap.step_out)
+        vim.keymap.set("n", "<Leader>dd", dap.toggle_breakpoint)
         vim.keymap.set("n", "<Leader>dr", dap.repl.open)
         vim.keymap.set("n", "<Leader>dl", dap.run_last)
         vim.keymap.set("n", "<Leader>dk", widgets.hover)
-        vim.keymap.set('n', '<leader>d?', function()
+        vim.keymap.set("n", "<leader>d?", function()
             widgets.centered_float(widgets.scopes)
         end)
 
@@ -47,7 +49,7 @@ return {
                 stopAtEntry = false,
                 preLaunchTask = "build",
                 program = function()
-                    return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/api/bin/Debug/net7.0/api.dll', 'file')
+                    return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/net7.0/api.dll', 'file')
                 end,
             }
         }
@@ -82,6 +84,5 @@ return {
                 stopOnEntry = false,
             },
         }
-
     end
 }
