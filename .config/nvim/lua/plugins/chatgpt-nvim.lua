@@ -8,7 +8,7 @@ return {
   },
   event        = "VeryLazy",
   lazy         = true,
-  commit       = "aa8a969",
+  -- commit       = "aa8a969",
   config       = function()
     local wk = require("which-key")
     local chatgpt = require("chatgpt")
@@ -44,5 +44,6 @@ return {
     })
 
     vim.keymap.set("n", "<leader>cc", ":ChatGPT <CR>")
+    vim.keymap.set("n", "<leader>cC", ":ChatGPTActAs <CR>")
   end,
 }

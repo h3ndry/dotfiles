@@ -92,5 +92,5 @@ vim.keymap.set("n", "<leader>q", ":close<CR>")
 vim.keymap.set("n", "<leader>o", ":only<CR>")
 -- vim.keymap.set("n", "<leader>O", ":unhide<CR>")
 vim.keymap.set("n", "<leader>_", ":res<CR>")
-vim.keymap.set("n", "<leader>|", ":vert res<CR>")
+-- vim.keymap.set("n", "<leader>|", ":vert res<CR>")
 

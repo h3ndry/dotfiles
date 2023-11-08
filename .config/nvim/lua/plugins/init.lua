@@ -19,6 +19,7 @@ return {
     "amadeus/vim-convert-color-to",
     "nvim-lua/lsp_extensions.nvim",
     'Bekaboo/dropbar.nvim',
+    'tpope/vim-dotenv',
     "Hoffs/omnisharp-extended-lsp.nvim",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
     { "ellisonleao/gruvbox.nvim",                 lazy = false },

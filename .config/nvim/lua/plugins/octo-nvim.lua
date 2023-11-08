@@ -46,6 +46,7 @@ return {
             pr = {
                 l = { "<cmd>Octo pr list <cr>", "list open issues on same repo" },
             }
+
         }, { prefix = "<leader>" })
     end
 
