@@ -1,12 +1,10 @@
 #!/bin/sh
 
-LATEST_IMG="Okay we are just making progress"
 
-maim --select "$HOME/Pictures/Screenshots/$(date).png"
+BASE_PATH="$HOME/Pictures/Screenshots"
 
-BASE_PATH="$HOME/Pictures/Screenshots/"
+maim --select "$BASE_PATH/$(date +%s).png"
 
-LATEST_IMG="$( exa --sort=modified $BASE_PATH | tail -1 )"
+LATEST_IMG="$(exa --sort=modified $BASE_PATH | tail -1 )"
 
-tesseract "$BASE_PATH/$LATEST_IMG" stdout | xclip -selection clipboard
-
+tesseract "$BASE_PATH/$LATEST_IMG" stdout | tee | xclip -selection clipboard
