@@ -33,6 +33,7 @@ return {
         vim.keymap.set('n', '<leader>re', builtin.registers, {})
         vim.keymap.set("n", "<leader>gb", builtin.git_branches)
         vim.keymap.set("n", "<leader>gs", builtin.git_status)
+        vim.keymap.set("n", "<leader>gS", builtin.git_stash)
         vim.keymap.set("n", "<leader>m", builtin.marks)
         vim.keymap.set('n', '<leader>u', extensions.undo.undo, {})
         -- vim.keymap.set("n", "<leader>gm", builtin.git_commits)

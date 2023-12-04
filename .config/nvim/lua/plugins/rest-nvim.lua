@@ -7,6 +7,6 @@ return {
             encode_url = false,
 
         })
-        vim.keymap.set('n', '<space>R', ":lua require('rest-nvim').run()<CR>")
+        vim.keymap.set('n', '<space>R', ":lua require('rest-nvim').run() <CR>")
     end
 }
