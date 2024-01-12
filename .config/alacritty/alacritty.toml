@@ -1,0 +1,66 @@
+# [colors.cursor]
+# cursor = "CellForeground"
+# style = "Block"
+# text = "CellBackground"
+
+[colors.primary]
+background = "#0d1117"
+foreground = "#c0caf5"
+
+[colors.vi_mode_cursor]
+cursor = "CellForeground"
+text = "CellBackground"
+
+[cursor]
+vi_mode_style = "Block"
+
+[font]
+size = 7.5
+
+[font.bold]
+family = "JetBrainsMono"
+style = "Bold"
+
+[font.italic]
+family = "JetBrainsMono"
+style = "Italic"
+
+[font.normal]
+family = "JetBrainsMono"
+style = "Regular"
+
+[[keyboard.bindings]]
+chars = "\u001B[74;5u"
+key = "J"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[75;5u"
+key = "K"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[72;5u"
+key = "H"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[76;5u"
+key = "L"
+mods = "Control|Shift"
+
+# [[keyboard.bindings]]
+# action = "ToggleViMode"
+# key = "A"
+# mode = "Vi|~Search"
+
+[window]
+opacity = 0.92
+
+[window.dimensions]
+columns = 150
+lines = 40
+
+[window.padding]
+x = 4
+y = 4
