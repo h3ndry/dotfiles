@@ -8,16 +8,15 @@ COMPANY='/home/hendry/'
 # for personal files and all that kind of staff I mess with
 items=`fd --max-depth=1 --type=d --base-directory='/run/media/hendry/2CFA-18FF/' . 'Code'`
 items+=$'\n'
-items+=`fd --max-depth=1 --type=d  --base-directory=${BASE} . '.config'`
 items+=`fd --max-depth=1 --type=d  --base-directory=${BASE} . 'workspace'`
+items+=`fd --max-depth=1 --type=d  --base-directory=${BASE} . '.config'`
 
 items+=$'\n'
-
-
 # for a company specific projects
-items+=`fd --hidden --type=directory --base-directory=/home/hendry/workspace/kriterion "\.git" | sd '\.git/' '' | sd '(^\w)' 'workspace/kriterion/$1'`
+items+=`fd -H -I --type=directory --base-directory=/home/hendry/workspace/kriterion "\.git" | sd '\.git/' '' | sd '(^\w)' 'workspace/kriterion/$1'`
 items+=$'\n'
-items+=`fd --hidden --type=directory --base-directory=/home/hendry/workspace/hackerthon "\.git" | sd '\.git/' '' | sd '(^\w)' 'workspace/hackerthon/$1'`
+items+=`fd -H -I --type=directory --base-directory=/home/hendry/workspace/hackerthon "\.git" | sd '\.git/' '' | sd '(^\w)' 'workspace/hackerthon/$1'`
+items+=$'\n'
 
 
 

@@ -3,6 +3,7 @@ local function trim_trailing_whitespaces()
         and vim.bo.filetype ~= 'TelescopePrompt'
         and vim.bo.filetype ~= 'octo'
         and vim.bo.filetype ~= 'dap-repl'
+        and vim.bo.filetype ~= 'bout'
         and vim.bo.filetype ~= 'neo-tree-popup' then
         local view = vim.fn.winsaveview()
         vim.cmd([[keep %s/\s\+$//e]])
@@ -27,23 +28,33 @@ end
 
 
 
--- Super cool, works perfect.... I am proud of myself
+-- Super cool, works DiffviewFiles perfect.... I am proud of myself
 local group_1 = vim.api.nvim_create_augroup("hide-numbers", { clear = true })
 vim.api.nvim_create_autocmd("BufEnter", {
     callback = function()
         if vim.bo.buftype == 'terminal'
             or vim.bo.filetype == 'markdown'
+            or vim.bo.filetype == ''
+            or vim.bo.filetype == 'chatgpt-input'
             or vim.bo.filetype == 'neo-tree' then
             vim.wo.number = false
             vim.wo.relativenumber = false
             vim.o.wrap = true
             vim.o.textwidth = 80
             -- vim.cmd [[ startinsert ]]
+        elseif vim.bo.filetype == 'dbout'
+            or vim.bo.filetype == 'dbui'
+            or vim.bo.filetype == 'httpResult'
+            or vim.bo.filetype == 'DiffviewFiles' then
+            vim.wo.number = false
+            vim.wo.relativenumber = false
+            vim.o.wrap = false
+            -- vim.o.textwidth = 80
         else
             vim.wo.number = true
             vim.wo.relativenumber = true
             vim.o.wrap = false
-            trim_trailing_whitespaces()
+            -- trim_trailing_whitespaces()
         end
     end,
     group = group_1
@@ -116,6 +127,7 @@ vim.cmd(
 
 vim.o.termguicolors = true
 vim.cmd [[colorscheme gruvbox]]
+vim.o.background = "dark"
 -- vim.cmd [[colorscheme github_dark_default]]
 -- vim.cmd [[set background=light]]
 vim.o.completeopt = "menu,menuone,noinsert"

@@ -49,7 +49,7 @@ return {
                 stopAtEntry = false,
                 preLaunchTask = "build",
                 program = function()
-                    return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/net7.0/api.dll', 'file')
+                    return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/ConsoleApp/bin/Debug/net8.0/ConsoleApp.dll', 'file')
                 end,
             }
         }

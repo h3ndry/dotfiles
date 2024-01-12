@@ -102,6 +102,7 @@ return {
                 { name = "calc" },
                 { name = "path" },
                 { name = 'buffer' },
+                { name = 'vim-dadbod-completion' }
             },
             experimental = {},
 

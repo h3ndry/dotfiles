@@ -10,6 +10,9 @@ vim.keymap.set("n", "<C-S-k>", ":t-1<CR>")
 vim.keymap.set("v", "<C-S-j>", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "<C-S-k>", ":m '<-2<CR>gv=gv")
 
+
+vim.keymap.set("v", "<leader>f", ":!pg_format <CR>")
+
 -- My greates remap yet
 vim.keymap.set("n", "<Esc>", ":nohlsearch<CR>")
 

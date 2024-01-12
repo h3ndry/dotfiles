@@ -8,7 +8,7 @@ super + r; {m}
 	{spotify & notify-send "Music: Spotify" "The Spotify Application will be Opened on Tag two In a moment"}
 
 super + P
-	passmenu
+	rofi-pass
 
 super + M
 	st -e neomutt

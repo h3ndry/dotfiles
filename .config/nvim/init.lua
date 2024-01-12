@@ -24,8 +24,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 
-
-
 local opts = { noremap = true, silent = true }
 vim.keymap.set("", "<Space>", "<Nop>")
 vim.g.mapleader = " "
@@ -99,6 +97,7 @@ vim.cmd([[
 
     hi StatusLine gui=NONE guifg=#665c54 guibg=NONE
     hi StatusLineNC gui=NONE guifg=#665c54 guibg=NONE
+    " hi VertSplit gui=NONE guifg=#665c54 guibg=NONE cterm=NONE
 
     " hi Search guifg=#665c54 guibg=white
 
@@ -118,5 +117,7 @@ vim.cmd([[
     " autocmd InsertLeave * set nocul
     set exrc
     set secure
+
+    set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 
 ]])
