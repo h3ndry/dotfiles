@@ -53,16 +53,6 @@ require "utils.setting"
 require "utils.keymap"
 
 
-
--- -- --       𥉉  ﮏ   ﰸ  
--- --                      
--- local signs = { Error = "", Warn = "", Hint = "", Info = "i" }
--- for type, icon in pairs(signs) do
---     local hl = "DiagnosticSign" .. type
---     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
--- end
-
-
 vim.cmd([[
     se stl:— fcs=stl:─,stlnc:—
 

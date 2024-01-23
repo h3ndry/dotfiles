@@ -9,7 +9,6 @@ return {
     "cohama/lexima.vim",
     "kovetskiy/sxhkd-vim",
     "b0o/schemastore.nvim",
-    "jlcrochet/vim-razor",
     "nathom/filetype.nvim",
     "nvim-lua/plenary.nvim",
     "neovim/nvim-lspconfig",

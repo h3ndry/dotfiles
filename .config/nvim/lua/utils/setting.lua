@@ -34,7 +34,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
     callback = function()
         if vim.bo.buftype == 'terminal'
             or vim.bo.filetype == 'markdown'
-            or vim.bo.filetype == ''
+            -- or vim.bo.filetype == ''
             or vim.bo.filetype == 'chatgpt-input'
             or vim.bo.filetype == 'neo-tree' then
             vim.wo.number = false
@@ -49,11 +49,12 @@ vim.api.nvim_create_autocmd("BufEnter", {
             vim.wo.number = false
             vim.wo.relativenumber = false
             vim.o.wrap = false
-            -- vim.o.textwidth = 80
+            vim.o.textwidth = 80
         else
             vim.wo.number = true
             vim.wo.relativenumber = true
             vim.o.wrap = false
+            vim.o.textwidth = 0
             -- trim_trailing_whitespaces()
         end
     end,
@@ -91,6 +92,7 @@ vim.cmd(
     augroup markdownSpell
         autocmd!
         autocmd FileType markdown setlocal spell
+        autocmd BufLeave,WinLeave * silent! w
         autocmd BufRead,BufNewFile *.md setlocal spell
         autocmd FileType gitcommit setlocal spell
         autocmd FileType gitcommit setlocal complete+=kspell

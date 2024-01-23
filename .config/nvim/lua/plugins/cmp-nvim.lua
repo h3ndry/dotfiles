@@ -9,6 +9,8 @@ return {
         "hrsh7th/cmp-cmdline",
         "hrsh7th/cmp-calc",
         "lukas-reineke/cmp-rg",
+        -- "OrangeT/vim-csharp",
+        -- "jlcrochet/vim-razor",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
         "f3fora/cmp-spell",
@@ -155,7 +157,7 @@ return {
         lspconfig.r_language_server.setup {}
         lspconfig.html.setup {
             capabilities = capabilities,
-            filetypes = { "html", "eml" }
+            filetypes = { "html", "eml", "cshtml" }
         }
         lspconfig.cssls.setup {}
         lspconfig.ltex.setup {}
