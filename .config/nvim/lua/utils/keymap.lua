@@ -1,4 +1,5 @@
---Remap space as leader key
+local wk = require("which-key")
+
 vim.keymap.set("", "<Space>", "<Nop>")
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -96,4 +97,3 @@ vim.keymap.set("n", "<leader>o", ":only<CR>")
 -- vim.keymap.set("n", "<leader>O", ":unhide<CR>")
 vim.keymap.set("n", "<leader>_", ":res<CR>")
 -- vim.keymap.set("n", "<leader>|", ":vert res<CR>")
-

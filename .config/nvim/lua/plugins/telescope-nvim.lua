@@ -26,16 +26,24 @@ return {
 
         local builtin = require('telescope.builtin')
         local extensions = require('telescope').extensions
-        vim.keymap.set('n', '<leader>f', builtin.find_files, {})
-        vim.keymap.set('n', '<leader>ls', builtin.buffers, {})
-        vim.keymap.set('n', '<leader>rg', extensions.live_grep_args.live_grep_args, {})
-        vim.keymap.set('n', '<leader>rr', builtin.grep_string, {})
-        vim.keymap.set('n', '<leader>re', builtin.registers, {})
-        vim.keymap.set("n", "<leader>gb", builtin.git_branches)
-        vim.keymap.set("n", "<leader>gs", builtin.git_status)
-        vim.keymap.set("n", "<leader>gS", builtin.git_stash)
-        vim.keymap.set("n", "<leader>m", builtin.marks)
-        vim.keymap.set('n', '<leader>u', extensions.undo.undo, {})
-        -- vim.keymap.set("n", "<leader>gm", builtin.git_commits)
+        local wk = require("which-key")
+
+        wk.register({
+            f = { builtin.find_files, "search files in project" },
+            u = { extensions.undo.undo, "seach undo three" },
+            r = {
+                r = { builtin.grep_string, "search current word in project" },
+                g = { extensions.live_grep_args.live_grep_args, "live grep inside the project" }
+            },
+            l = {
+                s = { builtin.buffers, "list open buffers" }
+            },
+            g = {
+                b = { builtin.git_branches, "show git branch" },
+                s = { builtin.git_status, "show git status" },
+                S = { builtin.git_stash, "stash git channges" },
+                m = {}
+            }
+        }, { prefix = "<leader>" })
     end
 }

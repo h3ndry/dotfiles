@@ -19,5 +19,5 @@ if [ ! -f $noteFilename ]; then
 fi
 
 alacritty -T "Notes" --class "Notes" -e nvim --cmd "cd ${HOME}/workspace/my-notes" \
-  -c "norm zz" -c "MarkdownPreview" $noteFilename
+  -c "norm zz" -c "MarkdownPreview" -c "Pencil" $noteFilename
 

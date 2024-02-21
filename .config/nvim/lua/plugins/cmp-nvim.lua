@@ -9,7 +9,7 @@ return {
         "hrsh7th/cmp-cmdline",
         "hrsh7th/cmp-calc",
         "lukas-reineke/cmp-rg",
-        -- "OrangeT/vim-csharp",
+        "jmederosalvarado/roslyn.nvim",
         -- "jlcrochet/vim-razor",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
@@ -145,6 +145,13 @@ return {
                 { name = 'buffer' },
             })
         })
+
+
+        -- lspconfig.roslyn.setup({
+        --     dotnet_cmd = "dotnet",      -- this is the default
+        --     roslyn_version = "4.8.0-3.23475.7", -- this is the default
+        -- })
+
 
         lspconfig.emmet_language_server.setup {}
         lspconfig.tailwindcss.setup {}

@@ -6,36 +6,34 @@ return {
         'nvim-tree/nvim-web-devicons',
     },
     event        = "VeryLazy",
-    branch       = "fix_429",
+    -- branch       = "fix_429",
     config       = function()
         require "octo".setup()
-
         local wk = require("which-key")
 
---       list_issues = { lhs = "<space>il", desc = "list open issues on same repo" },
---       reload = { lhs = "<C-r>", desc = "reload issue" },
---       open_in_browser = { lhs = "<C-b>", desc = "open issue in browser" },
---       copy_url = { lhs = "<C-y>", desc = "copy url to system clipboard" },
---       add_assignee = { lhs = "<space>aa", desc = "add assignee" },
---       remove_assignee = { lhs = "<space>ad", desc = "remove assignee" },
---       create_label = { lhs = "<space>lc", desc = "create label" },
---       add_label = { lhs = "<space>la", desc = "add label" },
---       remove_label = { lhs = "<space>ld", desc = "remove label" },
---       goto_issue = { lhs = "<space>gi", desc = "navigate to a local repo issue" },
---       add_comment = { lhs = "<space>ca", desc = "add comment" },
---       delete_comment = { lhs = "<space>cd", desc = "delete comment" },
---       next_comment = { lhs = "]c", desc = "go to next comment" },
---       prev_comment = { lhs = "[c", desc = "go to previous comment" },
---       react_hooray = { lhs = "<space>rp", desc = "add/remove 🎉 reaction" },
---       react_heart = { lhs = "<space>rh", desc = "add/remove ❤️ reaction" },
---       react_eyes = { lhs = "<space>re", desc = "add/remove 👀 reaction" },
---       react_thumbs_up = { lhs = "<space>r+", desc = "add/remove 👍 reaction" },
---       react_thumbs_down = { lhs = "<space>r-", desc = "add/remove 👎 reaction" },
---       react_rocket = { lhs = "<space>rr", desc = "add/remove 🚀 reaction" },
---       react_laugh = { lhs = "<space>rl", desc = "add/remove 😄 reaction" },
---       react_confused = { lhs = "<space>rc", desc = "add/remove 😕 reaction" },
---     },
-
+        --       list_issues = { lhs = "<space>il", desc = "list open issues on same repo" },
+        --       reload = { lhs = "<C-r>", desc = "reload issue" },
+        --       open_in_browser = { lhs = "<C-b>", desc = "open issue in browser" },
+        --       copy_url = { lhs = "<C-y>", desc = "copy url to system clipboard" },
+        --       add_assignee = { lhs = "<space>aa", desc = "add assignee" },
+        --       remove_assignee = { lhs = "<space>ad", desc = "remove assignee" },
+        --       create_label = { lhs = "<space>lc", desc = "create label" },
+        --       add_label = { lhs = "<space>la", desc = "add label" },
+        --       remove_label = { lhs = "<space>ld", desc = "remove label" },
+        --       goto_issue = { lhs = "<space>gi", desc = "navigate to a local repo issue" },
+        --       add_comment = { lhs = "<space>ca", desc = "add comment" },
+        --       delete_comment = { lhs = "<space>cd", desc = "delete comment" },
+        --       next_comment = { lhs = "]c", desc = "go to next comment" },
+        --       prev_comment = { lhs = "[c", desc = "go to previous comment" },
+        --       react_hooray = { lhs = "<space>rp", desc = "add/remove 🎉 reaction" },
+        --       react_heart = { lhs = "<space>rh", desc = "add/remove ❤️ reaction" },
+        --       react_eyes = { lhs = "<space>re", desc = "add/remove 👀 reaction" },
+        --       react_thumbs_up = { lhs = "<space>r+", desc = "add/remove 👍 reaction" },
+        --       react_thumbs_down = { lhs = "<space>r-", desc = "add/remove 👎 reaction" },
+        --       react_rocket = { lhs = "<space>rr", desc = "add/remove 🚀 reaction" },
+        --       react_laugh = { lhs = "<space>rl", desc = "add/remove 😄 reaction" },
+        --       react_confused = { lhs = "<space>rc", desc = "add/remove 😕 reaction" },
+        --     },
 
         wk.register({
             i = {
@@ -47,7 +45,7 @@ return {
                 l = { "<cmd>Octo pr list <cr>", "list open issues on same repo" },
             }
 
-        }, { prefix = "<leader>" })
+        }, { prefix = "gh" })
     end
 
 

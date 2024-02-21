@@ -6,16 +6,19 @@ COMPANY='/home/hendry/'
 
 
 # for personal files and all that kind of staff I mess with
-items=`fd --max-depth=1 --type=d --base-directory='/run/media/hendry/2CFA-18FF/' . 'Code'`
+items=`fd --max-depth=1 --type=d --base-directory=${BASE} . 'Code'`
 items+=$'\n'
 items+=`fd --max-depth=1 --type=d  --base-directory=${BASE} . 'workspace'`
+items+=$'\n'
 items+=`fd --max-depth=1 --type=d  --base-directory=${BASE} . '.config'`
+items+=$'\n'
+items+=`fd --max-depth=1 --type=d  --base-directory=${BASE} . '.local/share/nvim/lazy'`
+items+=$'\n'
+items+=`fd --max-depth=1 --type=d  --base-directory=${BASE} . 'workspace/hackerthon'`
 
 items+=$'\n'
 # for a company specific projects
-items+=`fd -H -I --type=directory --base-directory=/home/hendry/workspace/kriterion "\.git" | sd '\.git/' '' | sd '(^\w)' 'workspace/kriterion/$1'`
-items+=$'\n'
-items+=`fd -H -I --type=directory --base-directory=/home/hendry/workspace/hackerthon "\.git" | sd '\.git/' '' | sd '(^\w)' 'workspace/hackerthon/$1'`
+items+=`fd -H -I --type=directory --base-directory=/home/hendry/workspace/kriterion -E ".github" "\.git" | sd '\.git/' '' | sd '(^\w)' 'workspace/kriterion/$1'`
 items+=$'\n'
 
 

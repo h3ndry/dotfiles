@@ -13,7 +13,6 @@ local function trim_trailing_whitespaces()
     -- vim.cmd([[let @/ = '']])
 end
 
-
 local function term_config()
     if vim.bo.buftype == 'terminal' then
         vim.wo.number = false
@@ -25,8 +24,6 @@ local function term_config()
         trim_trailing_whitespaces()
     end
 end
-
-
 
 -- Super cool, works DiffviewFiles perfect.... I am proud of myself
 local group_1 = vim.api.nvim_create_augroup("hide-numbers", { clear = true })
@@ -84,7 +81,6 @@ vim.cmd([[
     cnoremap w!! execute 'silent! write !sudo tee % >/dev/null' <bar> edit!
 ]])
 
-
 vim.cmd(
     [[
     set spelllang=en
@@ -92,7 +88,7 @@ vim.cmd(
     augroup markdownSpell
         autocmd!
         autocmd FileType markdown setlocal spell
-        autocmd BufLeave,WinLeave * silent! w
+        autocmd BufLeave,WinLeave * silent! wa
         autocmd BufRead,BufNewFile *.md setlocal spell
         autocmd FileType gitcommit setlocal spell
         autocmd FileType gitcommit setlocal complete+=kspell
@@ -128,10 +124,6 @@ vim.cmd(
 )
 
 vim.o.termguicolors = true
-vim.cmd [[colorscheme gruvbox]]
-vim.o.background = "dark"
--- vim.cmd [[colorscheme github_dark_default]]
--- vim.cmd [[set background=light]]
 vim.o.completeopt = "menu,menuone,noinsert"
 vim.g.netrw_banner = 0
 vim.o.inccommand = "nosplit"

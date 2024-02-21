@@ -17,7 +17,7 @@ return {
       -- api_key_cmd = "cat ~/.jshi",
       openai_params = {
         max_tokens = 500,
-        model = "gpt-4",
+        model = "gpt-4-0125-preview",
       },
     })
 

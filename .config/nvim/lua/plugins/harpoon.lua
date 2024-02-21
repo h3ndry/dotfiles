@@ -2,16 +2,13 @@ return {
     'ThePrimeagen/harpoon',
     dependencies = {
         'nvim-lua/plenary.nvim',
+         'https://gitlab.com/davvid/harpoon-term.nvim'
     },
     event        = "VeryLazy",
     branch       = "harpoon2",
     config       = function()
         local harpoon = require("harpoon")
-
-        -- REQUIRED
         harpoon:setup()
-        -- REQUIRED
-
         vim.keymap.set("n", "<leader>a", function() harpoon:list():append() end)
         vim.keymap.set("n", "<leader>hm", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
@@ -24,20 +21,11 @@ return {
         vim.keymap.set("n", "<leader>hp", function() harpoon:list():prev() end)
         vim.keymap.set("n", "<leader>hn", function() harpoon:list():next() end)
 
-
         -- vim.keymap.set("n", "<leader>t", function() harpoon:term()::go end)
         -- vim.keymap.set("n", "<leader>t", function() harpoon:list():next() end)
 
-        vim.keymap.set("n", "<leader>t", ":lua require('harpoon.term').gotoTerminal(1) <CR> ")
-        vim.keymap.set("n", "<leader>T", ":lua require('harpoon.term').gotoTerminal(2) <CR> ")
+        vim.keymap.set("n", "<leader>t", ":lua require('harpoon_term').goto_terminal(1)  <CR> ")
+        vim.keymap.set("n", "<leader>T", ":lua require('harpoon_term').goto_terminal(2)  <CR> ")
         --
-        -- vim.keymap.set("n", "<leader>ha", ":lua require('harpoon.mark').add_file() <CR> ")
-        -- vim.keymap.set("n", "<leader>hq", ":lua require('harpoon.ui').nav_file(1) <CR>")
-        -- vim.keymap.set("n", "<leader>hw", ":lua require('harpoon.ui').nav_file(2) <CR>")
-        -- vim.keymap.set("n", "<leader>he", ":lua require('harpoon.ui').nav_file(3) <CR>")
-        -- vim.keymap.set("n", "<leader>hr", ":lua require('harpoon.ui').nav_file(4) <CR>")
-        -- vim.keymap.set("n", "<leader>hm", ":lua require('harpoon.ui').toggle_quick_menu()  <CR>")
-        -- vim.keymap.set("n", "<leader>hn", ":lua require('harpoon.ui').nav_next() <CR>")
-        -- vim.keymap.set("n", "<leader>hp", ":lua require('harpoon.ui').nav_prev()  <CR>")
     end
 }
