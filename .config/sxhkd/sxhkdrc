@@ -4,8 +4,8 @@ super + r; {w,s,t,f,p}
 super + r; {n,c,i,d}
 	{ nemo & notify-send "Nemo - File Mananger" " The Nemo file Mananger will be open at tag 3", speedcrunch, insomnia & notify-send "Opening Insomia" "Insomia would open in a moment at tag 2", discord & notify-send "Opening Discord" "Discord would open in a moment at tag 8"  }
 
-super + r; {l}
-	{localsend & notify-send "Send: Localsend" "Localsend is about to be open in a moment"}
+super + r; {l,m}
+	{localsend & notify-send "Send: Localsend" "Localsend is about to be open in a moment",  pavucontrol}
 
 super + P
 	rofi-pass

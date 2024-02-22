@@ -17,7 +17,7 @@ return {
         wk.register({
             l = {
                 c = { gitlab.create_mr, "create a merge request" },
-                -- o = { "<cmd>Octo issue open <cr>", "reopen issue" },
+                r = { gitlab.review, "review a merge request" },
                 -- l = { "<cmd>Octo issue list <cr>", "list open issues on same repo" },
             },
         }, { prefix = "g" })

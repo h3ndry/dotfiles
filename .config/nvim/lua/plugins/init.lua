@@ -19,22 +19,6 @@ return {
     -- "Bekaboo/dropbar.nvim", "tpope/vim-dotenv",
     "Hoffs/omnisharp-extended-lsp.nvim",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-    -- {
-    --     "ellisonleao/gruvbox.nvim",
-    --     lazy = false,
-    --     config = function()
-    --         require("gruvbox").setup({
-    --             contrast = "hard", -- can be "hard", "soft" or empty string
-    --             transparent_mode = true,
-    --             otfrrides = {
-    --                 ["@punctuation.bracket"] = { fg = "#e1d2ab" },
-    --                 ["@punctuation.delimiter"] = { fg = "#e1d2ab" },
-    --                 ["@punctuation.special"] = { fg = "#e1d2ab" },
-    --                 ["@punctuation.angleBracket"] = { fg = "#e1d2ab" },
-    --             },
-    --         })
-    --     end
-    -- },
     {
         "tiagovla/tokyodark.nvim",
         opts = {
