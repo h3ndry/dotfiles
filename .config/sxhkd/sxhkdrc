@@ -2,7 +2,7 @@ super + r; {w,s,t,f,p}
 	{whatsapp-nativefier & notify-send "Opening WhatsApp" "WhatsApp would be open in a moment at tag 8", slack & notify-send "Opening Slack" "Slack would be open in a moment at tag 8", thunderbird & notify-send "Opening Thunderbird" "Thunderbird would be open in a moment at tag 7", firefox & notify-send "Opening FireFox" "FireFox would open in a moment at tag 9", export _JAVA_AWT_WM_NONREPARENTING=1 && pycharm  & notify-send "Opening Pycharm" "Pycharm would open in a moment at tag 2"}
 
 super + r; {n,c,i,d}
-	{ nemo & notify-send "Nemo - File Mananger" " The Nemo file Mananger will be open at tag 3", speedcrunch, insomnia & notify-send "Opening Insomia" "Insomia would open in a moment at tag 2", discord & notify-send "Opening Discord" "Discord would open in a moment at tag 8"  }
+	{ ~/.local/bin/notesreader.sh & notify-send "NNN - Blazing fast File Manager" "Be amazed with the speed of blazing fast file manager", speedcrunch, insomnia & notify-send "Opening Insomia" "Insomia would open in a moment at tag 2", discord & notify-send "Opening Discord" "Discord would open in a moment at tag 8"  }
 
 super + r; {l,m}
 	{localsend & notify-send "Send: Localsend" "Localsend is about to be open in a moment",  pavucontrol}

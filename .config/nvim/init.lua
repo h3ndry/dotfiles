@@ -19,9 +19,9 @@ if not vim.loop.fs_stat(lazypath) then
         lazypath,
     })
 end
+
 vim.opt.rtp:prepend(lazypath)
 
-local opts = { noremap = true, silent = true }
 vim.keymap.set("", "<Space>", "<Nop>")
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
@@ -43,8 +43,7 @@ require("lazy").setup("plugins", {
         enabled = true,
         notify = false, -- get a notification when changes are found
     }
-}
-)
+})
 
 require "utils.setting"
 require "utils.keymap"
@@ -83,5 +82,4 @@ vim.cmd([[
     set secure
 
     set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
-
 ]])

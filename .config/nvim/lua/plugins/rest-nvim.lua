@@ -2,7 +2,9 @@ return {
     "rest-nvim/rest.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-        require("rest-nvim").setup({
+        local rest_nvim = require("rest-nvim")
+        local wk = require("which-key")
+        rest_nvim.setup({
             result = {
                 show_statistics = {
                     {
@@ -13,6 +15,10 @@ return {
                 }
             }
         })
-        vim.keymap.set('n', '<space>R', ":lua require('rest-nvim').run() <CR>")
+        wk.register({
+            R = { rest_nvim.run, "call the current line in curl" }
+        }, {
+            prefix = "<leader>",
+        })
     end
 }

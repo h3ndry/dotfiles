@@ -13,14 +13,13 @@ return {
             indent = {
                 enable = true
             },
-
             incremental_selection = {
                 enable = true,
                 keymaps = {
-                    init_selection = "<C-space>", -- set to `false` to disable one of the mappings
-                    node_incremental = "C-space>",
+                    init_selection = "gn", -- set to `false` to disable one of the mappings
+                    node_incremental = "gn",
                     scope_incremental = "false",
-                    node_decremental = "<bs>",
+                    node_decremental = "gN",
                 },
             },
             textobjects = {

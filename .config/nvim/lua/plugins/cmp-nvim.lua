@@ -10,7 +10,7 @@ return {
         "hrsh7th/cmp-calc",
         "lukas-reineke/cmp-rg",
         "jmederosalvarado/roslyn.nvim",
-        -- "jlcrochet/vim-razor",
+        "jalvesaq/cmp-nvim-r",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
         "f3fora/cmp-spell",
@@ -97,6 +97,7 @@ return {
 
             sources = {
                 { name = "nvim_lsp" },
+                { name = 'cmp_nvim_r' },
                 { name = "luasnip" },
                 { name = "nvim_lua" },
                 { name = "cmp-cmdline" },
@@ -112,6 +113,7 @@ return {
                 format = lspkind.cmp_format {
                     menu = {
                         nvim_lsp = "[LSP]",
+                        cmp_nvim_r = "[R]",
                         luasnip = "[SNIP]",
                         nvim_lua = "[API]",
                         calc = "[CALC]",
@@ -178,40 +180,6 @@ return {
             },
         }
 
-
-        lspconfig.lua_ls.setup {
-            on_init = function(client)
-                local path = client.workspace_folders[1].name
-                if not vim.loop.fs_stat(path .. '/.luarc.json') and not vim.loop.fs_stat(path .. '/.luarc.jsonc') then
-                    client.config.settings = vim.tbl_deep_extend('force', client.config.settings, {
-                        Lua = {
-                            runtime = {
-                                -- Tell the language server which version of Lua you're using
-                                -- (most likely LuaJIT in the case of Neovim)
-                                version = 'LuaJIT'
-                            },
-                            -- Make the server aware of Neovim runtime files
-                            workspace = {
-                                checkThirdParty = false,
-                                library = {
-                                    vim.env.VIMRUNTIME
-                                    -- "${3rd}/luv/library"
-                                    -- "${3rd}/busted/library",
-                                }
-                                -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-                                -- library = vim.api.nvim_get_runtime_file("", true)
-                            },
-                            diagnostics = {
-                                globals = { 'vim' }
-                            }
-                        }
-                    })
-
-                    client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
-                end
-                return true
-            end
-        }
 
 
         require("luasnip.loaders.from_vscode").lazy_load({

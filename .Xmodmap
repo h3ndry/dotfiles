@@ -37,4 +37,4 @@ add Control = Control_L
 add mod1 = Alt_L
 
 ! keycode 37 = Mode_switch
-keycode 44 = j J Down NoSymbol NoSymbol Down
+! keycode 44 = j J Down NoSymbol NoSymbol Down

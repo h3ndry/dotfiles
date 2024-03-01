@@ -3,6 +3,7 @@ return {
         'mfussenegger/nvim-dap-python',
         'theHamsta/nvim-dap-virtual-text',
         'rcarriga/nvim-dap-ui',
+        'jbyuki/one-small-step-for-vimkind',
         'theHamsta/nvim-dap-virtual-text',
     },
     'mfussenegger/nvim-dap',
@@ -21,16 +22,26 @@ return {
         vim.fn.sign_define('DapStopped',
             { text = '', texthl = '', linehl = '', numhl = '' })
 
-        vim.keymap.set("n", "<Leader>dc", dap.continue)
-        vim.keymap.set("n", "<Leader>dso", dap.step_over)
-        vim.keymap.set("n", "<Leader>dn", dap.step_over)
-        vim.keymap.set("n", "<Leader>dsi", dap.step_into)
-        vim.keymap.set("n", "<Leader>dN", dap.step_into)
-        vim.keymap.set("n", "<Leader>dp", dap.step_out)
-        vim.keymap.set("n", "<Leader>dd", dap.toggle_breakpoint)
-        vim.keymap.set("n", "<Leader>dr", dap.repl.open)
-        vim.keymap.set("n", "<Leader>dl", dap.run_last)
-        vim.keymap.set("n", "<Leader>dk", widgets.hover)
+
+        local wk = require("which-key")
+
+        wk.register({
+            d = {
+                s = {
+                    o = { dap.step_over, "debuger step over" },
+                    i = { dap.step_into, "debuger step in to" },
+                },
+                c = { dap.continue, "debuger continue" },
+                n = { dap.step_over, "debuger next" },
+                N = { dap.step_into, "debuger Next" },
+                p = { dap.step_out, "debuger Next" },
+                d = { dap.toggle_breakpoint, "debuger Next" },
+                r = { dap.repl.open, "open debuger repl " },
+                l = { dap.run_last, "open debuger repl " },
+                k = { widgets.hover, "open debuger repl " }
+            }
+        }, { prefix = "<leader>" })
+
         vim.keymap.set("n", "<leader>d?", function()
             widgets.centered_float(widgets.scopes)
         end)
@@ -49,7 +60,8 @@ return {
                 stopAtEntry = false,
                 preLaunchTask = "build",
                 program = function()
-                    return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/ConsoleApp/bin/Debug/net8.0/ConsoleApp.dll', 'file')
+                    return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/ConsoleApp/bin/Debug/net8.0/ConsoleApp.dll',
+                        'file')
                 end,
             }
         }
@@ -84,5 +96,17 @@ return {
                 stopOnEntry = false,
             },
         }
+
+        dap.configurations.lua = {
+            {
+                type = 'nlua',
+                request = 'attach',
+                name = "Attach to running Neovim instance",
+            }
+        }
+
+        dap.adapters.nlua = function(callback, config)
+            callback({ type = 'server', host = config.host or "127.0.0.1", port = config.port or 8086 })
+        end
     end
 }

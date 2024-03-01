@@ -3,4 +3,6 @@
 # file=$(find ~/workspace/notes/ | sort -r | head -n1)
 dir=~/Documents/notes/
 
-alacritty -T "Notes" --class "Notes" -e nvim $dir --cmd "cd $dir"
+alacritty -T "NNN - File Mananger" --class "NNN" -e nnn
+
+# alacritty -e nnn

@@ -81,13 +81,20 @@ bindkey '^k' autosuggest-accept
 bindkey -a '^k' autosuggest-accept
 
 
-
 function expand-alias() {
 	zle _expand_alias
 	zle self-insert
 }
 zle -N expand-alias
 bindkey -M main ' ' expand-alias
+
+
+
+# This is NNN staff, please bare with mere here, I am still cooking
+export NNN_FIFO=/tmp/nnn.fifo
+export NNN_PLUG='p:preview-tabbed;z:autojump;a:mtpmount;m:nmount;c:term'
+# export NNN_PLUG='f:finder;o:fzopen;p:mocq;d:diffs;t:nmount;v:imgview'
+
 
 # alias s='dwmswallow $WINDOWID;'
 # bindkey '^\' accept-line-swallow
@@ -158,6 +165,7 @@ source ~/.zsh/fast-syntax-highlighting.plugin.zsh
 source /usr/share/fzf/key-bindings.zsh
 source /usr/share/fzf/completion.zsh
 source /etc/profile.d/google-cloud-cli.sh
+# source /opt/esp-idf/export.sh
 
 # bun completions
 [ -s "/home/hendry/.bun/_bun" ] && source "/home/hendry/.bun/_bun"
@@ -202,4 +210,6 @@ export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(zoxide init --cmd cd zsh)"
+
+export VISUAL=ewrap
 
