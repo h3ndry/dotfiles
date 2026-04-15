@@ -1,6 +1,17 @@
---iii
 --terminal//
 -- lazy.nvim
+local function toggle_terminal_or_close_dbout()
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    if vim.bo[buf].filetype == 'dbout' then
+      vim.api.nvim_buf_delete(buf, { force = true })
+      return
+    end
+  end
+
+  Snacks.terminal()
+end
+
 return {
   'folke/snacks.nvim',
   priority = 1000,
@@ -388,27 +399,22 @@ return {
       end,
       desc = 'Dismiss All Notifications',
     },
+
     {
       '<c-/>',
-      function()
-        Snacks.terminal()
-      end,
+      toggle_terminal_or_close_dbout,
       desc = 'Toggle Terminal',
       mode = { 'n', 't' },
     },
 
     {
       '<leader>t',
-      function()
-        Snacks.terminal()
-      end,
+      toggle_terminal_or_close_dbout,
       desc = 'Toggle Terminal',
     },
     {
       '<c-_>',
-      function()
-        Snacks.terminal()
-      end,
+      toggle_terminal_or_close_dbout,
       desc = 'which_key_ignore',
     },
     {
