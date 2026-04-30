@@ -350,13 +350,6 @@ return {
       desc = 'Toggle Scratch Buffer',
     },
     {
-      '<leader>S',
-      function()
-        Snacks.scratch.select()
-      end,
-      desc = 'Select Scratch Buffer',
-    },
-    {
       '<leader>n',
       function()
         Snacks.notifier.show_history()
@@ -405,12 +398,6 @@ return {
       toggle_terminal_or_close_dbout,
       desc = 'Toggle Terminal',
       mode = { 'n', 't' },
-    },
-
-    {
-      '<leader>t',
-      toggle_terminal_or_close_dbout,
-      desc = 'Toggle Terminal',
     },
     {
       '<c-_>',

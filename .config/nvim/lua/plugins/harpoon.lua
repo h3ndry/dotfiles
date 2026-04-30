@@ -20,30 +20,37 @@ return {
       desc = '[T] Harpoon Menu',
     },
     {
-      '<A-h>',
+      '<A-a>',
       function()
         require('harpoon'):list():select(1)
       end,
       desc = '[T] Harpoon GoTo 1',
     },
     {
-      '<A-j>',
+      '<A-s>',
       function()
         require('harpoon'):list():select(2)
       end,
       desc = '[T] Harpoon GoTo 2',
     },
     {
-      '<A-k>',
+      '<A-d>',
       function()
         require('harpoon'):list():select(3)
       end,
       desc = '[T] Harpoon GoTo 3',
     },
     {
-      '<A-l>',
+      '<A-f>',
       function()
         require('harpoon'):list():select(4)
+      end,
+      desc = '[T] Harpoon GoTo 2',
+    },
+    {
+      '<A-g>',
+      function()
+        require('harpoon'):list():select(5)
       end,
       desc = '[T] Harpoon GoTo 2',
     },
