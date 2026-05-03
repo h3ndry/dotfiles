@@ -65,6 +65,8 @@ vim.api.nvim_create_autocmd('BufEnter', {
       or vim.bo.filetype == 'git'
       or vim.bo.filetype == 'fugitiveblame'
       or vim.bo.filetype == 'OverseerList'
+      or vim.bo.filetype == 'aerial'
+      or vim.bo.filetype == 'dapui_scopes'
     then
       vim.wo.number = false
       vim.wo.relativenumber = false

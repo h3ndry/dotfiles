@@ -19,7 +19,6 @@ return {
   },
   lazy = false,
   config = function()
-    -- Use one of the methods in the Integration section to compose the command.
     local mason_registry = require 'mason-registry'
 
     local rzls_path = vim.fn.expand '$MASON/packages/rzls/libexec'
@@ -33,6 +32,30 @@ return {
       '--extension',
       vim.fs.joinpath(rzls_path, 'RazorExtension', 'Microsoft.VisualStudioCode.RazorExtension.dll'),
     }
+
+    -- GLOBAL handler to block Roslyn file watch registration.
+    -- This MUST be set before vim.lsp.enable so it intercepts the registration
+    -- request. The on_init / client.handlers approach is unreliable because
+    -- the Razor extension registers watches through a separate code path.
+    local _orig_register = vim.lsp.handlers["client/registerCapability"]
+    vim.lsp.handlers["client/registerCapability"] = function(err, result, ctx, config)
+      if ctx and ctx.client_id then
+        local client = vim.lsp.get_client_by_id(ctx.client_id)
+        if client and client.name == "roslyn" then
+          if result and result.registrations then
+            result.registrations = vim.tbl_filter(function(reg)
+              return reg.method ~= "workspace/didChangeWatchedFiles"
+            end, result.registrations)
+            if #result.registrations == 0 then
+              return {}  -- success response, nothing to register
+            end
+          end
+        end
+      end
+      if _orig_register then
+        return _orig_register(err, result, ctx, config)
+      end
+    end
 
     vim.lsp.config('roslyn', {
       cmd = cmd,

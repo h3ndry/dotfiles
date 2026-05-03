@@ -3,6 +3,7 @@ return {
   opts = {
     -- add any options here
     cli = {
+      -- watch = false,
       -- tools = {
       --   amp = {
       --     cmd = { 'amp', '--ide' },

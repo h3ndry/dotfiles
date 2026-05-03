@@ -34,11 +34,22 @@ local function close_rest_nvim_result()
   end
 end
 
+local function close_aerial()
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local buf = vim.api.nvim_win_get_buf(win)
+    local ft = vim.bo[buf].filetype
+    if ft == 'aerial' then
+      vim.api.nvim_win_close(win, true)
+    end
+  end
+end
+
 local closers = {
   overseer = close_overseer,
   sidekick = close_sidekick,
   dadbod = close_dadbod,
   rest_nvim_result = close_rest_nvim_result,
+  aerial = close_aerial,
 }
 
 function M.close_others(except)

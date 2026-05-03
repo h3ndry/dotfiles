@@ -1,9 +1,11 @@
 --terminal//
 -- lazy.nvim
-local function toggle_terminal_or_close_dbout()
+local closeable_terminal_filetypes = { 'dbout', 'qf', 'dapui_scopes', 'dap-repl' }
+
+local function toggle_terminal_or_close_special_bufs()
   for _, win in ipairs(vim.api.nvim_list_wins()) do
     local buf = vim.api.nvim_win_get_buf(win)
-    if vim.bo[buf].filetype == 'dbout' then
+    if vim.tbl_contains(closeable_terminal_filetypes, vim.bo[buf].filetype) then
       vim.api.nvim_buf_delete(buf, { force = true })
       return
     end
@@ -395,13 +397,13 @@ return {
 
     {
       '<c-/>',
-      toggle_terminal_or_close_dbout,
+      toggle_terminal_or_close_special_bufs,
       desc = 'Toggle Terminal',
       mode = { 'n', 't' },
     },
     {
       '<c-_>',
-      toggle_terminal_or_close_dbout,
+      toggle_terminal_or_close_special_bufs,
       desc = 'which_key_ignore',
     },
     {

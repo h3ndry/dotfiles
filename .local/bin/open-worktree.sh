@@ -65,7 +65,7 @@ pause_and_exit() {
 }
 
 pick_action() {
-  printf 'switch\ncreate\n' | fzf \
+  printf 'switch\ncreate\ndelete\n' | fzf \
     --prompt 'worktree > ' \
     --header "Repo: $repo_name | Choose action" \
     --layout=default \
@@ -103,7 +103,7 @@ pick_new_branch_name() {
 
   result=$(printf '%s\n' "$base_branch" | fzf \
     --prompt 'new branch > ' \
-    --header "Repo: $repo_name | Base: $base_branch | Type the new branch name and press Enter" \
+    --header "Repo: $repo_name | Base: $base_branch | Type an existing or new branch name and press Enter" \
     --print-query \
     --phony \
     --layout=default \
@@ -119,6 +119,29 @@ pick_new_branch_name() {
   fi
 
   return 1
+}
+
+branch_exists() {
+  branch=$1
+  git show-ref --verify --quiet "refs/heads/$branch" ||
+    git show-ref --verify --quiet "refs/remotes/origin/$branch"
+}
+
+pick_worktree_to_delete() {
+  if ! command -v jq >/dev/null 2>&1; then
+    printf 'jq is not installed.\n' >&2
+    return 1
+  fi
+
+  wt list --format=json \
+    | jq -r '.[] | select(.path != null) | [(.branch // "<detached>"), .path, (if .is_current then "current" else "" end)] | @tsv' \
+    | fzf \
+      --prompt 'delete worktree > ' \
+      --header "Repo: $repo_name | Choose a worktree to delete" \
+      --delimiter "$(printf '\t')" \
+      --with-nth='1,2,3' \
+      --layout=default \
+      --height=100%
 }
 
 if ! command -v wt >/dev/null 2>&1; then
@@ -153,6 +176,18 @@ if [ "$action" = 'create' ]; then
   [ -n "$base_branch" ] || exit 0
 
   branch=$(pick_new_branch_name "$base_branch" || true)
+elif [ "$action" = 'delete' ]; then
+  target=$(pick_worktree_to_delete || true)
+  [ -n "$target" ] || exit 0
+
+  target_branch=$(printf '%s' "$target" | cut -f1)
+  target_path=$(printf '%s' "$target" | cut -f2)
+
+  if [ -n "$target_branch" ] && [ "$target_branch" != '<detached>' ]; then
+    exec wt remove -y -f -D "$target_branch"
+  fi
+
+  exec wt remove -y -f -D "$target_path"
 else
   branch=$(pick_branch_to_switch || true)
 fi
@@ -160,6 +195,10 @@ fi
 [ -n "$branch" ] || exit 0
 
 if [ "$action" = 'create' ]; then
+  if branch_exists "$branch"; then
+    exec wt switch "$branch" -x "$CONNECT_CMD"
+  fi
+
   exec wt switch --create "$branch" --base "$base_branch" -x "$CONNECT_CMD"
 fi
 
